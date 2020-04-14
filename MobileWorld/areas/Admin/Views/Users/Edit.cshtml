@@ -1,0 +1,113 @@
+﻿@model Model.Models.UserModel
+
+@{
+    ViewBag.Title = "Chỉnh sửa người dùng";
+    Layout = "~/areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{Chỉnh sửa người dùng}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Chỉnh sửa người dùng</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fullname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fullname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @{
+            List<SelectListItem> listGender = new List<SelectListItem>()
+            {
+                new SelectListItem
+                {
+                    Selected = false,
+                    Text = "Nữ",
+                    Value = "0"
+                },
+                new SelectListItem
+                {
+                    Selected = false,
+                    Text = "Nam",
+                    Value = "1"
+                },new SelectListItem
+                {
+                    Selected = false,
+                    Text = "Ẩn",
+                    Value = "2"
+                }
+            };
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.DropDownListFor(model => model.gender, listGender,
+               new { @class = "ml-5 form-control control-label col-md-2" })
+            </div>
+        }
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.phonenumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.phonenumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.phonenumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @if (ViewBag.RoleId == 3)
+        {
+            List<SelectListItem> listItems = new List<SelectListItem>();
+            listItems.Add(new SelectListItem
+            {
+                Text = "Người dùng",
+                Value = "1"
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "Quản trị viên",
+                Value = "2"
+            });
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.role, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.DropDownListFor(model => model.role, listItems,
+               new { @class = "ml-5 form-control control-label col-md-2" })
+            </div>
+
+        }
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu thay đổi" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Trở về", "index")
+</div>

@@ -1,0 +1,119 @@
+﻿@model PagedList.IPagedList<Model.EF.User>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Danh sách người dùng";
+    Layout = "~/areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{Danh sách người dùng}
+
+@section style{
+    <link href="~/Assets/admin/css/mystyle.css" rel="stylesheet" />
+}
+
+@section  jsFooter{
+    <script src="~/Assets/admin/js/controller/userController.js"></script>
+}
+
+<!-- Simple Tables -->
+<div class="card">
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách</h6>
+        @using (Html.BeginForm("index", "users", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
+        {
+            <input class="form-control mr-sm-2" value="@ViewBag.search" type="search" placeholder="Tìm kiếm người dùng" aria-label="Search" name="search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
+        }
+    </div>
+    <div class="table-responsive">
+        <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Tên tài khoản</th>
+                    <th>Trạng thái</th>
+                    <th>Tên người dùng</th>
+                    <th>Số điện thoại</th>
+                    <th style="text-align: center">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr id="row_@item.id">
+                        <td>@item.id</td>
+                        <td>@item.username</td>
+                        <td>
+                            @if (!item.status)
+                            {
+                                <i class="status_@item.id fas fa-user-lock" style="color: #fc544b; font-size: 20px;"></i>
+                            }
+                            else
+                            {
+                                <i class="status_@item.id fas fa-check-circle" style="color: #66bb6a; font-size: 20px;"></i>
+                            }
+                        </td>
+                        <td>@item.fullname</td>
+                        <td>@item.phonenumber</td>
+                        <td>
+                            @Html.ActionLink("Chi tiết", "detail", new { item.id }, new { @class = "btn btn-sm btn-primary" })
+                            @Html.ActionLink("Sửa", "edit", new { id = item.id }, new { @class = "btn btn-sm btn-success" })
+
+                            <button type="button" class="lockup lock_@item.id btn btn-sm @(item.status?"btn-warning":"btn-info")" data-id="@item.id"
+                                    data-lock="@item.status" data-toggle="modal" data-target="#exampleModal" id="#myBtn">
+                                @(item.status?"Khóa":"Mở khóa")
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer d-flex flex-row align-items-center justify-content-between">
+        @Html.PagedListPager(Model, page => Url.Action("index", new { page, @search = @ViewBag.search }),
+        new PagedListRenderOptions
+             {
+            LiElementClasses = new List<string> { "paginate_button", "page-item" },
+            FunctionToTransformEachPageLink = (liTag, aTag) =>
+                 {
+                aTag.Attributes.Add("class", "page-link");
+                liTag.InnerHtml = aTag.ToString();
+                return liTag;
+            },
+            DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+            DisplayLinkToLastPage = PagedListDisplayMode.Never,
+            MaximumPageNumbersToDisplay = 3
+        })
+        @if (ViewBag.search == "" || ViewBag.search == null)
+        {
+
+        }
+        else
+        {
+            @Html.ActionLink("Trở về", "index")
+        }
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="mess">Xác nhận thay đổi thông tin ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="canle btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="oke btn btn-primary" data-dismiss="modal">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+</div>
