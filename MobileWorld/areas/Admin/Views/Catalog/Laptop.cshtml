@@ -1,0 +1,88 @@
+﻿@model Model.Models.SpecificationLaptop
+
+@{
+    ViewBag.Title = "Thông số kĩ thuật laptop";
+    Layout = "~/areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{ Thông số kĩ thuật laptop }
+
+<div>
+    <h4>Thông số kĩ thuật laptop</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Specification.cpu)
+        </dt>
+        <dd>
+            @Model.Specification.cpu
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Specification.ram)
+        </dt>
+        <dd>
+            @Model.Specification.ram
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Specification.screen)
+        </dt>
+        <dd>
+            @Model.Specification.screen
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Specification.os)
+        </dt>
+        <dd>
+            @Model.Specification.os
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecificationsLaptop.cardscreen)
+        </dt>
+        <dd>
+            @Model.SpecificationsLaptop.cardscreen
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecificationsLaptop.connector)
+        </dt>
+        <dd>
+            @Model.SpecificationsLaptop.connector
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecificationsLaptop.harddrive)
+        </dt>
+        <dd>
+            @Model.SpecificationsLaptop.harddrive
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecificationsLaptop.design)
+        </dt>
+        <dd>
+            @Model.SpecificationsLaptop.design
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecificationsLaptop.size)
+        </dt>
+        <dd>
+            @Model.SpecificationsLaptop.size
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecificationsLaptop.release)
+        </dt>
+        <dd>
+            @Model.SpecificationsLaptop.release
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "edit", new { id = Model.id, type = 2 }) |
+    @Html.ActionLink("Trở về", "detail", new { id = Model.Specification.id })
+</p>

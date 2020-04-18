@@ -1,10 +1,8 @@
-namespace Model.EF
+﻿namespace Model.EF
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     public partial class CatalogBrand
     {
@@ -17,6 +15,7 @@ namespace Model.EF
         public int id { get; set; }
 
         [StringLength(100)]
+        [Display(Name = "Thương hiệu")]
         public string brand { get; set; }
 
         public DateTimeOffset? createdAt { get; set; }

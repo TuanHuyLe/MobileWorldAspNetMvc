@@ -4,3 +4,10 @@
 .lockup {
     width: 75px !important;
 }
+td p{
+    width: 250px;
+    height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: justify;
+}

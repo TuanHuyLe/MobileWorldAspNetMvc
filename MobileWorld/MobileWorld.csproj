@@ -153,6 +153,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="areas\Admin\Controllers\AuthController.cs" />
+    <Compile Include="areas\Admin\Controllers\CatalogController.cs" />
     <Compile Include="areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
@@ -2025,6 +2026,13 @@
     <Content Include="Assets\user\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Assets\user\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Assets\user\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="areas\Admin\Views\Catalog\Index.cshtml" />
+    <Content Include="areas\Admin\Views\Catalog\Detail.cshtml" />
+    <Content Include="areas\Admin\Views\Catalog\Update.cshtml" />
+    <Content Include="areas\Admin\Views\Catalog\Mobile.cshtml" />
+    <Content Include="areas\Admin\Views\Catalog\Laptop.cshtml" />
+    <Content Include="areas\Admin\Views\Catalog\EditMobile.cshtml" />
+    <Content Include="areas\Admin\Views\Catalog\EditLaptop.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

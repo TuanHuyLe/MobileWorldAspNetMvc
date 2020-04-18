@@ -1,4 +1,4 @@
-namespace Model.EF
+﻿namespace Model.EF
 {
     using System;
     using System.Collections.Generic;
@@ -17,6 +17,7 @@ namespace Model.EF
         public int id { get; set; }
 
         [StringLength(100)]
+        [Display(Name = "Loại")]
         public string type { get; set; }
 
         public DateTimeOffset? createdAt { get; set; }

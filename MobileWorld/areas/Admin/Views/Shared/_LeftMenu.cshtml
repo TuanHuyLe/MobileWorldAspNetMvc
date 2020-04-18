@@ -44,8 +44,9 @@
         </a>
         <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="simple-tables.html">Điện thoại</a>
-                <a class="collapse-item" href="datatables.html">Laptop</a>
+                @Html.ActionLink("Điện thoại", "index", "catalog", new { type = "điện thoại"} , new { @class = "collapse-item" })
+                @Html.ActionLink("Laptop", "index", "catalog", new { type = "laptop" } , new { @class = "collapse-item" })
+
             </div>
         </div>
     </li>

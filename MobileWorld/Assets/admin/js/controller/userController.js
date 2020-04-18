@@ -9,7 +9,7 @@
         $('.lockup').on('click', function (e) {
             e.preventDefault();
             idbtn = this.getAttribute('data-id');
-            var lock = this.getAttribute('data-lock');
+            let lock = this.getAttribute('data-lock');
             if (lock.localeCompare("True") == 0) {
                 $('#mess').text("Xác nhận khóa tài khoản này ?");
             } else if (lock.localeCompare("False") == 0) {
@@ -20,12 +20,11 @@
 
         $('.oke').on('click', function (e) {
             e.preventDefault();
-            var cl = '.lock_' + idbtn;
-            var cl2 = '.status_' + idbtn;
+            let cl = '.lock_' + idbtn;
+            let cl2 = '.status_' + idbtn;
 
-            var btn = $(cl);
-            var btnStatus = $(cl2);
-
+            let btn = $(cl);
+            let btnStatus = $(cl2);
 
             $.ajax({
                 url: '/admin/users/lockup',
@@ -48,6 +47,11 @@
                     }
                 }
             });
+        });
+        $('.view-details-link').on('dblclick', function () {
+            let idCatalog = this.getAttribute('data-id');
+            let idLink = "#catalog_" + idCatalog;
+            $(idLink)[0].click();
         });
     }
 }

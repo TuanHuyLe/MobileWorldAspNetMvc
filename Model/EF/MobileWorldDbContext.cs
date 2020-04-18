@@ -29,5 +29,9 @@ namespace Model.EF
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }
+
+        public System.Data.Entity.DbSet<Model.Models.SpecificationLaptop> SpecificationLaptops { get; set; }
+
+        public System.Data.Entity.DbSet<Model.Models.SpecificationMobile> SpecificationMobiles { get; set; }
     }
 }

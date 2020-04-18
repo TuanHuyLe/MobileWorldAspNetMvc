@@ -102,6 +102,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dao\CatalogDao.cs" />
     <Compile Include="Dao\Hashing.cs" />
     <Compile Include="Dao\UserDao.cs" />
     <Compile Include="EF\Basket.cs" />
@@ -118,6 +119,12 @@
     <Compile Include="EF\SpecificationsMobile.cs" />
     <Compile Include="EF\User.cs" />
     <Compile Include="EF\UserRole.cs" />
+    <Compile Include="Mapper\CatalogMapper.cs" />
+    <Compile Include="Mapper\SpecificationsMapper.cs" />
+    <Compile Include="Models\JoinTableCatalog.cs" />
+    <Compile Include="Models\ListCatalogBrand.cs" />
+    <Compile Include="Models\SpecificationLaptop.cs" />
+    <Compile Include="Models\SpecificationMobile.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,0 +1,92 @@
+﻿@model Model.Models.SpecificationLaptop
+
+@{
+    ViewBag.Title = "Sửa thông số kĩ thuật laptop";
+    Layout = "~/areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    Sửa thông số kĩ thuật laptop
+}
+
+@using (Html.BeginForm("editlaptop", "catalog", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Sửa thông số kĩ thuật laptop</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
+
+        @Html.LabelFor(model => model.Specification.cpu, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Specification.cpu, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Specification.cpu, "", new { @class = "text-danger" })
+        </div>
+
+        @Html.LabelFor(model => model.Specification.ram, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Specification.ram, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Specification.ram, "", new { @class = "text-danger" })
+        </div>
+
+        @Html.LabelFor(model => model.Specification.screen, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Specification.screen, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Specification.screen, "", new { @class = "text-danger" })
+        </div>
+
+        @Html.LabelFor(model => model.Specification.os, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Specification.os, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Specification.os, "", new { @class = "text-danger" })
+        </div>
+        
+        @Html.LabelFor(model => model.SpecificationsLaptop.cardscreen, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SpecificationsLaptop.cardscreen, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SpecificationsLaptop.cardscreen, "", new { @class = "text-danger" })
+        </div>
+
+        @Html.LabelFor(model => model.SpecificationsLaptop.connector, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SpecificationsLaptop.connector, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SpecificationsLaptop.connector, "", new { @class = "text-danger" })
+        </div>
+
+        @Html.LabelFor(model => model.SpecificationsLaptop.harddrive, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SpecificationsLaptop.harddrive, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SpecificationsLaptop.harddrive, "", new { @class = "text-danger" })
+        </div>
+
+        @Html.LabelFor(model => model.SpecificationsLaptop.design, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SpecificationsLaptop.design, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SpecificationsLaptop.design, "", new { @class = "text-danger" })
+        </div>
+
+        @Html.LabelFor(model => model.SpecificationsLaptop.size, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SpecificationsLaptop.size, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SpecificationsLaptop.size, "", new { @class = "text-danger" })
+        </div>
+
+        @Html.LabelFor(model => model.SpecificationsLaptop.release, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SpecificationsLaptop.release, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SpecificationsLaptop.release, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Trở về", "specifications", new { id = Model.id, type = 2 })
+</div>
