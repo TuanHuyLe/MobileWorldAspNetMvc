@@ -1767,6 +1767,7 @@
     <Content Include="Assets\admin\vendor\jquery\jquery.slim.min.js" />
     <Content Include="Assets\user\css\bootstrap.min.css" />
     <Content Include="Assets\user\css\font-awesome.min.css" />
+    <Content Include="Assets\user\css\mystyle.css" />
     <Content Include="Assets\user\css\owl.carousel.css" />
     <Content Include="Assets\user\css\responsive.css" />
     <Content Include="Assets\user\fonts\fontawesome-webfont.svg" />
@@ -2141,6 +2142,7 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\HomeShop\Index.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
