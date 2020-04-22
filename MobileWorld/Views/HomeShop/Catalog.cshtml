@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "Điện thoại";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scriptFooter {
+    <script src="~/Assets/user/js/plugins/mustache.min.js"></script>
+    <script src="~/Assets/user/js/plugins/jquery.twbsPagination.min.js"></script>
+    <script src="~/Assets/user/js/homeShopController.js"></script>
+}
+
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>@ViewBag.CatalogType</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row" id="tblData">
+
+        </div>
+    </div>
+</div>
+
+<div id="pagination" class="pagination">
+</div>
+
+<script id="data-template" type="x-tmpl-mustache">
+    <div class="col-md-4 col-sm-6">
+        <div class="single-shop-product">
+            <div class="product-upper">
+                <img src="{{pictureuri}}" alt="" width="150">
+            </div>
+            <h2><a href="">{{name}}</a></h2>
+            <div class="product-carousel-price">
+                <ins>{{price}}</ins>
+            </div>
+
+            <div class="product-option-shop">
+                <a class="add_to_cart_button" data-quantity="{{quantity}}" data-product_sku="" data-product_id="{{id}}" rel="nofollow" href="/canvas/shop/?add-to-cart=70">Thêm</a>
+            </div>
+        </div>
+    </div>
+</script>

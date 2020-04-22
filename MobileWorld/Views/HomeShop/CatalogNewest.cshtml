@@ -1,0 +1,23 @@
+﻿@model List<Model.EF.Catalog>
+<div class="product-carousel">
+    @foreach (var item in Model)
+    {
+        <div class="single-product">
+            <div class="product-f-image">
+                <img src="@item.pictureuri" alt="newest" />
+                <div class="product-hover">
+                    <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Thêm</a>
+                    <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> Thông tin</a>
+                </div>
+            </div>
+
+            <h2>
+                <a href="single-product.html">@item.name</a>
+            </h2>
+
+            <div class="product-carousel-price">
+                <ins>@String.Format("{0:0,0 VNĐ}", item.price)</ins>
+            </div>
+        </div>
+    }
+</div>

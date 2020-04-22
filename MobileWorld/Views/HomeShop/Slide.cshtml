@@ -1,0 +1,25 @@
+﻿@model List<Model.EF.Catalog>
+<div class="block-slider block-slider4">
+    <ul class="" id="bxslider-home4">
+        @foreach (var item in Model)
+        {
+            <li>
+                <img src="@item.pictureuri" alt="Slide" />
+                <div class="caption-group">
+                    <h2 class="caption title">
+                        @{
+                            var name = item.name;
+                            var splname = name.Split(' ');
+                            var last = splname[splname.Length - 1];
+                            var nlast = splname[splname.Length - 2];
+                            var first = name.Replace(nlast + " " + last, "");
+                        }
+                        @first <span class="primary">@nlast <strong>@last</strong></span>
+                    </h2>
+                    <h4 class="caption subtitle">@String.Format("{0:0,0 VNĐ}", item.price)</h4>
+                    <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
+                </div>
+            </li>
+        }
+    </ul>
+</div>
