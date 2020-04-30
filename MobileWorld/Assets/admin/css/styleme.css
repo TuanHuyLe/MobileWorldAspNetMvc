@@ -11,3 +11,8 @@ td p{
     text-overflow: ellipsis;
     text-align: justify;
 }
+
+.tb-brand tr{
+    height: 50px;
+    line-height: 50px;
+}

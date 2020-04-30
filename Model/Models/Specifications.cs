@@ -1,7 +1,7 @@
 ﻿
 namespace Model.Models
 {
-    public interface Specifications
+    public abstract class Specifications
     {
         int id { get; set; }
 

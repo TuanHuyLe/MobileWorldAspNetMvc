@@ -40,11 +40,29 @@ namespace Model.Dao
                 user.updatedAt = DateTime.Now;
                 user.modifiedby = by;
                 user.gender = entity.gender;
-                var role = db.UserRoles.SingleOrDefault(x => x.userid == entity.id);
-                role.roleid = entity.role;
+                var role = db.UserRoles.Where(x => x.userid == entity.id).ToList();
+                var oldRoleId = getRoleId(user.id);
+                var newRoleId = entity.role;
+                if (oldRoleId != newRoleId)
+                {
+                    if (oldRoleId > newRoleId)
+                    {
+                        db.UserRoles.Remove(role[role.Count - 1]);
+                    }
+                    else
+                    {
+                        var newRole = new UserRole
+                        {
+                            updatedAt = DateTime.Now,
+                            roleid = newRoleId,
+                            userid = entity.id
+                        };
+                        db.UserRoles.Add(newRole);
+                    }
+                }
                 db.SaveChanges();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 throw new Exception("Cập nhật thất bại");
             }
@@ -64,12 +82,12 @@ namespace Model.Dao
             List<User> listUser = new List<User>();
             foreach (User u in listAll)
             {
-                if (getRoleId(u) == role)
+                if (getRoleId(u.id) == role)
                 {
                     listUser.Add(u);
                 }
             }
-            
+
             return listUser.ToPagedList(page, pageSize);
         }
 
@@ -91,17 +109,18 @@ namespace Model.Dao
             {
                 if (Hashing.ValidatePassword(password, user.password))
                 {
-                    var roleId = getRoleId(user);
+                    var roleId = getRoleId(user.id);
                     if (user.status)
                     {
                         if (roleId == 3)
                         {
                             hash.Add(3, user); // success - superadmin
                         }
-                        else if(roleId == 2)
+                        else if (roleId == 2)
                         {
                             hash.Add(2, user); // success - admin
-                        } else
+                        }
+                        else
                         {
                             hash.Add(1, user); // sucess - user
                         }
@@ -123,9 +142,9 @@ namespace Model.Dao
             return hash;
         }
 
-        public int getRoleId(User entity)
+        public int getRoleId(int id)
         {
-            var role = db.UserRoles.Where(x => x.userid == entity.id).ToArray();
+            var role = db.UserRoles.Where(x => x.userid == id).ToList();
             var roleId = 1;
             foreach (UserRole userRole in role)
             {

@@ -16,8 +16,9 @@
     <title>Mobile World - @ViewBag.Title</title>
     <link href="/Assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="/Assets/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="/Assets/admin/css/ruang-admin.min.css" rel="stylesheet">
-    @RenderSection("style",required: false)
+    <link href="~/Assets/admin/css/admin-ruang.min.css" rel="stylesheet" />
+    <link href="~/Assets/admin/css/styleme.css" rel="stylesheet" />
+    @RenderSection("style", required: false)
 </head>
 
 <body id="page-top">
@@ -252,6 +253,7 @@
     <script src="/Assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="/Assets/admin/js/ruang-admin.min.js"></script>
     <script src="/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
     @RenderSection("jsFooter", required: false)
 </body>
 

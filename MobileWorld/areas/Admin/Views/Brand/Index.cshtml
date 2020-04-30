@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Model.EF.CatalogBrand>
+
+@{
+    ViewBag.Title = "Danh sách thương hiệu";
+    Layout = "~/areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{Danh sách thương hiệu}
+
+@section jsFooter{
+    <script src="~/Assets/admin/js/controller/brandAjax.js"></script>
+}
+
+<a class="btn btn-success mb-2" href="@Url.Action("addnewbrand", "brand")">
+    <i class="fas fa-plus-circle"></i>
+    Thêm mới
+</a>
+
+<table class="table tb-brand" style="text-align: center;">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.brand)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pictureurl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.updatedAt)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr id="@item.id">
+            <td>
+                @Html.DisplayFor(modelItem => item.brand)
+            </td>
+            <td>
+                <img src="@Url.Content(item.pictureurl)" alt="Image" width="100" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.createdAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.updatedAt)
+            </td>
+            <td>
+                <a class="btn btn-warning mb-2" href="@Url.Action("edit", "brand", new { id = item.id })">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a class="btnDel btn btn-danger mb-2" href="#" data-toggle="modal" data-target="#exampleModal" id="myBtn-@item.id" data-id="@item.id">
+                    <i class="far fa-trash-alt"></i>
+                </a>
+
+            </td>
+        </tr>
+    }
+
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="mess">Xác nhận xóa thương hiệu này ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="canle btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="btnDelBrand" data-dismiss="modal">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -103,10 +103,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dao\CatalogDao.cs" />
+    <Compile Include="Dao\CatalogUserDao.cs" />
     <Compile Include="Dao\Hashing.cs" />
     <Compile Include="Dao\UserDao.cs" />
     <Compile Include="EF\Basket.cs" />
     <Compile Include="EF\BasketItem.cs" />
+    <Compile Include="EF\Bill.cs" />
     <Compile Include="EF\Catalog.cs" />
     <Compile Include="EF\CatalogBrand.cs" />
     <Compile Include="EF\CatalogType.cs" />
@@ -121,10 +123,18 @@
     <Compile Include="EF\UserRole.cs" />
     <Compile Include="Mapper\CatalogMapper.cs" />
     <Compile Include="Mapper\SpecificationsMapper.cs" />
+    <Compile Include="Models\CatalogDTO.cs" />
+    <Compile Include="Models\CatalogUser.cs" />
+    <Compile Include="Models\ISpecifications.cs" />
     <Compile Include="Models\JoinTableCatalog.cs" />
+    <Compile Include="Models\LaptopDTO.cs" />
     <Compile Include="Models\ListCatalogBrand.cs" />
+    <Compile Include="Models\MobileDTO.cs" />
     <Compile Include="Models\SpecificationLaptop.cs" />
     <Compile Include="Models\SpecificationMobile.cs" />
+    <Compile Include="Models\Specifications.cs" />
+    <Compile Include="Models\SpecificationsLaptops.cs" />
+    <Compile Include="Models\SpecificationsMobiles.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

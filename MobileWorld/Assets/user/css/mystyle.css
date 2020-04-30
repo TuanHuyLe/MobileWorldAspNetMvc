@@ -1,4 +1,9 @@
-﻿.mynavbar {
+﻿@import url('https://fonts.googleapis.com/css2?family=Srisakdi:wght@700&display=swap');
+a:hover {
+    text-decoration: none !important;
+    color: #808080;
+}
+.mynavbar {
     width: 100%;
     height: 100px;
     background: linear-gradient(to bottom,#f53e2d,#fe6533);
@@ -6,17 +11,24 @@
     justify-content: space-between;
     align-items: center;
 }
+
 .mynavbar #search::placeholder {
     color: #bbbbbb;
     font-size: 14px;
 }
+
 .navlinks {
     list-style: none;
     display: flex;
     margin: 8px 20px 0 0;
+    flex-direction: column;
 }
 
-a.active {
+a.logo {
+    font-family: 'Srisakdi', cursive;
+}
+
+a.myactive {
     font-size: 30px;
     color: #fff;
     font-weight: bold;
@@ -25,7 +37,7 @@ a.active {
     transition: 0.3s;
 }
 
-a.active:hover {
+a.myactive:hover {
     color: #eee;
 }
 
@@ -46,6 +58,7 @@ a.active:hover {
 .search-container {
     width: 40%;
     z-index: 1;
+    margin-top: 20px;
 }
 
 .search-container form {
@@ -109,3 +122,160 @@ a.active:hover {
     background: linear-gradient(to bottom,#f53e2d,#fe6533);
     min-height: 100px;
 }
+
+.mystyleul {
+    margin-top: 10px;
+    display: flex;
+    list-style: none;
+}
+
+.mystyleul a {
+    color: #eee;
+    margin: 10px;
+}
+
+.greeting {
+    font-size: 14px !important;
+    position: absolute;
+    top: 0;
+}
+
+.product-upper {
+    width: 230px;
+    border: 1px solid #ccc;
+    padding: 20px 0;
+}
+
+
+/*style specifications*/
+.parameter {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+    list-style: none;
+}
+
+.parameter li {
+    display: table;
+    background: #fff;
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    padding: 5px 0;
+}
+
+.parameter li span {
+    display: table-cell;
+    width: 40%;
+    vertical-align: top;
+    padding: 5px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.parameter li div {
+    display: table-cell;
+    width: auto;
+    vertical-align: top;
+    padding: 6px 5px;
+    font-size: 14px;
+    color: #333;
+}
+/*end*/
+
+/*style chọn mức giá*/
+.filter .price {
+    margin-right: 20px;
+}
+
+.filter .fl {
+    float: left;
+}
+
+.filter .price * {
+    display: inline-block;
+    vertical-align: top;
+    padding-right: 10px;
+    line-height: 40px;
+}
+
+.filter .price a {
+    color: #288ad6;
+    position: relative;
+    text-decoration: none;
+}
+
+.filter .price a:hover {
+    color: #333;
+}
+/*end*/
+
+.related-product-name {
+    position: relative;
+    top: -25px;
+    color: #fa8072;
+}
+
+.viewmore {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    line-height: 40px;
+    font-size: 14px;
+    color: #288ad6;
+    border: 1px solid #eee;
+    text-align: center;
+    border-radius: 3px;
+    margin: 10px auto 20px;
+    width: 240px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.viewmore:hover {
+    color: #eee;
+    background: #288ad6;
+    font-weight: bold;
+}
+
+/*filter brand*/
+.filter .manu a {
+    float: left;
+    width: 12.41%;
+    border: 1px solid #eee;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    margin: 0 0 -1px -1px;
+    color: #288ad6;
+    text-align: center;
+}
+
+.filter .manu a img {
+    max-height: 70%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.filter .manu a.check {
+    border-color: #52a2e1;
+    z-index: 1;
+    position: relative;
+}
+
+.filter .manu a.check:after {
+    content: "";
+    width: 23px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAoCAYAAACB4MgqAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo1RDlCNUE2MjRCQjgxMUVBQTEyRkEwNENDMEQzMkE2MiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo1RDlCNUE2MzRCQjgxMUVBQTEyRkEwNENDMEQzMkE2MiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjVEOUI1QTYwNEJCODExRUFBMTJGQTA0Q0MwRDMyQTYyIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjVEOUI1QTYxNEJCODExRUFBMTJGQTA0Q0MwRDMyQTYyIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+O8UzUAAAA0RJREFUeNrUmF1IU2EYx//vu6ObMnXT+Vmnm+wiYhFRpBWVJRFp0gfd6G4KupCQvgiKvq4iIbA06koKuiiKCIO8sCuzLxreKEL2KVZm6HTZckOd5/SclWTmcmc7m+c88LJn5z1n+51nz/s/739s981eGQYKBiaByUcFQ0EzFqCXShpNgoFKPcA52yFJslt5y41Rabw2yeYiSt1Tx7gB2qONm/laSnumH+c6h75dkCVupXR45hzXb0vz2nsusYrSsdnmNQXPtQqoK8/D8Y2OWMoc5IwfoOwkjbBSrZmq2FNMOFeag9w0AWYh6nr4GMdeSGiZ60RNwK3JHGdLs0PQgQkJl554onmw9AmMlwUhdURyfsytYhEYzmzJxiJbMiYmZdS2DuLd0Lha6E4L54rcdUR6TUzgSXT1iZJsFDrMmJRk1FGlu76OqVWORxkZKesp/azmurDgNgvHgvTwncQZcGyDA848C2RZxrUXw3B/Cqjtj0bnQrFM6W21RQsLfn5bLuor8rFrWfqs8weLM7FaTA3lN9q/ofXDqJoyy4yz05Qp6hGM5tcOC/7WM678jHCttKG6KBMm9mdu/yo7Ni22hvI7HSNo7vapYIbywS6lNrG0adheuPJsKLTYNhdaUbrEihzS6IuPB1G+NA1lNJRofuXD3c4RNdBembOdpM5tsYpCWHBixlXq235fEJUrMrA834KGigLYU02h+db3P3C93asGugempO2Qg91aSPCcqnK/6zupxRDG6U6moF9+9IduSkVTu1N/7e40gY74AfS81w/PaBA167LQ653A5aceSHLEcteUZROqAl74tdxeRPzkfEOLteZBvzq142hwVolHvjzsl7TehMVld6j4Qurpw5QeoiHF4zs0t27TfWE8t72CxqX+yxfGM7h2lf7XF+oeXPGFZo7imb5Q1+DTfKEXCYyYwKmfL/zPF+pvcSq+EKyaLGHjfJnpaMAj9oW6AVfrC3XR44ov5Ba2Ro0vnHdwgm757Qv79PKHEY+AutEpiuXR+ML5ASdfyBk7FYsvTPjiVHyhzNg+su+3oNMQ4ukLEwautS9MUI9r7wvjDq74QoddKKF0AAYJEg5e73SJeyj3w0DxU4ABAGYG7XZm8JELAAAAAElFTkSuQmCC) no-repeat left top;
+    background-size: 23px 20px;
+    z-index: 2;
+}
+/*end*/

@@ -149,5 +149,191 @@ namespace Model.Dao
                 throw new Exception("Cập nhật thông số kĩ thuật laptop lỗi");
             }
         }
+
+        public bool addMobileDTO(MobileDTO catalogDTO)
+        {
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    var catalog = new Catalog()
+                    {
+                        name = catalogDTO.name,
+                        pictureuri = catalogDTO.pictureuri,
+                        price = catalogDTO.price,
+                        description = catalogDTO.description,
+                        content = catalogDTO.content,
+                        quantity = catalogDTO.quantity,
+                        catalogbrandid = catalogDTO.catalogbrandid,
+                        catalogtypeid = catalogDTO.catalogtypeid,
+                        createdAt = DateTime.Now,
+                        updatedAt = DateTime.Now
+                    };
+                    db.Catalogs.Add(catalog);
+                    db.SaveChanges();
+
+                    var id = catalog.id;
+
+                    //specifications
+                    var spe = new Specification()
+                    {
+                        cpu = catalogDTO.cpu,
+                        ram = catalogDTO.ram,
+                        screen = catalogDTO.screen,
+                        os = catalogDTO.os,
+                        createdAt = DateTime.Now,
+                        updatedAt = DateTime.Now,
+                        catalogid = id
+                    };
+                    db.Specifications.Add(spe);
+                    db.SaveChanges();
+
+                    //mobile
+                    var speM = new SpecificationsMobile()
+                    {
+                        backcamera = catalogDTO.backcamera,
+                        frontcamera = catalogDTO.frontcamera,
+                        internalmemory = catalogDTO.internalmemory,
+                        memorystick = catalogDTO.memorystick,
+                        sim = catalogDTO.sim,
+                        batery = catalogDTO.batery,
+                        createdAt = DateTime.Now,
+                        updatedAt = DateTime.Now,
+                        catalogid = id
+                    };
+                    db.SpecificationsMobiles.Add(speM);
+                    db.SaveChanges();
+
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+                    dbContextTransaction.Rollback();
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool addLaptopDTO(LaptopDTO catalogDTO)
+        {
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    var catalog = new Catalog()
+                    {
+                        name = catalogDTO.name,
+                        pictureuri = catalogDTO.pictureuri,
+                        price = catalogDTO.price,
+                        description = catalogDTO.description,
+                        content = catalogDTO.content,
+                        quantity = catalogDTO.quantity,
+                        catalogbrandid = catalogDTO.catalogbrandid,
+                        catalogtypeid = catalogDTO.catalogtypeid,
+                        createdAt = DateTime.Now,
+                        updatedAt = DateTime.Now
+                    };
+                    db.Catalogs.Add(catalog);
+                    db.SaveChanges();
+
+                    var id = catalog.id;
+
+                    //specifications
+                    var spe = new Specification()
+                    {
+                        cpu = catalogDTO.cpu,
+                        ram = catalogDTO.ram,
+                        screen = catalogDTO.screen,
+                        os = catalogDTO.os,
+                        createdAt = DateTime.Now,
+                        updatedAt = DateTime.Now,
+                        catalogid = id
+                    };
+                    db.Specifications.Add(spe);
+                    db.SaveChanges();
+
+                    //laptop
+                    var speL = new SpecificationsLaptop()
+                    {
+                        cardscreen = catalogDTO.cardscreen,
+                        connector = catalogDTO.connector,
+                        harddrive = catalogDTO.harddrive,
+                        design = catalogDTO.design,
+                        size = catalogDTO.size,
+                        release = catalogDTO.release,
+                        createdAt = DateTime.Now,
+                        updatedAt = DateTime.Now,
+                        catalogid = id
+                    };
+                    db.SpecificationsLaptops.Add(speL);
+                    db.SaveChanges();
+
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+                    dbContextTransaction.Rollback();
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // catalog brand
+        public int AddNewBrand(CatalogBrand entity)
+        {
+            try
+            {
+                entity.createdAt = DateTime.Now;
+                entity.updatedAt = DateTime.Now;
+                var sl = db.CatalogBrands.Where(x => x.brand == entity.brand).Count();
+                if (sl > 0) return 0;
+                db.CatalogBrands.Add(entity);
+                db.SaveChanges();
+                return 1;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+        }
+
+        public CatalogBrand findCatalogBrandById(int id)
+        {
+            return db.CatalogBrands.Find(id);
+        }
+
+        public int UpdateCatalogBrand(CatalogBrand entity)
+        {
+            try
+            {
+                var brand = db.CatalogBrands.Find(entity.id);
+                brand.updatedAt = DateTime.Now;
+                brand.brand = entity.brand;
+                brand.pictureurl = entity.pictureurl;
+                db.SaveChanges();
+                return 1;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+        public int DeleteBrand(int id)
+        {
+            try
+            {
+                var brand = db.CatalogBrands.Find(id);
+                db.CatalogBrands.Remove(brand);
+                db.SaveChanges();
+                return 1;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
     }
 }

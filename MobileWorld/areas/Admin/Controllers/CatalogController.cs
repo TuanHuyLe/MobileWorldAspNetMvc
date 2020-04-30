@@ -2,7 +2,9 @@
 using Model.EF;
 using Model.Models;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace MobileWorld.areas.Admin.Controllers
 {
@@ -150,6 +152,53 @@ namespace MobileWorld.areas.Admin.Controllers
                 }
             }
             return View("editlaptop", laptop);
+        }
+
+        [HttpPost]
+        public JsonResult Add(int type, string model)
+        {
+            var catalogDao = new CatalogDao();
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            if (type == 1)
+            {
+                MobileDTO catalog = serializer.Deserialize<MobileDTO>(model);
+                var check = catalogDao.addMobileDTO(catalog);
+                if (check)
+                {
+                    return Json(new
+                    {
+                        status = true,
+                        type = 1
+                    }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        status = false
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                LaptopDTO catalog = serializer.Deserialize<LaptopDTO>(model);
+                var check = catalogDao.addLaptopDTO(catalog);
+                if (check)
+                {
+                    return Json(new
+                    {
+                        status = true,
+                        type = 2
+                    }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        status = false
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
         }
 
     }

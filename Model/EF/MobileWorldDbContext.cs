@@ -12,13 +12,11 @@ namespace Model.EF
         {
         }
 
-        public virtual DbSet<BasketItem> BasketItems { get; set; }
         public virtual DbSet<Basket> Baskets { get; set; }
+        public virtual DbSet<Bill> Bills { get; set; }
         public virtual DbSet<CatalogBrand> CatalogBrands { get; set; }
         public virtual DbSet<Catalog> Catalogs { get; set; }
         public virtual DbSet<CatalogType> CatalogTypes { get; set; }
-        public virtual DbSet<OrderItem> OrderItems { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Specification> Specifications { get; set; }
         public virtual DbSet<SpecificationsLaptop> SpecificationsLaptops { get; set; }
@@ -29,9 +27,5 @@ namespace Model.EF
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }
-
-        public System.Data.Entity.DbSet<Model.Models.SpecificationLaptop> SpecificationLaptops { get; set; }
-
-        public System.Data.Entity.DbSet<Model.Models.SpecificationMobile> SpecificationMobiles { get; set; }
     }
 }

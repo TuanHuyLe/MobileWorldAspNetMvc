@@ -26,7 +26,7 @@ namespace MobileWorld.areas.Admin.Controllers
             TempData.Keep();
             var dao = new UserDao();
             var entity = dao.findById(id);
-            var roleId = dao.getRoleId(entity);
+            var roleId = dao.getRoleId(entity.id);
             UserSession userSession = (UserSession)Session[CommonConstant.USER_SESSION];
             ViewBag.RoleId = userSession.Role;
             var user = new UserModel()

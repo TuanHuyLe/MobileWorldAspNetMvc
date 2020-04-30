@@ -146,7 +146,7 @@ z-index: 999;}
 .mainmenu-area ul.navbar-nav li:hover a, .mainmenu-area ul.navbar-nav li.active a {background: #5a88ca; color:#FFF;}
 .mainmenu-area .nav > li > a:focus {color: #FFF;}
 
-.slider-area { width:80%; position:relative; margin:0 auto; padding:5px;}
+.slider-area { width:80%; position:relative; margin:20px auto 0; padding:5px;}
 /*-------------------------
 [9. Block slider]
 ---------------------------*/
@@ -154,9 +154,13 @@ z-index: 999;}
 	border:none;
 	width: 100%;
 }
-.block-slider ul li{
-	list-style: none;
-}
+    .block-slider ul li {
+        list-style: none;
+        height: 311px;
+        justify-content: space-between;
+        align-items: center;
+        display: flex;
+    }
 .block-slider .bx-pager{
 	display: none;
 }
@@ -182,8 +186,9 @@ z-index: 999;}
 	transition: all 0.45s ease;
 }
 .block-slider img{
-	width: 100%;
+	width: 270px;
 	height: auto;
+    margin-left: 130px;
 }
 .block-slider .bx-prev{
 	left: 0px;
@@ -223,13 +228,15 @@ z-index: 999;}
 	border-radius: 50%;
 	margin: 0 3px;
 }
-.block-slider .bx-pager-item a{
-	width: 100%;
-	height: 100%;
-	background: #999;
-	display: block;
-	border-radius: 50%;
-}
+    .block-slider .bx-pager-item a {
+        width: 100%;
+        height: 100%;
+        background: #999;
+        display: block;
+        font-size: 0;
+        margin: 0 3px;
+        border-radius: 50%;
+    }
 .block-slider .bx-pager-item a.active{
 	background: #1bd172;
 }
@@ -372,6 +379,10 @@ z-index: 999;}
 
 .product-f-image {
     position: relative;
+    padding-top: 10px;
+    height: 265px;
+    display: flex;
+    align-items: center;
 }
 .product-hover {
     height: 100%;
@@ -438,6 +449,7 @@ z-index: 999;}
 
 .single-product {
   overflow: hidden;
+  width: 200px;
 }
 .single-product:hover {}
 .single-product:hover .product-hover a.add-to-cart-link {top: 32%;}
@@ -1112,7 +1124,12 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
     margin-top: 15px;
 }
 
-.single-shop-product {margin-bottom: 50px}
+.single-shop-product {
+    margin-bottom: 50px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
 
 .pagination > li > a, .pagination > li > span {
   color: #5a88ca;

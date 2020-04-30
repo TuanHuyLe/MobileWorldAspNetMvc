@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Model.EF.CatalogBrand>
+
+@foreach (var item in Model)
+{
+    <a href="#" data-id="@item.id" class="chooseBrand">
+        <img src="@item.pictureurl" />
+    </a>
+}
+

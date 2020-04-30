@@ -1,4 +1,5 @@
 ﻿@model PagedList.IPagedList<Model.Models.JoinTableCatalog>
+
 @using PagedList.Mvc;
 @{
     ViewBag.Title = "Danh sách sản phẩm";
@@ -13,14 +14,18 @@
     <link href="~/Assets/admin/css/mystyle.css" rel="stylesheet" />
 }
 
-@section  jsFooter{
-    <script src="~/Assets/admin/js/controller/userController.js"></script>
+@section jsFooter{
+    <script src="~/Assets/admin/js/controller/ajaxAdmin.js"></script>
 }
 
 <div class="col-lg-12">
     <div class="card mb-4">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">Danh sách @ViewBag.type</h6>
+            <button id="btnAdd" class="btn btn-success">
+                <i class="fas fa-plus-circle"></i>
+                <a href="@Url.Action("index", "catalog")" id="loadData"></a>
+            </button>
         </div>
         <div class="table-responsive p-3">
             <table class="table align-items-center table-flush table-hover" id="dataTableHover" style="text-align: center;">
@@ -38,7 +43,7 @@
                     @foreach (var item in Model)
                     {
                         <tr data-id="@item.Catalog.id" class="view-details-link">
-                            <a href="@Url.Action("detail", new { id = item.Catalog.id })" id = "catalog_@item.Catalog.id" ></a>
+                            <a href="@Url.Action("detail", new { id = item.Catalog.id })" id="catalog_@item.Catalog.id"></a>
                             <td>@item.CatalogBrand.brand</td>
                             <td>@item.Catalog.name</td>
                             <td><img src="@Url.Content(item.Catalog.pictureuri)" alt="Image" width="100" /></td>
@@ -64,6 +69,207 @@
                 DisplayLinkToLastPage = PagedListDisplayMode.Never,
                 MaximumPageNumbersToDisplay = 3
             })
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thông tin</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formData" class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="name">Tên sản phẩm:</label>
+                                <input id="name" type="text" name="name" class="form-control" />
+                                <input id="id" type="hidden" />
+                            </div>
+                            <div class="form-group">
+                                <label for="pictureuri">Link ảnh:</label>
+                                <input id="pictureuri" type="text" name="pictureuri" class="form-control" />
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="price">Giá:</label>
+                                        <input id="price" type="text" name="price" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="quantity">Số lượng:</label>
+                                        <input id="quantity" type="number" name="quantity" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="cpu">CPU:</label>
+                                        <input id="cpu" type="text" name="cpu" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="ram">RAM:</label>
+                                        <input id="ram" type="text" name="ram" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="screen">Màn hình:</label>
+                                        <input id="screen" type="text" name="screen" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="os">Hệ điều hành:</label>
+                                        <input id="os" type="text" name="os" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Mô tả ngắn:</label>
+                                <textarea id="description" type="text" name="description" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="">Thể loại:</label>
+                                        <select class="slType form-control" name="catalogtypeid">
+                                            <option value="1">Điện thoại</option>
+                                            <option value="2">Laptop</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="">Hãng:</label>
+                                        <select class="slBrand form-control" name="catalogbrandid">
+                                            @{
+                                                var listbrand = new Model.Models.ListCatalogBrand().listBrand;
+                                                foreach (var item in listbrand)
+                                                {
+                                                    <option value="@item.Value">@item.Text</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="mobileInput">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="backcamera">Camere trước:</label>
+                                            <input id="backcamera" type="text" name="backcamera" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="frontcamera">Camera sau:</label>
+                                            <input id="frontcamera" type="text" name="frontcamera" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="internalmemory">Bộ nhớ trong:</label>
+                                            <input id="internalmemory" type="text" name="internalmemory" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="memorystick">Thẻ nhớ:</label>
+                                            <input id="memorystick" type="text" name="memorystick" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sim">Thẻ sim:</label>
+                                            <input id="sim" type="text" name="sim" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="batery">Dung lượng pin:</label>
+                                            <input id="batery" type="text" name="batery" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="laptopInput">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="cardscreen">Card màn hình:</label>
+                                            <input id="cardscreen" type="text" name="cardscreen" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="connector">Cổng kết nối:</label>
+                                            <input id="connector" type="text" name="connector" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="harddrive">Ổ cứng:</label>
+                                            <input id="harddrive" type="text" name="harddrive" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="design">Thiết kế:</label>
+                                            <input id="design" type="text" name="design" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="size">Kích thước:</label>
+                                            <input id="size" type="text" name="size" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="release">Thời điểm ra mắt:</label>
+                                            <input id="release" type="text" name="release" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="noidung">Nội dung:</label>
+                                <textarea id="noidung" rows="5" type="text" name="content" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCancel" data-dismiss="modal" class="btn btn-secondary">Hủy</button>
+                <button type="button" id="btnSave" class="btn btn-primary">Lưu</button>
+            </div>
         </div>
     </div>
 </div>

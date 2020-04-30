@@ -1,0 +1,54 @@
+﻿@model Model.Models.LaptopDTO
+
+<ul class="parameter">
+    <li>
+        <span>@Html.DisplayNameFor(model => model.cpu):</span>
+        <div>
+            @Html.DisplayFor(model => model.cpu)
+        </div>
+    </li>
+    <li>
+        <span>@Html.DisplayNameFor(model => model.ram):</span>
+        <div>
+            @Html.DisplayFor(model => model.ram)
+        </div>
+    </li>
+    <li>
+        <span>@Html.DisplayNameFor(model => model.harddrive):</span>
+        <div>@Html.DisplayFor(model => model.harddrive)</div>
+    </li>
+    <li>
+        <span>@Html.DisplayNameFor(model => model.screen):</span>
+        <div>@Html.DisplayFor(model => model.screen)</div>
+    </li>
+    <li>
+        <span>@Html.DisplayNameFor(model => model.cardscreen):</span>
+        <div>
+            @Html.DisplayFor(model => model.cardscreen)
+        </div>
+    </li>
+    <li>
+        <span>@Html.DisplayNameFor(model => model.connector):</span>
+        <div>@Html.DisplayFor(model => model.connector)</div>
+    </li>
+    <li>
+        <span>@Html.DisplayNameFor(model => model.os):</span>
+        <div>@Html.DisplayFor(model => model.os)</div>
+    </li>
+    <li>
+        <span>@Html.DisplayNameFor(model => model.design):</span>
+        <div>
+            @Html.DisplayFor(model => model.design)
+        </div>
+    </li>
+    <li>
+        <span>@Html.DisplayNameFor(model => model.size):</span>
+        <div class="isim">
+            @Html.DisplayFor(model => model.size)
+        </div>
+    </li>
+    <li>
+        <span>@Html.DisplayNameFor(model => model.release):</span>
+        <div>@Html.DisplayFor(model => model.release)</div>
+    </li>
+</ul>

@@ -1,0 +1,60 @@
+﻿@model Model.Models.CatalogDTO
+<div class="row">
+    <div class="col-sm-6">
+        <div class="product-images">
+            <div class="product-main-img">
+                <img src="@Model.pictureuri" alt="">
+            </div>
+
+            <div class="product-gallery">
+                <img src="@Model.pictureuri" alt="">
+                <img src="@Model.pictureuri" alt="">
+                <img src="@Model.pictureuri" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="product-inner">
+            <h2 class="product-name">@Model.name</h2>
+            <div class="product-inner-price">
+                <ins>@String.Format("{0:0,0} VNĐ", Model.price)</ins>
+            </div>
+
+            <form action="" class="cart">
+                <div class="quantity">
+                    <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
+                </div>
+                <button class="add_to_cart_button" type="submit">Thêm giỏ hàng</button>
+            </form>
+
+            <div class="product-inner-category">
+                <p>Loại: <a href="@Url.Action("catalog","homeshop", new { typeid = Model.catalogtypeid })">@Model.type</a>. Hãng: @Model.brand</p>
+            </div>
+
+            <div role="tabpanel">
+                <ul class="product-tab" role="tablist">
+                    <li role="presentation" class="active" id="description"><a href="#" aria-controls="home" role="tab" data-toggle="tab">Mô tả</a></li>
+                    <li role="presentation" id="specifications"><a href="#" aria-controls="profile" role="tab" data-toggle="tab">Thông số kỹ thuật</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="home">
+                        <h2>@Model.name</h2>
+                        <p>@Model.description</p>
+                        <p>@Model.content</p>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade in" id="profile">
+                        @if (Model.catalogtypeid == 1)
+                        {
+                            Html.RenderAction("Specifications", "product", new { id = Model.id, typeid = Model.catalogtypeid });
+                        } else
+                        {
+                            Html.RenderAction("Specifications", "product", new { id = Model.id, typeid = Model.catalogtypeid });
+                        }
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

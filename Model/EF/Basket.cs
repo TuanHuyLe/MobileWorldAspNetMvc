@@ -8,21 +8,24 @@ namespace Model.EF
 
     public partial class Basket
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Basket()
-        {
-            BasketItems = new HashSet<BasketItem>();
-        }
+        [Key]
+        [Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int catalogid { get; set; }
 
-        public int id { get; set; }
+        [Key]
+        [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int userid { get; set; }
 
-        public int buyerid { get; set; }
+        public int? unit { get; set; }
 
         public DateTimeOffset? createdAt { get; set; }
 
         public DateTimeOffset? updatedAt { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BasketItem> BasketItems { get; set; }
+        public virtual User User { get; set; }
+
+        public virtual Catalog Catalog { get; set; }
     }
 }

@@ -1,0 +1,41 @@
+﻿@model List<Model.EF.Catalog>
+<div class="block-slider block-slider4">
+    <ul class="" id="bxslider-home4">
+        @foreach (var item in Model)
+        {
+            <li>
+                <img src="@item.pictureuri" alt="Slide" />
+                <div class="caption-group">
+                    @{
+                        var name = item.name.Split(' ');
+                        var lastname = name[name.Length - 1];
+                        var nlastname = name[name.Length - 2];
+                        var firstname = item.name.Replace(nlastname + " " + lastname, "");
+                    }
+                    <h2 class="caption title">
+                        @firstname <span class="primary">@nlastname <strong>@lastname</strong></span>
+                    </h2>
+                    <h4 class="caption subtitle">
+                        @{
+                            var text = "";
+                            if (item.catalogtypeid == 1)
+                            {
+                                var mb = item.SpecificationsMobiles.Where(x => x.catalogid == item.id);
+                                text = mb.Select(x => x.sim).FirstOrDefault();
+                            }
+                            else
+                            {
+                                var lt = item.SpecificationsLaptops.Where(x => x.catalogid == item.id);
+                                text = lt.Select(x => x.cardscreen).FirstOrDefault();
+                            }
+                        }
+                        @text
+                    </h4>
+                    <a class="caption button-radius" href="#"><span class="icon"></span>Mua ngay</a>
+                </div>
+            </li>
+        }
+        /**/
+    </ul>
+</div>
+<!-- ./Slider -->

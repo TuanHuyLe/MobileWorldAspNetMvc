@@ -19,8 +19,11 @@ namespace MobileWorld
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "homeshop", action = "index", id = UrlParameter.Optional }
             );
-
-            
+            routes.MapRoute(
+                name: "Product",
+                url: "product/{action}/{id}",
+                defaults: new { controller = "product", action = "index", id = UrlParameter.Optional }
+            );
         }
     }
 }

@@ -1,52 +1,111 @@
-﻿
+﻿@model List<Model.Models.CatalogUser>
 @{
-    ViewBag.Title = "Điện thoại";
+    ViewBag.Title = "Danh sách sản phẩm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 @section scriptFooter {
     <script src="~/Assets/user/js/plugins/mustache.min.js"></script>
     <script src="~/Assets/user/js/plugins/jquery.twbsPagination.min.js"></script>
-    <script src="~/Assets/user/js/homeShopController.js"></script>
+    <script src="~/Assets/user/js/myJs/listCatalog.js"></script>
 }
-
 <div class="product-big-title-area">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="product-bit-title text-center">
-                    <h2>@ViewBag.CatalogType</h2>
+                    <h2 id="typeName">@ViewBag.TypeName</h2>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="filter">
+    <div class="manu" style="margin: 1px;">
+        @{Html.RenderAction("filterbrand", "product", new { typeName = ViewBag.TypeName });}
+    </div>
+    <br /><br />
+    <div class="fl price">
+        <label>Chọn mức giá: </label>
+        @{ if (ViewBag.TypeName == "Điện thoại")
+            {
+                <a href="#" class="choose-price" data-id="-2">
+                    Dưới 2 triệu
+                </a>
+                <a href="#" class="choose-price" data-id="2-4">
+                    Từ 2 - 4 triệu
+                </a>
+                <a href="#" class="choose-price" data-id="4-7">
+                    Từ 4 - 7 triệu
+                </a>
+                <a href="#" class="choose-price" data-id="7-13">
+                    Từ 7 - 13 triệu
+                </a>
+                <a href="#" class="choose-price" data-id="13-">
+                    Trên 13 triệu
+                </a>
+                <a href="#" class="choose-price" data-id="-">
+                    Tất cả
+                </a>
+            }
+            else
+            {
+                <a href="#" class="choose-price" data-id="-10">
+                    Dưới 10 triệu
+                </a>
+                <a href="#" class="choose-price" data-id="10-15">
+                    Từ 10 - 15 triệu
+                </a>
+                <a href="#" class="choose-price" data-id="15-25">
+                    Từ 15 - 25 triệu
+                </a>
+                <a href="#" class="choose-price" data-id="25-">
+                    Trên 25 triệu
+                </a>
+                <a href="#" class="choose-price" data-id="-">
+                    Tất cả
+                </a>
+            }
+        }
 
+    </div>
+</div>
+<br/>
 <div class="single-product-area">
     <div class="zigzag-bottom"></div>
     <div class="container">
         <div class="row" id="tblData">
 
         </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="product-pagination" class="product-pagination text-center">
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<div id="pagination" class="pagination">
-</div>
+<script id="data-btnLoadMore" type="x-tmpl-mustache">
+    <button id="btnXemThem" class="viewmore">Xem thêm {{soluong}} {{loai}}</button>
+</script>
 
 <script id="data-template" type="x-tmpl-mustache">
     <div class="col-md-4 col-sm-6">
         <div class="single-shop-product">
             <div class="product-upper">
-                <img src="{{pictureuri}}" alt="" width="150">
+                <a href="/product/index/{{id}}" ">
+                    <img src="{{pictureuri}}" alt="">
+                </a>
             </div>
-            <h2><a href="">{{name}}</a></h2>
+            <h2><a href="/product/index/{{id}}">{{name}}</a></h2>
             <div class="product-carousel-price">
-                <ins>{{price}}</ins>
+                <ins>{{price}} VNĐ</ins>
             </div>
 
             <div class="product-option-shop">
-                <a class="add_to_cart_button" data-quantity="{{quantity}}" data-product_sku="" data-product_id="{{id}}" rel="nofollow" href="/canvas/shop/?add-to-cart=70">Thêm</a>
+                <a class="add_to_cart_button" data-quantity="{{quantity}}" data-product_sku="" data-product_id="{{id}}" rel="nofollow" href="/canvas/shop/?add-to-cart={{id}}">Mua</a>
             </div>
         </div>
     </div>

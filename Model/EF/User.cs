@@ -11,6 +11,8 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            Baskets = new HashSet<Basket>();
+            Bills = new HashSet<Bill>();
             UserRoles = new HashSet<UserRole>();
         }
 
@@ -32,7 +34,7 @@
         [StringLength(255)]
         public string fullname { get; set; }
 
-        [Display(Name =  "Trạng thái")]
+        [Display(Name = "Trạng thái")]
         public bool status { get; set; }
 
         [Required(ErrorMessage = "Chưa nhập số điện thoại")]
@@ -68,6 +70,12 @@
 
         [Display(Name = "Giới tính")]
         public int gender { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Basket> Baskets { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Bill> Bills { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserRole> UserRoles { get; set; }
