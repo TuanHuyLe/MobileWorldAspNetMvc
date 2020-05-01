@@ -1,84 +1,14 @@
 ﻿
 @{
     ViewBag.Title = "Thông tin sản phẩm";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_ProductLayout.cshtml";
 }
 
-@section scriptFooter {
-    <script src="~/Assets/user/js/myJs/scriptDetailProduct.js"></script>
-}
+<div class="product-content-right">
 
-<div class="product-big-title-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="product-bit-title text-center">
-                    <h2>Thông tin sản phẩm</h2>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!--Chi tiết sản phẩm-->
+    @{ Html.RenderAction("detail", "product", new { id = ViewBag.id }); }
+
+    <!--Sản phẩm có liên quan-->
+    @{ Html.RenderAction("relatedproduct", "product", new { id = ViewBag.id }); }
 </div>
-
-
-<div class="single-product-area">
-    <div class="zigzag-bottom"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="single-sidebar">
-                    <h2 class="sidebar-title">Tìm kiếm sản phẩm</h2>
-                    <form action="">
-                        <input type="text" placeholder="Tên sản phẩm...">
-                        <input type="submit" value="Tìm kiếm">
-                    </form>
-                </div>
-
-                <div class="single-sidebar">
-                    <h2 class="sidebar-title">Phụ kiện</h2>
-                    <div class="thubmnail-recent">
-                        <img src="https://cdn.tgdd.vn/Products/Images/54/143401/tai-nghe-bluetooth-roman-r553n-den-avatar-1-600x600.jpg" class="recent-thumb" alt="">
-                        <h2><a href="#">Tai nghe Bluetooth Roman R553N Đen</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins>153,000 VNĐ</ins> <del>300,000 VNĐ</del>
-                        </div>
-                    </div>
-                    <div class="thubmnail-recent">
-                        <img src="https://cdn.tgdd.vn/Products/Images/75/219838/usb-20-8gb-sandisk-sdcz33-den-1-1-600x600.jpg" class="recent-thumb" alt="">
-                        <h2><a href="">USB 2.0 8GB Sandisk SDCZ33 Đen</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins>135,000 VNĐ</ins> <del>150,000 VNĐ</del>
-                        </div>
-                    </div>
-                    <div class="thubmnail-recent">
-                        <img src="https://cdn.tgdd.vn/Products/Images/85/109490/eset-nod32-antivirus-cho-windows-1-pc-cava-600x600.jpg" class="recent-thumb" alt="">
-                        <h2><a href="">ESET NOD32 Antivirus cho Windows - 1 PC</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins>150,000 VNĐ</ins>
-                        </div>
-                    </div>
-                    <div class="thubmnail-recent">
-                        <img src="https://cdn.tgdd.vn/Products/Images/86/209749/chuot-khong-day-silent-logitech-pebble-m350-add-1-600x600.jpg" class="recent-thumb" alt="">
-                        <h2><a href="">Chuột không dây Silent Logitech Pebble M350</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins>650,000 VNĐ</ins> <del>700,000 VNĐ</del>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="col-md-8">
-                <div class="product-content-right">
-
-                    <!--Chi tiết sản phẩm-->
-                    @{ Html.RenderAction("detail", "product", new { id = ViewBag.id }); }
-
-                    <!--Sản phẩm có liên quan-->
-                    @{ Html.RenderAction("relatedproduct", "product", new { id = ViewBag.id }); }
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-

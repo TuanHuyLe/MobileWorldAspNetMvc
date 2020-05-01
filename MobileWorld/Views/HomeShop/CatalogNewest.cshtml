@@ -14,12 +14,12 @@
                                     <img src="@item.pictureuri" alt="" />
                                     <div class="product-hover">
                                         <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Mua</a>
-                                        <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> Thông tin</a>
+                                        <a href="@Url.Action("index", "product", new { id = item.id })" class="view-details-link"><i class="fa fa-link"></i> Thông tin</a>
                                     </div>
                                 </div>
 
                                 <h2>
-                                    <a href="single-product.html">@item.name</a>
+                                    <a href="@Url.Action("index", "product", new { id = item.id })">@item.name</a>
                                 </h2>
 
                                 <div class="product-carousel-price">

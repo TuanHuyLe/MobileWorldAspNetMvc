@@ -325,6 +325,11 @@ namespace Model.Dao
         {
             try
             {
+                var check = db.Catalogs.Count(x => x.catalogbrandid == id);
+                if(check > 0)
+                {
+                    return 0;
+                }
                 var brand = db.CatalogBrands.Find(id);
                 db.CatalogBrands.Remove(brand);
                 db.SaveChanges();

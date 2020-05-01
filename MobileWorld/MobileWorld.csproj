@@ -156,6 +156,7 @@
     <Compile Include="areas\Admin\Controllers\BrandController.cs" />
     <Compile Include="areas\Admin\Controllers\CatalogController.cs" />
     <Compile Include="areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
@@ -1770,7 +1771,7 @@
     <Content Include="Assets\admin\vendor\jquery\jquery.slim.min.js" />
     <Content Include="Assets\user\css\bootstrap.min.css" />
     <Content Include="Assets\user\css\font-awesome.min.css" />
-    <Content Include="Assets\user\css\mystyle.css" />
+    <Content Include="Assets\user\css\styleme.css" />
     <Content Include="Assets\user\css\owl.carousel.css" />
     <Content Include="Assets\user\css\responsive.css" />
     <Content Include="Assets\user\fonts\fontawesome-webfont.svg" />
@@ -2155,13 +2156,16 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\HomeShop\Catalog.cshtml" />
     <Content Include="Views\HomeShop\CatalogNewest.cshtml" />
-    <Content Include="Views\Shared\Slide.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Product\Detail.cshtml" />
     <Content Include="Views\Product\mobiles.cshtml" />
     <Content Include="Views\Product\laptops.cshtml" />
     <Content Include="Views\Product\RelatedProduct.cshtml" />
     <Content Include="Views\Product\FilterBrand.cshtml" />
+    <Content Include="Views\HomeShop\SlideBrand.cshtml" />
+    <Content Include="Views\Shared\SlideHeader.cshtml" />
+    <Content Include="Views\Shared\_ProductLayout.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

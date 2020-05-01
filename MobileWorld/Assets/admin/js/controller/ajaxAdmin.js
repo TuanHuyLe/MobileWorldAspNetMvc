@@ -55,7 +55,6 @@
         });
         // them moi san pham
         $('#btnAdd').off('click').on('click', function () {
-            //user.resetForm();
             $('.mobileInput').show();
             $('.laptopInput').hide();
             $('.slType').prop('disabled', false);
@@ -192,6 +191,7 @@
                     let type2 = typeId + "?type=" + type;
                     $("#loadData").attr("href", type2);
                     $('#loadData')[0].click();
+                    user.resetForm();
                 } else {
                     alert('Thêm thất bại');
                 }

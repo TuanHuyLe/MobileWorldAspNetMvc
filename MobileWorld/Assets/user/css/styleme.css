@@ -279,3 +279,10 @@ a.myactive:hover {
     z-index: 2;
 }
 /*end*/
+
+.brand-wrapper .owl-item {
+    height: 142px;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}

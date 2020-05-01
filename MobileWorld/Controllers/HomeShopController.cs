@@ -1,6 +1,5 @@
 ﻿using Model.Dao;
 using Model.EF;
-using Model.Models;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -16,7 +15,7 @@ namespace MobileWorld.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult Slide()
+        public ActionResult SlideHeader()
         {
             List<Catalog> model = new CatalogUserDao().GetCatalogs(1, 4);
             return PartialView(model);
@@ -51,6 +50,13 @@ namespace MobileWorld.Controllers
         {
             ViewBag.TypeName = typeid == 1 ? "Điện thoại" : "Laptop";
             return View();
+        }
+
+        [ChildActionOnly]
+        public ActionResult SlideBrand()
+        {
+            var brand = new CatalogUserDao().getAllCatalogBrand();
+            return PartialView(brand);
         }
 
     }

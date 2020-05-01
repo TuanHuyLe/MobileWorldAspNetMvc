@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section slide {
-    @{Html.RenderAction("slide", "homeshop");}
+    @{Html.RenderAction("slideheader", "homeshop");}
 }
 <div class="promo-area">
     <div class="zigzag-bottom"></div>
@@ -49,14 +49,7 @@
             <div class="col-md-12">
                 <div class="brand-wrapper">
                     <div class="brand-list">
-                        <img src="/Assets/user/img/brand1.png" alt="" />
-                        <img src="/Assets/user/img/brand2.png" alt="" />
-                        <img src="/Assets/user/img/brand3.png" alt="" />
-                        <img src="/Assets/user/img/brand4.png" alt="" />
-                        <img src="/Assets/user/img/brand5.png" alt="" />
-                        <img src="/Assets/user/img/brand6.png" alt="" />
-                        <img src="/Assets/user/img/brand1.png" alt="" />
-                        <img src="/Assets/user/img/brand2.png" alt="" />
+                        @{ Html.RenderAction("SlideBrand", "homeshop");}
                     </div>
                 </div>
             </div>

@@ -21,7 +21,7 @@ var brand = {
                         let idtr = '#' + brandConfig.id.toString();
                         $(idtr).remove();
                     } else {
-                        alert("Xóa thất bại");
+                        alert("Không thể xóa thương hiệu này");
                     }
                 },
                 error: e => {

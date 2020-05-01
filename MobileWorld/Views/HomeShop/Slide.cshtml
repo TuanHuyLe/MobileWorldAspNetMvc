@@ -16,7 +16,12 @@
                         }
                         @first <span class="primary">@nlast <strong>@last</strong></span>
                     </h2>
-                    <h4 class="caption subtitle">@String.Format("{0:0,0 VNĐ}", item.price)</h4>
+                    <h4 class="caption subtitle">
+                        @{ 
+                            var text = item.Specifications.Where(x => x.catalogid == item.id).Select(x => x.screen).FirstOrDefault();
+                        }
+                        @text
+                    </h4>
                     <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
                 </div>
             </li>

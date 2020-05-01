@@ -43,26 +43,6 @@ namespace Model.Dao
             {
                 brand = Regex.Replace(brand, @"\D+", " ");
                 model = model.Where(m => brand.Contains(m.brandid.ToString()));
-                /*string[] brands = brand.Split(' ');
-                IQueryable<CatalogUser> temp = null;
-                foreach (var item in brands)
-                {
-                    if (Int32.TryParse(item, out int bid) && bid != 0)
-                    {
-                        temp = from m in model
-                                where m.brandid != bid
-                                select m;
-                    }
-                }*/
-                /*if(temp != null)
-                {
-                    model = from m in model
-                            join te in temp
-                            on m.id equals te.id into g
-                            from te in g.DefaultIfEmpty()
-                            where m.brandid != null && te.brandid == null
-                            select m;
-                }*/
             }
             if (minP > -1 && maxP > -1)
             {
@@ -162,14 +142,18 @@ namespace Model.Dao
             }
         }
 
-        public IEnumerable<CatalogBrand> getAllCatalogBrand(int typeId)
+        public List<CatalogBrand> getAllCatalogBrand(int typeId = -1)
         {
-
             var result = from c in db.Catalogs
                          join b in db.CatalogBrands on c.catalogbrandid equals b.id
-                         where c.catalogtypeid == typeId
-                         select b;
-            return result.GroupBy(c => c.id)
+                         select new { b, c };
+            if (typeId > 0)
+            {
+                result = from rs in result
+                         where rs.c.catalogtypeid == typeId
+                         select rs;
+            }
+            return result.Select(x => x.b).GroupBy(c => c.id)
                   .Select(grp => grp.FirstOrDefault())
                   .ToList();
         }
