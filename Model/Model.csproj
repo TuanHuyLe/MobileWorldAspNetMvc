@@ -107,14 +107,11 @@
     <Compile Include="Dao\Hashing.cs" />
     <Compile Include="Dao\UserDao.cs" />
     <Compile Include="EF\Basket.cs" />
-    <Compile Include="EF\BasketItem.cs" />
     <Compile Include="EF\Bill.cs" />
     <Compile Include="EF\Catalog.cs" />
     <Compile Include="EF\CatalogBrand.cs" />
     <Compile Include="EF\CatalogType.cs" />
     <Compile Include="EF\MobileWorldDbContext.cs" />
-    <Compile Include="EF\Order.cs" />
-    <Compile Include="EF\OrderItem.cs" />
     <Compile Include="EF\Role.cs" />
     <Compile Include="EF\Specification.cs" />
     <Compile Include="EF\SpecificationsLaptop.cs" />
@@ -123,6 +120,7 @@
     <Compile Include="EF\UserRole.cs" />
     <Compile Include="Mapper\CatalogMapper.cs" />
     <Compile Include="Mapper\SpecificationsMapper.cs" />
+    <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\CatalogDTO.cs" />
     <Compile Include="Models\CatalogUser.cs" />
     <Compile Include="Models\ISpecifications.cs" />

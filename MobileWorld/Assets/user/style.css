@@ -26,7 +26,9 @@ h5,
 h6 {
     margin: 0 0 15px;
 }
-body { font-family:Arial, Helvetica, sans-serif; }
+body {
+    font-family: 'Roboto', sans-serif;
+}
 
 
 
@@ -910,7 +912,7 @@ table.shop_table {
 table.shop_table th, table.shop_table td {
     border-left: 1px solid #ddd;
     border-top: 1px solid #ddd;
-    padding: 15px;
+    padding: 15px 10px;
     text-align: center;
 }
 table.shop_table th {
@@ -957,7 +959,6 @@ td.actions div.coupon {
     color: #5a88ca;
     font-size: 25px;
     margin-bottom: 25px;
-    text-transform: uppercase;
 }
 div.cart-collaterals ul.products {
     list-style: outside none none;
@@ -1119,6 +1120,8 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
 .single-shop-product h2 {
     font-size: 20px;
     margin: 10px 0;
+    text-align: center;
+    font-weight: 600;
 }
 .product-option-shop {
     margin-top: 15px;
@@ -1129,6 +1132,7 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
     display: flex;
     align-items: center;
     flex-direction: column;
+    height: 430px;
 }
 
 .pagination > li > a, .pagination > li > span {

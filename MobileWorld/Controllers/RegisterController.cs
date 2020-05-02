@@ -1,10 +1,10 @@
-﻿using MobileWorld.areas.Admin.Models;
+﻿using MobileWorld.Models;
 using MobileWorld.common;
 using Model.Dao;
 using System;
 using System.Web.Mvc;
 
-namespace MobileWorld.areas.Admin.Controllers
+namespace MobileWorld.Controllers
 {
     [Serializable]
     public class RegisterController : Controller

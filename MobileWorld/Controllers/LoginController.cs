@@ -1,4 +1,4 @@
-﻿using MobileWorld.areas.Admin.Models;
+﻿using MobileWorld.Models;
 using MobileWorld.common;
 using Model.Dao;
 using System;
@@ -14,6 +14,16 @@ namespace MobileWorld.Controllers
         {
             Session.Remove(CommonConstant.USER_SESSION);
             return View();
+        }
+
+        [HttpPost]
+        public JsonResult Logout()
+        {
+            Session.Remove(CommonConstant.USER_SESSION);
+            return Json(new
+            {
+                status = true
+            });
         }
 
         [HttpPost]
@@ -72,5 +82,31 @@ namespace MobileWorld.Controllers
             }
             return View("index");
         }
+
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ForgotPassword(ForgotPasswordModel entity)
+        {
+            if (ModelState.IsValid)
+            {
+                var dao = new UserDao();
+                var check = dao.forgotPassword(entity.UserName, entity.PhoneNumber, entity.NewPassword);
+                if (check == 1)
+                {
+                    return RedirectToAction("index", "login");
+                }
+                else if (check == -1)
+                    ModelState.AddModelError("", "Tài khoản không đúng");
+                else if (check == 0)
+                    ModelState.AddModelError("", "Số điện thoại không đúng");
+            }
+            return View("ForgotPassword");
+        }
+
+
     }
 }

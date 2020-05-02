@@ -10,9 +10,9 @@ namespace Model.EF
     {
         public int id { get; set; }
 
-        public decimal? unitprice { get; set; }
+        public decimal price { get; set; }
 
-        public int? unit { get; set; }
+        public int unit { get; set; }
 
         public int catalogid { get; set; }
 
@@ -21,7 +21,7 @@ namespace Model.EF
         [StringLength(255)]
         public string name { get; set; }
 
-        public int? status { get; set; }
+        public int status { get; set; }
 
         public DateTimeOffset? createdAt { get; set; }
 

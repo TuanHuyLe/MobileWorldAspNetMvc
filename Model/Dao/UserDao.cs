@@ -62,7 +62,7 @@ namespace Model.Dao
                 }
                 db.SaveChanges();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new Exception("Cập nhật thất bại");
             }
@@ -189,6 +189,23 @@ namespace Model.Dao
             };
             db.UserRoles.Add(role);
             db.SaveChanges();
+        }
+
+        public int forgotPassword(string UserName, string PhoneNumber, string NewPassword)
+        {
+            var user = db.Users.SingleOrDefault(x => x.username == UserName);
+            if(user != null)
+            {
+                var check = user.phonenumber == PhoneNumber ? 1 : 0;
+                if(check == 1)
+                {
+                    user.password = NewPassword;
+                    db.SaveChanges();
+                    return 1;
+                }
+                return 0;
+            }
+            return -1;
         }
 
     }

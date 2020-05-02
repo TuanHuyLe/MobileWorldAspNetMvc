@@ -1,5 +1,5 @@
 ﻿var catalogConfig = {
-    pageSize: 9,
+    pageSize: 12,
     pageIndex: 1,
     typeid: 1,
     minP: -1,

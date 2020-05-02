@@ -20,13 +20,13 @@
 
         [Required(ErrorMessage = "Chưa nhập tài khoản")]
         [Display(Name = "Tài khoản")]
-        [StringLength(255)]
+        [StringLength(255, MinimumLength = 5, ErrorMessage = "Tên tài khoản phải trên 5 kí tự")]
         public string username { get; set; }
 
         [Required(ErrorMessage = "Chưa nhập mật khẩu")]
         [Display(Name = "Mật khẩu")]
         [DataType(DataType.Password)]
-        [StringLength(255)]
+        [StringLength(255, MinimumLength = 5, ErrorMessage = "Mật khẩu phải trên 5 kí tự")]
         public string password { get; set; }
 
         [Required(ErrorMessage = "Chưa nhập họ tên")]
