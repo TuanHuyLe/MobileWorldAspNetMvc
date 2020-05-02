@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
-namespace MobileWorld.areas.Admin.Models
+namespace MobileWorld.Models
 {
     public class AbstractModel
     {

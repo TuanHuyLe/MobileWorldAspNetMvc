@@ -162,9 +162,6 @@
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="areas\Admin\Controllers\UsersController.cs" />
-    <Compile Include="Models\AbstractModel.cs" />
-    <Compile Include="Models\LoginModel.cs" />
-    <Compile Include="Models\RegisterModel.cs" />
     <Content Include="Assets\admin\css\styleme.css" />
     <Content Include="Assets\admin\css\admin-ruang.min.css" />
     <Content Include="Assets\admin\js\controller\ajaxAdmin.js" />
@@ -175,6 +172,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AbstractModel.cs" />
+    <Compile Include="Models\ForgotPasswordModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1804,8 +1805,9 @@
     <Content Include="Assets\user\js\jquery.sticky.js" />
     <Content Include="Assets\user\js\main.js" />
     <Content Include="Assets\user\js\myJs\listCatalog.js" />
-    <Content Include="Assets\user\js\myJs\login.js" />
+    <Content Include="Assets\user\js\myJs\loginAjax.js" />
     <Content Include="Assets\user\js\myJs\scriptDetailProduct.js" />
+    <Content Include="Assets\user\js\myJs\tableCart.js" />
     <Content Include="Assets\user\js\owl.carousel.min.js" />
     <Content Include="Assets\user\js\script.slider.js" />
     <Content Include="Assets\user\logo\asus-logo.jpg" />
@@ -2166,10 +2168,12 @@
     <Content Include="Views\Shared\SlideHeader.cshtml" />
     <Content Include="Views\Shared\_ProductLayout.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\TableProduct.cshtml" />
+    <Content Include="Views\Cart\CartTotal.cshtml" />
+    <Content Include="Views\Login\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="areas\Admin\Models\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

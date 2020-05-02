@@ -64,11 +64,6 @@ namespace Model.Dao
             return model2.OrderByDescending(x => x.Catalog.createdAt).ToPagedList(page, pageSize);
         }
 
-        public Catalog detail(int id)
-        {
-            return db.Catalogs.Where(x => x.id == id).FirstOrDefault();
-        }
-
         public Catalog findById(int id)
         {
             return db.Catalogs.Find(id);

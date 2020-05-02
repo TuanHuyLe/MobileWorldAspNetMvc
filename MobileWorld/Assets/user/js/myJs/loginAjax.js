@@ -11,13 +11,13 @@ var login = {
 				$('#linklogin')[0].click();
 				$(this).text("Đăng xuất");
 			} else {
-				$(this).text("Đăng nhập");
                 $.ajax({
                     url: '/login/logout',
                     data: { },
                     type: 'POST',
 					success: res => {
-						if (res) {
+						if (res.status) {
+							$(this).text("Đăng nhập");
 							$('#greeting').text("Xin chào");
                         }
                     }

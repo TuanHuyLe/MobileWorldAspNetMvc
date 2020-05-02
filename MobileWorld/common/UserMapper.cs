@@ -1,4 +1,4 @@
-﻿using MobileWorld.areas.Admin.Models;
+﻿using MobileWorld.Models;
 using Model.Dao;
 using Model.EF;
 using System;

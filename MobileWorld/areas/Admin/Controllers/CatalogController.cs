@@ -27,7 +27,7 @@ namespace MobileWorld.areas.Admin.Controllers
         {
             TempData.Keep();
             var dao = new CatalogDao();
-            Catalog catalog = dao.detail(id);
+            Catalog catalog = dao.findById(id);
             return View(catalog);
         }
 

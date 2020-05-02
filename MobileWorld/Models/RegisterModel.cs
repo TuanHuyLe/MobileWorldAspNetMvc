@@ -1,23 +1,27 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace MobileWorld.areas.Admin.Models
+namespace MobileWorld.Models
 {
     public class RegisterModel : AbstractModel
     {
         public int id { get; set; }
         [Required(ErrorMessage = "Chưa nhập tên tài khoản")]
         [Display(Name = "Tên tài khoản")]
+        [StringLength(255, MinimumLength = 5, ErrorMessage = "Tên tài khoản phải trên 5 kí tự")]
         public string UserName { get; set; }
 
         [Display(Name = "Mật khẩu")]
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Chưa nhập mật khẩu")]
+        [StringLength(255, MinimumLength = 5, ErrorMessage = "Mật khẩu phải trên 5 kí tự")]
         public string Password { get; set; }
 
         [Display(Name = "Xác nhận mật khẩu")]
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Chưa nhập mật khẩu xác nhận")]
+        [StringLength(255, MinimumLength = 5, ErrorMessage = "Mật khẩu phải trên 5 kí tự")]
+        [Compare("NewPassword", ErrorMessage = "Mật khẩu không trùng khớp")]
         public string RePassword { get; set; }
 
         [Display(Name = "Họ và tên")]

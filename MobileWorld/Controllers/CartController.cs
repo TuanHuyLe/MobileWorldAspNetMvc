@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Model.Dao;
+using Model.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +10,76 @@ namespace MobileWorld.Controllers
 {
     public class CartController : Controller
     {
+        private string CartSession = "CartSession";
         // GET: Cart
         public ActionResult Index()
         {
-            return View();
+            var cart = Session[CartSession];
+            var list = new List<CartItem>();
+            if (cart != null)
+            {
+                list = (List<CartItem>)cart;
+            }
+            return View(list);
+        }
+
+        [ChildActionOnly]
+        public ActionResult TableProduct(List<CartItem> list)
+        {
+            return PartialView(list);
+        }
+
+        [ChildActionOnly]
+        public ActionResult CartTotal()
+        {
+            return PartialView();
+        }
+
+        public ActionResult AddItem(int id, int quantity)
+        {
+            var catalog = new CatalogDao().findById(id);
+            var cart = Session[CartSession];
+            if (quantity > 10) quantity = 10;
+            if (quantity < 1) quantity = 1;
+            if (cart != null)
+            {
+                var list = (List<CartItem>)cart;
+                if (list.Exists(x => x.catalog.id == id))
+                {
+                    foreach (var item in list)
+                    {
+                        if (item.catalog.id == id && (item.quantity + quantity) <= 10)
+                        {
+                            item.quantity += quantity;
+                        }
+                    }
+                }
+                else
+                {
+                    // tao moi doi tuong cart item
+                    var item = new CartItem
+                    {
+                        catalog = catalog,
+                        quantity = quantity
+                    };
+                    // gan vao session
+                    list.Add(item);
+                }
+                // gan vao session
+                Session[CartSession] = list;
+            }
+            else
+            {
+                // tao moi doi tuong cart item
+                var item = new CartItem();
+                item.catalog = catalog;
+                item.quantity = quantity;
+                var list = new List<CartItem>();
+                list.Add(item);
+                // gan vao session
+                Session[CartSession] = list;
+            }
+            return RedirectToAction("index");
         }
     }
 }
