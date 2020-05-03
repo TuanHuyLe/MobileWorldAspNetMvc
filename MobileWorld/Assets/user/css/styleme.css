@@ -139,7 +139,7 @@ a.myactive:hover {
     font-size: 14px !important;
     position: absolute;
     top: 0;
-    right: 0;
+    right: 50px;
 }
 
 .product-upper {
@@ -287,4 +287,15 @@ a.myactive:hover {
     display: flex !important;
     justify-content: center;
     align-items: center;
+}
+
+.btnRefresh::before {
+    font-weight: 600;
+    font-size: 20px;
+    color: #52a2e1;
+    margin-left: 20px;
+    cursor: pointer;
+}
+.btnRefresh::before:hover {
+    color: #5a88ca;
 }

@@ -9,5 +9,6 @@ namespace MobileWorld.common
     {
         public static string USER_SESSION = "USER_SESSION";
         public static string CART_SESSION = "CART_SESSION";
+        public static string CART_TOTAL_PRICE_SESSION = "CART_TOTAL_PRICE_SESSION";
     }
 }

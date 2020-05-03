@@ -1,6 +1,7 @@
 ﻿var cartConfig = {
     quantity: 1,
-    totalPrice: 0
+    totalPrice: 0,
+    priceCheckout: ''
 }
 
 var tableCart = {
@@ -51,12 +52,53 @@ var tableCart = {
             type: 'POST',
             success: res => {
                 if (res.status == true) {
-                    window.location.href('/cart');
                 }
             }
         });
     },
+    /*changeQuantity: (selector, opeator = 0) => {
+        var catalogid = selector.data('catalogid');
+        var price = parseInt(selector.data('price').split('.').join(''));
+        var quantity = parseInt($(`#quantity${catalogid}`).val());
+        if (opeator == 1) {
+            if (quantity < 10) {
+                $(`#quantity${catalogid}`).val(quantity += 1);
+                $(`.cost${catalogid}`).html(formatCurrency(price * quantity) + ' VNĐ');
+            }
+        } else {
+            if (quantity > 1) {
+                $(`#quantity${catalogid}`).val(quantity -= 1);
+                $(`.cost${catalogid}`).html(formatCurrency(price * quantity) + ' VNĐ');
+            }
+        }
+        state.forEach((item) => {
+            if (item.catalogid == catalogid) {
+                item.unit = quantity;
+            }
+        });
+        console.log(state);*/
     changeQuantity: function () {
+        $('.btnRefresh').off('click').on('click', function () {
+            var listPrice = $('.txtTotalPrice');
+            sum = 0;
+            $.each(listPrice, function (i, item) {
+                sum += parseInt($(item).text().match(/\d+/g).toString().split(',').join(''));
+            });
+            cartConfig.priceCheckout = sum.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + ' VNĐ';
+            $('#thanhtien').text(cartConfig.priceCheckout);
+            $.ajax({
+                url: '/cart/updateTotalPrice',
+                data: {
+                    totalPrice: cartConfig.priceCheckout
+                },
+                dataType: 'json',
+                type: 'POST',
+                success: res => {
+                    if (res.status == true) {
+                    }
+                }
+            });
+        });
         $('.minus').off('click').on('click', function () {
 
             let dataid = $(this).attr('data-id');

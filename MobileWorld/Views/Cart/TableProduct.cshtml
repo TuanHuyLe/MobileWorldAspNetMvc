@@ -47,13 +47,13 @@
                         <td class="product-quantity" style="padding:0;">
                             <div class="quantity buttons_added">
                                 <input type="button" class="minus" data-id="@item.catalog.id" id="minus-@item.catalog.id" value="-">
-                                <input type="text" id="soluong-@item.catalog.id" style="text-align: center; width: 40px; height: 30px;" readonly class="input-text qty text txtQuantity" data-id="@item.catalog.id" title="số lượng" value="@item.quantity" min="1" max="10" step="1">
+                                <input type="text" id="soluong-@item.catalog.id" style="text-align: center; width: 40px; height: 30px;" readonly class="input-text qty text txtQuantity" data-id="@item.catalog.id" title="số lượng" value="@item.quantity">
                                 <input type="button" class="plus" id="plus-@item.catalog.id" data-id="@item.catalog.id" value="+">
                             </div>
                         </td>
 
                         <td class="product-subtotal">
-                            <span class="amount" id="totalcart-@item.catalog.id">@string.Format("{0:0,0 VNĐ}", (@item.catalog.price * @item.quantity))</span>
+                            <span class="amount txtTotalPrice" id="totalcart-@item.catalog.id">@string.Format("{0:0,0 VNĐ}", (@item.catalog.price * @item.quantity))</span>
                         </td>
                     </tr>
                 }
@@ -64,8 +64,13 @@
                             <input type="text" value="" id="coupon_code" class="input-text" name="coupon_code" autocomplete="off">
                             <input type="submit" name="apply_coupon" class="button" onclick="javascript:alert('Hiện tại chưa mở chức năng này');" value="Xác nhận">
                         </div>
+                        <div class="coupon" style="font-size: 20px; margin-top: 10px;">
+                            <label>Thành tiền: </label>
+                            <label id="thanhtien"> @ViewBag.cartTotalPrice</label>
+                            <i class="fas fa-sync btnRefresh"></i>
+                        </div>
                         <input type="submit" value="Cập nhật" name="update_cart" id="update_cart" class="button hidden">
-                        <input type="submit" value="Thanh toán" name="proceed" class="checkout-button button alt wc-forward">
+                        <input type="submit" value="Thanh toán" name="proceed" style="float: right;" class="checkout-button button alt wc-forward">
                     </td>
                 </tr>
             }

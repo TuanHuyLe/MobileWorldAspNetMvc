@@ -13,7 +13,7 @@
                                 <div class="product-f-image">
                                     <img src="@item.pictureuri" alt="" />
                                     <div class="product-hover">
-                                        <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Mua</a>
+                                        <a href="@Url.Action("AddItem", "cart", new { id = item.id })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Mua</a>
                                         <a href="@Url.Action("index", "product", new { id = item.id })" class="view-details-link"><i class="fa fa-link"></i> Thông tin</a>
                                     </div>
                                 </div>

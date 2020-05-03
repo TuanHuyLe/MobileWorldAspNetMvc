@@ -28,10 +28,9 @@ namespace MobileWorld.areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var catalogDao = new CatalogDao();
-                int check = 0;
                 try
                 {
-                    check = catalogDao.AddNewBrand(entity);
+                    int check = catalogDao.AddNewBrand(entity);
                     if (check == 1)
                     {
                         return RedirectToAction("index");
