@@ -1,0 +1,9 @@
+﻿@model List<Model.Models.CartItem>
+
+<a href="@Url.Action("index", "cart")" class="shopping-item">
+    <span>
+        Giỏ hàng
+        <i class="fa fa-shopping-cart"></i>
+        <span class="product-count" id="viewQuantity">@Model.Count</span>
+    </span>
+</a>

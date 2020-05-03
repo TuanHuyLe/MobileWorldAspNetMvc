@@ -1,5 +1,7 @@
-﻿using Model.Dao;
+﻿using MobileWorld.common;
+using Model.Dao;
 using Model.EF;
+using Model.Models;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -57,6 +59,15 @@ namespace MobileWorld.Controllers
         {
             var brand = new CatalogUserDao().getAllCatalogBrand();
             return PartialView(brand);
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult CartHeader()
+        {
+            var cart = Session[CommonConstant.CART_SESSION];
+            var list = new List<CartItem>();
+            if (cart != null) list = (List<CartItem>)cart;
+            return PartialView(list);
         }
 
     }
