@@ -194,16 +194,55 @@ namespace Model.Dao
         public int forgotPassword(string UserName, string PhoneNumber, string NewPassword)
         {
             var user = db.Users.SingleOrDefault(x => x.username == UserName);
-            if(user != null)
+            if (user != null)
             {
                 var check = user.phonenumber == PhoneNumber ? 1 : 0;
-                if(check == 1)
+                if (check == 1)
                 {
                     user.password = NewPassword;
                     db.SaveChanges();
                     return 1;
                 }
                 return 0;
+            }
+            return -1;
+        }
+
+        public int insertFacebook(User entity)
+        {
+            var user = db.Users.SingleOrDefault(x => x.username == entity.username);
+
+            if (user == null)
+            {
+                using (var dbContextTransaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        entity.createdAt = DateTime.Now;
+                        entity.updatedAt = DateTime.Now;
+                        entity.createdby = entity.username;
+                        entity.password = Hashing.HashPassword(entity.id.ToString());
+                        entity.gender = 2;
+                        db.Users.Add(entity);
+                        db.SaveChanges();
+                        var role = new UserRole()
+                        {
+                            userid = entity.id,
+                            roleid = 1,
+                            createdAt = DateTime.Now,
+                            updatedAt = DateTime.Now
+                        };
+                        db.UserRoles.Add(role);
+                        db.SaveChanges();
+                        dbContextTransaction.Commit();
+                        return entity.id;
+                    }
+                    catch (Exception)
+                    {
+                        dbContextTransaction.Rollback();
+                        return 0;
+                    }
+                }
             }
             return -1;
         }

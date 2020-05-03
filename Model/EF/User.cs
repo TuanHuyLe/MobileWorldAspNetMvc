@@ -37,19 +37,19 @@
         [Display(Name = "Trạng thái")]
         public bool status { get; set; }
 
-        [Required(ErrorMessage = "Chưa nhập số điện thoại")]
+        //[Required(ErrorMessage = "Chưa nhập số điện thoại")]
         [Display(Name = "Số điện thoại")]
         [StringLength(15)]
         [DataType(DataType.PhoneNumber)]
         public string phonenumber { get; set; }
 
-        [Required(ErrorMessage = "Chưa nhập email")]
+        //[Required(ErrorMessage = "Chưa nhập email")]
         [Display(Name = "Email")]
         [StringLength(50)]
         [DataType(DataType.EmailAddress)]
         public string email { get; set; }
 
-        [Required(ErrorMessage = "Chưa nhập địa chỉ")]
+        //[Required(ErrorMessage = "Chưa nhập địa chỉ")]
         [Display(Name = "Địa chỉ")]
         [StringLength(150)]
         public string address { get; set; }
