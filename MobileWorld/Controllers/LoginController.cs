@@ -3,12 +3,29 @@ using MobileWorld.common;
 using Model.Dao;
 using System;
 using System.Web.Mvc;
+using Facebook;
+using System.Configuration;
+using Model.EF;
 
 namespace MobileWorld.Controllers
 {
     [Serializable]
     public class LoginController : Controller
     {
+        private Uri RedirectUri
+        {
+            get
+            {
+                var uriBuilder = new UriBuilder(Request.Url)
+                {
+                    Query = null,
+                    Fragment = null,
+                    Path = Url.Action("FacebookCallback")
+                };
+                return uriBuilder.Uri;
+            }
+        }
+
         // GET: /Home
         public ActionResult Index()
         {
@@ -107,6 +124,83 @@ namespace MobileWorld.Controllers
             return View("ForgotPassword");
         }
 
+        public ActionResult Facebook()
+        {
+            var fb = new FacebookClient();
+            var loginUrl = fb.GetLoginUrl(new
+            {
+                client_id = ConfigurationManager.AppSettings["FbAppId"],
+                client_secret = ConfigurationManager.AppSettings["FbAppSecret"],
+                redirect_uri = RedirectUri.AbsoluteUri,
+                response_type = "code",
+                scope = "email"
+            });
+            return Redirect(loginUrl.AbsoluteUri);
+        }
 
+        public ActionResult FacebookCallback(string code)
+        {
+            var fb = new FacebookClient();
+            dynamic result = fb.Post("oauth/access_token", new
+            {
+                client_id = ConfigurationManager.AppSettings["FbAppId"],
+                client_secret = ConfigurationManager.AppSettings["FbAppSecret"],
+                redirect_uri = RedirectUri.AbsoluteUri,
+                code = code
+            });
+            var accessToken = result.access_token;
+            if (!string.IsNullOrEmpty(accessToken))
+            {
+                fb.AccessToken = accessToken;
+                dynamic me = fb.Get("me?fields=first_name,middle_name,last_name,id,email");
+                string id = me.id;
+                string email = me.email;
+                string firstname = me.first_name;
+                string middlename = me.middle_name;
+                string lastname = me.last_name;
+
+                string fullname = firstname + " " + middlename + " " + lastname;
+                var user = new User
+                {
+                    id = 0,
+                    username = id,
+                    fullname = fullname,
+                    status = true,
+                    email = email
+                };
+
+                var dao = new UserDao();
+                var idUserFb = dao.insertFacebook(user);
+
+                if (idUserFb > 0)
+                {
+                    var userFb = dao.findById(idUserFb);
+                    var userSession = new UserSession
+                    {
+                        UserName = userFb.fullname,
+                        UserId = userFb.id,
+                        Role = dao.getRoleId(userFb.id)
+                    };
+                    Session.Add(CommonConstant.USER_SESSION, userSession);
+                    if (userSession.Role > 1) return RedirectToAction("index", "home", new { area = "admin" });
+                } else if(idUserFb == 0)
+                {
+                    ModelState.AddModelError("", "Đăng nhập bằng facebook lỗi!");
+                    return View("index");
+                } else
+                {
+                    var userFb = dao.findByUsername(id);
+                    var userSession = new UserSession
+                    {
+                        UserName = userFb.fullname,
+                        UserId = userFb.id,
+                        Role = dao.getRoleId(userFb.id)
+                    };
+                    Session.Add(CommonConstant.USER_SESSION, userSession);
+                    if(userSession.Role > 1) return RedirectToAction("index", "home", new { area = "admin" });
+                }
+            }
+            return Redirect("/");
+        }
     }
 }

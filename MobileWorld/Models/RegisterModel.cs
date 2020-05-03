@@ -21,7 +21,7 @@ namespace MobileWorld.Models
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Chưa nhập mật khẩu xác nhận")]
         [StringLength(255, MinimumLength = 5, ErrorMessage = "Mật khẩu phải trên 5 kí tự")]
-        [Compare("NewPassword", ErrorMessage = "Mật khẩu không trùng khớp")]
+        [Compare("Password", ErrorMessage = "Mật khẩu không trùng khớp")]
         public string RePassword { get; set; }
 
         [Display(Name = "Họ và tên")]
