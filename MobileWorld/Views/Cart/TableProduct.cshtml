@@ -9,55 +9,66 @@
                 <th class="product-name" style="width:250px">Tên sản phẩm</th>
                 <th class="product-price">Giá</th>
                 <th class="product-quantity">Số lượng</th>
-                <th class="product-subtotal">Tổng tiền</th>
+                <th class="product-subtotal" style="width: 135px;">Tổng tiền</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @if (Model.Count == 0)
             {
                 <tr class="cart_item">
-                    <td class="product-remove">
-                        <a title="Xóa sản phẩm" class="remove" href="#">×</a>
-                    </td>
-
-                    <td class="product-thumbnail">
-                        <a href="@Url.Action("index", "product", new { id = item.catalog.id })">
-                        <img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="@item.catalog.pictureuri">
-                        </a>
-                    </td>
-
-                    <td class="product-name">
-                        <a href="@Url.Action("index", "product", new { id = item.catalog.id })">@item.catalog.name</a>
-                    </td>
-
-                    <td class="product-price">
-                        <span class="amount">@string.Format("{0:0,0 VNĐ}", item.catalog.price)</span>
-                    </td>
-
-                    <td class="product-quantity" style="padding:0;">
-                        <div class="quantity buttons_added">
-                            <input type="button" class="minus" data-id="@item.catalog.id" id="minus-@item.catalog.id" value="-">
-                            <input type="text" id="soluong-@item.catalog.id" style="text-align: center; width: 40px; height: 30px;" readonly class="input-text qty text" title="số lượng" value="@item.quantity" min="1" max="10" step="1">
-                            <input type="button" class="plus" id="plus-@item.catalog.id" data-id="@item.catalog.id" value="+">
-                        </div>
-                    </td>
-
-                    <td class="product-subtotal">
-                        <span class="amount">@string.Format("{0:0,0 VNĐ}", (@item.catalog.price * @item.quantity))</span>
+                    <td class="product-remove" style="color: #ff6a00; font-weight: 600; text-transform: uppercase; font-size: 20px;" colspan="6">
+                        Giỏ hàng trống
                     </td>
                 </tr>
             }
-            <tr>
-                <td class="actions" colspan="6">
-                    <div class="coupon hidden">
-                        <label for="coupon_code">Mã giảm giá:</label>
-                        <input type="text" value="" id="coupon_code" class="input-text" name="coupon_code" autocomplete="off">
-                        <input type="submit" name="apply_coupon" class="button" onclick="javascript:alert('Hiện tại chưa mở chức năng này');" value="Xác nhận">
-                    </div>
-                    <input type="submit" value="Cập nhật" name="update_cart" class="button hidden">
-                    <input type="submit" value="Thanh toán" name="proceed" class="checkout-button button alt wc-forward">
-                </td>
-            </tr>
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr class="cart_item" id="line-@item.catalog.id">
+                        <td class="product-remove">
+                            <a title="Xóa sản phẩm" class="remove" href="#" data-id="@item.catalog.id">×</a>
+                        </td>
+
+                        <td class="product-thumbnail">
+                            <a href="@Url.Action("index", "product", new { id = item.catalog.id })">
+                                <img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="@item.catalog.pictureuri">
+                            </a>
+                        </td>
+
+                        <td class="product-name">
+                            <a href="@Url.Action("index", "product", new { id = item.catalog.id })">@item.catalog.name</a>
+                        </td>
+
+                        <td class="product-price">
+                            <span class="amount" id="price-@item.catalog.id" data-price="@item.catalog.price">@string.Format("{0:0,0 VNĐ}", item.catalog.price)</span>
+                        </td>
+
+                        <td class="product-quantity" style="padding:0;">
+                            <div class="quantity buttons_added">
+                                <input type="button" class="minus" data-id="@item.catalog.id" id="minus-@item.catalog.id" value="-">
+                                <input type="text" id="soluong-@item.catalog.id" style="text-align: center; width: 40px; height: 30px;" readonly class="input-text qty text txtQuantity" data-id="@item.catalog.id" title="số lượng" value="@item.quantity" min="1" max="10" step="1">
+                                <input type="button" class="plus" id="plus-@item.catalog.id" data-id="@item.catalog.id" value="+">
+                            </div>
+                        </td>
+
+                        <td class="product-subtotal">
+                            <span class="amount" id="totalcart-@item.catalog.id">@string.Format("{0:0,0 VNĐ}", (@item.catalog.price * @item.quantity))</span>
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td class="actions" colspan="6">
+                        <div class="coupon hidden">
+                            <label for="coupon_code">Mã giảm giá:</label>
+                            <input type="text" value="" id="coupon_code" class="input-text" name="coupon_code" autocomplete="off">
+                            <input type="submit" name="apply_coupon" class="button" onclick="javascript:alert('Hiện tại chưa mở chức năng này');" value="Xác nhận">
+                        </div>
+                        <input type="submit" value="Cập nhật" name="update_cart" id="update_cart" class="button hidden">
+                        <input type="submit" value="Thanh toán" name="proceed" class="checkout-button button alt wc-forward">
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 </form>

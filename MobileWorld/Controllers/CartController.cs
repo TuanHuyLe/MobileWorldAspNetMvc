@@ -1,20 +1,21 @@
-﻿using Model.Dao;
+﻿using MobileWorld.common;
+using Model.Dao;
 using Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace MobileWorld.Controllers
 {
     public class CartController : Controller
     {
-        private string CartSession = "CartSession";
         // GET: Cart
         public ActionResult Index()
         {
-            var cart = Session[CartSession];
+            var cart = Session[CommonConstant.CART_SESSION];
             var list = new List<CartItem>();
             if (cart != null)
             {
@@ -38,7 +39,7 @@ namespace MobileWorld.Controllers
         public ActionResult AddItem(int id, int quantity)
         {
             var catalog = new CatalogDao().findById(id);
-            var cart = Session[CartSession];
+            var cart = Session[CommonConstant.CART_SESSION];
             if (quantity > 10) quantity = 10;
             if (quantity < 1) quantity = 1;
             if (cart != null)
@@ -66,7 +67,7 @@ namespace MobileWorld.Controllers
                     list.Add(item);
                 }
                 // gan vao session
-                Session[CartSession] = list;
+                Session[CommonConstant.CART_SESSION] = list;
             }
             else
             {
@@ -74,12 +75,46 @@ namespace MobileWorld.Controllers
                 var item = new CartItem();
                 item.catalog = catalog;
                 item.quantity = quantity;
-                var list = new List<CartItem>();
-                list.Add(item);
+                var list = new List<CartItem>
+                {
+                    item
+                };
                 // gan vao session
-                Session[CartSession] = list;
+                Session[CommonConstant.CART_SESSION] = list;
             }
             return RedirectToAction("index");
+        }
+
+        [HttpPost]
+        public JsonResult Update(string cartModel)
+        {
+            var jsonCart = new JavaScriptSerializer().Deserialize<List<CartItem>>(cartModel);
+            var sessionCart = (List<CartItem>)Session[CommonConstant.CART_SESSION];
+            foreach(var item in sessionCart)
+            {
+                var jsonItem = jsonCart.SingleOrDefault(x => x.catalog.id == item.catalog.id);
+                if(jsonItem != null)
+                {
+                    item.quantity = jsonItem.quantity;
+                }
+            }
+            Session[CommonConstant.CART_SESSION] = sessionCart;
+            return Json(new
+            {
+                status = true
+            });
+        }
+
+        [HttpPost]
+        public JsonResult DeleteCart(int catalogid)
+        {
+            var sessionCart = (List<CartItem>)Session[CommonConstant.CART_SESSION];
+            sessionCart.RemoveAll(x => x.catalog.id == catalogid);
+            Session[CommonConstant.CART_SESSION] = sessionCart;
+            return Json(new
+            {
+                status = true
+            });
         }
     }
 }

@@ -1807,7 +1807,7 @@
     <Content Include="Assets\user\js\myJs\listCatalog.js" />
     <Content Include="Assets\user\js\myJs\loginAjax.js" />
     <Content Include="Assets\user\js\myJs\scriptDetailProduct.js" />
-    <Content Include="Assets\user\js\myJs\tableCart.js" />
+    <Content Include="Assets\user\js\myJs\cartTable.js" />
     <Content Include="Assets\user\js\owl.carousel.min.js" />
     <Content Include="Assets\user\js\script.slider.js" />
     <Content Include="Assets\user\logo\asus-logo.jpg" />
@@ -2171,6 +2171,7 @@
     <Content Include="Views\Cart\TableProduct.cshtml" />
     <Content Include="Views\Cart\CartTotal.cshtml" />
     <Content Include="Views\Login\ForgotPassword.cshtml" />
+    <Content Include="Views\HomeShop\CartHeader.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

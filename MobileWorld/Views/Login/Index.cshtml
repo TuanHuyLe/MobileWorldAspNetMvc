@@ -23,6 +23,7 @@
 </head>
 
 <body class="bg-gradient-login">
+    
     <!-- Login Content -->
     <div class="container-login">
         <div class="row justify-content-center">
@@ -59,8 +60,10 @@
                                             <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
                                         </div>
                                     }
-
                                     <hr>
+                                    <button class="btn btn-facebook btn-block">
+                                        <i class="fab fa-facebook-f fa-fw"></i> Đăng nhập bằng Facebook
+                                    </button>
                                     <div class="text-center">
                                         @Html.ActionLink("Quên mật khẩu?", "ForgotPassword",
                                         "Login", null, new { @class = "font-weight-bold small" })
