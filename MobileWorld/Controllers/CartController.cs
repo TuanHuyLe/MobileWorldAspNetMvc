@@ -27,16 +27,11 @@ namespace MobileWorld.Controllers
         [ChildActionOnly]
         public ActionResult TableProduct(List<CartItem> list)
         {
+            ViewBag.cartTotalPrice = Session[CommonConstant.CART_TOTAL_PRICE_SESSION];
             return PartialView(list);
         }
 
-        [ChildActionOnly]
-        public ActionResult CartTotal()
-        {
-            return PartialView();
-        }
-
-        public ActionResult AddItem(int id, int quantity)
+        public ActionResult AddItem(int id, int quantity = 1)
         {
             var catalog = new CatalogDao().findById(id);
             var cart = Session[CommonConstant.CART_SESSION];
@@ -72,9 +67,11 @@ namespace MobileWorld.Controllers
             else
             {
                 // tao moi doi tuong cart item
-                var item = new CartItem();
-                item.catalog = catalog;
-                item.quantity = quantity;
+                var item = new CartItem
+                {
+                    catalog = catalog,
+                    quantity = quantity
+                };
                 var list = new List<CartItem>
                 {
                     item
@@ -90,10 +87,10 @@ namespace MobileWorld.Controllers
         {
             var jsonCart = new JavaScriptSerializer().Deserialize<List<CartItem>>(cartModel);
             var sessionCart = (List<CartItem>)Session[CommonConstant.CART_SESSION];
-            foreach(var item in sessionCart)
+            foreach (var item in sessionCart)
             {
                 var jsonItem = jsonCart.SingleOrDefault(x => x.catalog.id == item.catalog.id);
-                if(jsonItem != null)
+                if (jsonItem != null)
                 {
                     item.quantity = jsonItem.quantity;
                 }
@@ -116,5 +113,16 @@ namespace MobileWorld.Controllers
                 status = true
             });
         }
+
+        [HttpPost]
+        public JsonResult UpdateTotalPrice(string totalPrice)
+        {
+            Session[CommonConstant.CART_TOTAL_PRICE_SESSION] = totalPrice;
+            return Json(new
+            {
+                status = true
+            });
+        }
+        
     }
 }
