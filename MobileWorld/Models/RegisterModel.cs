@@ -32,18 +32,10 @@ namespace MobileWorld.Models
         [Display(Name ="Giới tính")]
         public int gender { get; set; }
 
-        [Display(Name = "Số điện thoại")]
-        [DataType(DataType.PhoneNumber)]
-        [Required(ErrorMessage = "Chưa nhập số điện thoại")]
-        public string PhoneNumber { get; set; }
-
         [Display(Name = "Email")]
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "Chưa nhập email")]
         public string Email { get; set; }
 
-        [Display(Name = "Địa chỉ")]
-        [Required(ErrorMessage = "Chưa nhập địa chỉ")]
-        public string Address { get; set; }
     }
 }

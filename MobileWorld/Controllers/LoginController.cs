@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Facebook;
 using System.Configuration;
 using Model.EF;
+using EmailService;
 
 namespace MobileWorld.Controllers
 {
@@ -111,15 +112,25 @@ namespace MobileWorld.Controllers
             if (ModelState.IsValid)
             {
                 var dao = new UserDao();
-                var check = dao.forgotPassword(entity.UserName, entity.PhoneNumber, entity.NewPassword);
+                string newPass = GeneratePassword.Generate();
+                int check = dao.changePassword(entity.UserName, entity.Email, newPass);
                 if (check == 1)
                 {
+                    string content = "Mật khẩu mới của bạn là: <b>" + newPass + "</b>";
+                    new MailHelper().SendEmail(entity.Email, "Mobile World - Quên mật khẩu", content);
+                    //ModelState.AddModelError("", "Mật khẩu mới đã được gửi vào email của bạn");
+                    string message = "Mật khẩu mới đã được gửi vào email của bạn";
+                    TempData["Message"] = message;
                     return RedirectToAction("index", "login");
                 }
-                else if (check == -1)
+                else if (check == -2)
+                {
+                    ModelState.AddModelError("", "Email không đúng");
+                }
+                else
+                {
                     ModelState.AddModelError("", "Tài khoản không đúng");
-                else if (check == 0)
-                    ModelState.AddModelError("", "Số điện thoại không đúng");
+                }
             }
             return View("ForgotPassword");
         }
@@ -183,11 +194,13 @@ namespace MobileWorld.Controllers
                     };
                     Session.Add(CommonConstant.USER_SESSION, userSession);
                     if (userSession.Role > 1) return RedirectToAction("index", "home", new { area = "admin" });
-                } else if(idUserFb == 0)
+                }
+                else if (idUserFb == 0)
                 {
                     ModelState.AddModelError("", "Đăng nhập bằng facebook lỗi!");
                     return View("index");
-                } else
+                }
+                else
                 {
                     var userFb = dao.findByUsername(id);
                     var userSession = new UserSession
@@ -197,7 +210,7 @@ namespace MobileWorld.Controllers
                         Role = dao.getRoleId(userFb.id)
                     };
                     Session.Add(CommonConstant.USER_SESSION, userSession);
-                    if(userSession.Role > 1) return RedirectToAction("index", "home", new { area = "admin" });
+                    if (userSession.Role > 1) return RedirectToAction("index", "home", new { area = "admin" });
                 }
             }
             return Redirect("/");

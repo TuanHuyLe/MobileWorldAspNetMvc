@@ -159,6 +159,7 @@
     <Compile Include="areas\Admin\Controllers\BrandController.cs" />
     <Compile Include="areas\Admin\Controllers\CatalogController.cs" />
     <Compile Include="areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="common\GeneratePassword.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -2001,6 +2002,11 @@
     <Content Include="Assets\admin\vendor\jquery\jquery.slim.min.map" />
     <Content Include="areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="areas\Admin\Views\Shared\_LeftMenu.cshtml" />
+    <None Include="Scripts\jquery-3.5.0.intellisense.js" />
+    <Content Include="Scripts\jquery-3.5.0.js" />
+    <Content Include="Scripts\jquery-3.5.0.min.js" />
+    <Content Include="Scripts\jquery-3.5.0.slim.js" />
+    <Content Include="Scripts\jquery-3.5.0.slim.min.js" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -2049,11 +2055,8 @@
     <Content Include="areas\Admin\Views\Brand\AddNewBrand.cshtml" />
     <Content Include="areas\Admin\Views\Brand\Index.cshtml" />
     <Content Include="areas\Admin\Views\Brand\Edit.cshtml" />
-    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.5.0.slim.min.map" />
+    <Content Include="Scripts\jquery-3.5.0.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -2180,10 +2183,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\EmailService.csproj">
+      <Project>{987f7960-ee86-4b9e-a292-ff0af6f2e67a}</Project>
+      <Name>EmailService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{a4800b96-259e-42f4-92a1-77270c27484c}</Project>
       <Name>Model</Name>

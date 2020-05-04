@@ -3,6 +3,7 @@ using MobileWorld.common;
 using Model.Dao;
 using System;
 using System.Web.Mvc;
+using EmailService;
 
 namespace MobileWorld.Controllers
 {
@@ -33,7 +34,9 @@ namespace MobileWorld.Controllers
                 {
                     var userMapper = UserMapper.mapper(model);
                     var username = dao.Register(userMapper);
-                    return RedirectToAction("index", "login", new { username  });
+                    var content = "Chúc mừng bạn đã đăng ký thành công tài khoản <b>" + username + "</b>";
+                    new MailHelper().SendEmail(model.Email, "Mobile World - Đăng ký tài khoản", content);
+                    return RedirectToAction("index", "login");
                 }
             }
             return View("index");
