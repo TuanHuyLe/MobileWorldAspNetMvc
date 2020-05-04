@@ -40,6 +40,7 @@
                                     {
                                         @Html.AntiForgeryToken()
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" }, "error")
+                                        <p style="color: #ff0000; font-size: 16px;">@TempData["Message"]</p>
                                         <div class="form-group">
                                             @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @placeholder = "Tên tài khoản" })
                                             @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
@@ -61,7 +62,7 @@
                                         </div>
                                     }
                                     <hr>
-                                    <a class="btn btn-facebook btn-block" href="/login/facebook">
+                                    <a class="btn btn-facebook btn-block mb-3" href="/login/facebook">
                                         <i class="fab fa-facebook-f fa-fw"></i> Đăng nhập bằng Facebook
                                     </a>
                                     <div class="text-center">

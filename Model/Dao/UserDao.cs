@@ -191,21 +191,39 @@ namespace Model.Dao
             db.SaveChanges();
         }
 
-        public int forgotPassword(string UserName, string PhoneNumber, string NewPassword)
+        public int changePassword(string username,string email, string newPassword, string oldPassword = "")
         {
-            var user = db.Users.SingleOrDefault(x => x.username == UserName);
-            if (user != null)
+            var user = db.Users.SingleOrDefault(x => x.username == username);
+            if(user != null)
             {
-                var check = user.phonenumber == PhoneNumber ? 1 : 0;
-                if (check == 1)
+                if (email.Equals(user.email))
                 {
-                    user.password = NewPassword;
-                    db.SaveChanges();
-                    return 1;
+                    if (string.IsNullOrEmpty(oldPassword))
+                    {
+                        user.password = Hashing.HashPassword(newPassword);
+                        db.SaveChanges();
+                        return 1; // ok
+                    }
+                    else
+                    {
+                        if (Hashing.ValidatePassword(oldPassword, user.password))
+                        {
+                            user.password = Hashing.HashPassword(newPassword);
+                            db.SaveChanges();
+                            return 1; // ok
+                        }
+                        else
+                        {
+                            return -1; // wrong password
+                        }
+                    }
                 }
-                return 0;
+                else
+                {
+                    return -2; // wrong email
+                }
             }
-            return -1;
+            return 0; // username not exists
         }
 
         public int insertFacebook(User entity)

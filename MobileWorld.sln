@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileWorld", "MobileWorld\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{A4800B96-259E-42F4-92A1-77270C27484C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService", "Common\EmailService.csproj", "{987F7960-EE86-4B9E-A292-FF0AF6F2E67A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A4800B96-259E-42F4-92A1-77270C27484C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4800B96-259E-42F4-92A1-77270C27484C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4800B96-259E-42F4-92A1-77270C27484C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{987F7960-EE86-4B9E-A292-FF0AF6F2E67A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{987F7960-EE86-4B9E-A292-FF0AF6F2E67A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{987F7960-EE86-4B9E-A292-FF0AF6F2E67A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{987F7960-EE86-4B9E-A292-FF0AF6F2E67A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
