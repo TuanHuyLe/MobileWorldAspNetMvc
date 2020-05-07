@@ -166,13 +166,14 @@
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="areas\Admin\Controllers\UsersController.cs" />
-    <Content Include="Assets\admin\css\styleme.css" />
+    <Content Include="Assets\admin\css\mystyle.css" />
     <Content Include="Assets\admin\css\admin-ruang.min.css" />
     <Content Include="Assets\admin\js\controller\ajaxAdmin.js" />
     <Compile Include="common\CommonConstant.cs" />
     <Compile Include="common\UserMapper.cs" />
     <Compile Include="common\UserSession.cs" />
     <Compile Include="Controllers\HomeShopController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1776,7 +1777,7 @@
     <Content Include="Assets\admin\vendor\jquery\jquery.slim.min.js" />
     <Content Include="Assets\user\css\bootstrap.min.css" />
     <Content Include="Assets\user\css\font-awesome.min.css" />
-    <Content Include="Assets\user\css\styleme.css" />
+    <Content Include="Assets\user\css\meestyle.css" />
     <Content Include="Assets\user\css\owl.carousel.css" />
     <Content Include="Assets\user\css\responsive.css" />
     <Content Include="Assets\user\fonts\fontawesome-webfont.svg" />
@@ -1809,7 +1810,8 @@
     <Content Include="Assets\user\js\jquery.sticky.js" />
     <Content Include="Assets\user\js\main.js" />
     <Content Include="Assets\user\js\myJs\listCatalog.js" />
-    <Content Include="Assets\user\js\myJs\loginAjax.js" />
+    <Content Include="Assets\user\js\myJs\ajaxlogin.js" />
+    <Content Include="Assets\user\js\myJs\profileAjax.js" />
     <Content Include="Assets\user\js\myJs\scriptDetailProduct.js" />
     <Content Include="Assets\user\js\myJs\cartTable.js" />
     <Content Include="Assets\user\js\owl.carousel.min.js" />
@@ -2177,9 +2179,11 @@
     <Content Include="Views\Cart\TableProduct.cshtml" />
     <Content Include="Views\Login\ForgotPassword.cshtml" />
     <Content Include="Views\HomeShop\CartHeader.cshtml" />
+    <Content Include="Views\User\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Public\Images\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

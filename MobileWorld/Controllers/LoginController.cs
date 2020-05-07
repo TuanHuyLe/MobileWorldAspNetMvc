@@ -7,6 +7,10 @@ using Facebook;
 using System.Configuration;
 using Model.EF;
 using EmailService;
+using System.Net;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace MobileWorld.Controllers
 {
@@ -135,7 +139,7 @@ namespace MobileWorld.Controllers
             return View("ForgotPassword");
         }
 
-        public ActionResult Facebook()
+        public ActionResult LoginFacebook()
         {
             var fb = new FacebookClient();
             var loginUrl = fb.GetLoginUrl(new
@@ -163,21 +167,32 @@ namespace MobileWorld.Controllers
             if (!string.IsNullOrEmpty(accessToken))
             {
                 fb.AccessToken = accessToken;
-                dynamic me = fb.Get("me?fields=first_name,middle_name,last_name,id,email");
+                dynamic me = fb.Get("me?fields=first_name,middle_name,last_name,id,email,picture.width(480).height(480)");
                 string id = me.id;
                 string email = me.email;
                 string firstname = me.first_name;
                 string middlename = me.middle_name;
                 string lastname = me.last_name;
+                string avatar = me.picture.data.url;
+
+                string path = Server.MapPath("~\\Public\\Images") + "\\" + id + ".jpg"; // Create a folder named 'Images' in your root directory
+                string pathSave = "\\Public\\Images" +"\\" + id + ".jpg";
+
+                using (WebClient client = new WebClient())
+                {
+                    client.DownloadFile(new Uri(avatar), path);
+                }
 
                 string fullname = firstname + " " + middlename + " " + lastname;
                 var user = new User
                 {
-                    id = 0,
                     username = id,
                     fullname = fullname,
                     status = true,
-                    email = email
+                    email = email,
+                    createdAt = DateTime.Now,
+                    updatedAt = DateTime.Now,
+                    avatar = pathSave
                 };
 
                 var dao = new UserDao();
@@ -193,27 +208,11 @@ namespace MobileWorld.Controllers
                         Role = dao.getRoleId(userFb.id)
                     };
                     Session.Add(CommonConstant.USER_SESSION, userSession);
-                    if (userSession.Role > 1) return RedirectToAction("index", "home", new { area = "admin" });
                 }
-                else if (idUserFb == 0)
-                {
-                    ModelState.AddModelError("", "Đăng nhập bằng facebook lỗi!");
-                    return View("index");
-                }
-                else
-                {
-                    var userFb = dao.findByUsername(id);
-                    var userSession = new UserSession
-                    {
-                        UserName = userFb.fullname,
-                        UserId = userFb.id,
-                        Role = dao.getRoleId(userFb.id)
-                    };
-                    Session.Add(CommonConstant.USER_SESSION, userSession);
-                    if (userSession.Role > 1) return RedirectToAction("index", "home", new { area = "admin" });
-                }
+                return Redirect("/");
             }
-            return Redirect("/");
+            ModelState.AddModelError("", "Đăng nhập bằng facebook lỗi!");
+            return View("index");
         }
     }
 }

@@ -29,6 +29,11 @@ namespace Model.EF
 
         public int userid { get; set; }
 
+        [StringLength(255)]
+        public string shiptoaddress { get; set; }
+
         public virtual User User { get; set; }
+
+        public virtual Notification Notification { get; set; }
     }
 }

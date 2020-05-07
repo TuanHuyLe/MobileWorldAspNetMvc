@@ -54,7 +54,7 @@
         [StringLength(150)]
         public string address { get; set; }
 
-        [Display(Name = "Người khởi tạo")]
+        [Display(Name = "Người đăng ký")]
         [StringLength(255)]
         public string createdby { get; set; }
 
@@ -70,6 +70,10 @@
 
         [Display(Name = "Giới tính")]
         public int gender { get; set; }
+
+        [StringLength(255)]
+        [Display(Name = "Ảnh đại diện")]
+        public string avatar { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Basket> Baskets { get; set; }

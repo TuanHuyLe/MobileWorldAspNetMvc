@@ -12,6 +12,7 @@
         public Catalog()
         {
             Baskets = new HashSet<Basket>();
+            Histories = new HashSet<History>();
             Specifications = new HashSet<Specification>();
             SpecificationsLaptops = new HashSet<SpecificationsLaptop>();
             SpecificationsMobiles = new HashSet<SpecificationsMobile>();
@@ -68,6 +69,9 @@
         public virtual CatalogBrand CatalogBrand { get; set; }
 
         public virtual CatalogType CatalogType { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<History> Histories { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Specification> Specifications { get; set; }
