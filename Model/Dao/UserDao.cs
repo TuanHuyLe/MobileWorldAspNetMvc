@@ -226,7 +226,7 @@ namespace Model.Dao
             return 0; // username not exists
         }
 
-        public int insertFacebook(User entity)
+        /*public int insertFacebook(User entity)
         {
             var user = db.Users.SingleOrDefault(x => x.username == entity.username);
 
@@ -263,8 +263,45 @@ namespace Model.Dao
                 }
             }
             return -1;
+        }*/
+
+        public int insertFacebook(User model)
+        {
+            var user = db.Users.SingleOrDefault(x => x.username == model.username);
+            if (user == null)
+            {
+                model.password = Hashing.HashPassword("facebook");
+                model.gender = 2;
+                db.Users.Add(model);
+                db.SaveChanges();
+                var role = new UserRole()
+                {
+                    userid = model.id,
+                    roleid = 1,
+                    createdAt = DateTime.Now,
+                    updatedAt = DateTime.Now
+                };
+                db.SaveChanges();
+                return model.id;
+            }
+            return user.id;
         }
 
+        public void changeAvatar(int id, string avatar)
+        {
+            var user = db.Users.Find(id);
+            user.avatar = avatar;
+            db.SaveChanges();
+        }
+
+        public string changePassword(int id, string oldpass, string newpass)
+        {
+            var user = db.Users.Find(id);
+            if (user == null || !Hashing.ValidatePassword(oldpass, user.password)) return null;
+            user.password = Hashing.HashPassword(newpass);
+            db.SaveChanges();
+            return user.username;
+        }
     }
 
 }

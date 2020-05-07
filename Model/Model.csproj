@@ -111,7 +111,9 @@
     <Compile Include="EF\Catalog.cs" />
     <Compile Include="EF\CatalogBrand.cs" />
     <Compile Include="EF\CatalogType.cs" />
+    <Compile Include="EF\History.cs" />
     <Compile Include="EF\MobileWorldDbContext.cs" />
+    <Compile Include="EF\Notification.cs" />
     <Compile Include="EF\Role.cs" />
     <Compile Include="EF\Specification.cs" />
     <Compile Include="EF\SpecificationsLaptop.cs" />
@@ -143,6 +145,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -6,26 +6,25 @@ namespace Model.EF
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Basket
+    public partial class Notification
     {
         [Key]
-        [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int catalogid { get; set; }
+        public int billid { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int userid { get; set; }
+        public int? userid { get; set; }
 
-        public int unit { get; set; }
+        [StringLength(255)]
+        public string title { get; set; }
+
+        public string content { get; set; }
+
+        public int? status { get; set; }
 
         public DateTimeOffset? createdAt { get; set; }
 
         public DateTimeOffset? updatedAt { get; set; }
 
-        public virtual User User { get; set; }
-
-        public virtual Catalog Catalog { get; set; }
+        public virtual Bill Bill { get; set; }
     }
 }

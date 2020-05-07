@@ -27,16 +27,23 @@
                     var session = (MobileWorld.common.UserSession)Session["USER_SESSION"];
                     var text = "";
                     var name = "";
-                    if (session == null) { text = "Đăng nhập"; } else { text = "Đăng xuất"; name = session.UserName; }
+                    var id = 0;
+                    if (session == null) { text = "Đăng nhập"; } else { text = "Đăng xuất"; name = session.UserName; id = session.UserId; }
                 }
-                <a href="/login" id="linklogin"></a>
                 <a href="#" id="login">@text</a>
             </li>
         </ul>
     </div>
     <ul class="navlinks">
         <li>
-            <a href="#" class="greeting" id="greeting">Xin chào @name</a>
+            @if (session != null)
+            {
+                <a class="greeting" href="@Url.Action("profile", "user", new { id = id })" id="greeting">Xin chào @name</a>
+            }
+            else
+            {
+                <a class="greeting" href="#" id="greeting">Xin chào</a>
+            }
         </li>
         <li>
             @{ Html.RenderAction("CartHeader", "homeshop"); }

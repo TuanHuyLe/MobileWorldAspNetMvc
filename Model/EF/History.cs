@@ -6,25 +6,19 @@ namespace Model.EF
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Basket
+    public partial class History
     {
-        [Key]
-        [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int catalogid { get; set; }
+        public int id { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int userid { get; set; }
+        public decimal inputprice { get; set; }
 
         public int unit { get; set; }
+
+        public int catalogid { get; set; }
 
         public DateTimeOffset? createdAt { get; set; }
 
         public DateTimeOffset? updatedAt { get; set; }
-
-        public virtual User User { get; set; }
 
         public virtual Catalog Catalog { get; set; }
     }

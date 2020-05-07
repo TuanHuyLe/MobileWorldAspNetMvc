@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
@@ -7,6 +8,8 @@ namespace Model.Models
     public class UserModel
     {
         public int id { get; set; }
+        [Display(Name = "Tài khoản")]
+        public string username { get; set; }
         [Display(Name = "Tên người dùng")]
         public string fullname { get; set; }
         [Display(Name = "Số điện thoại")]
@@ -24,6 +27,7 @@ namespace Model.Models
         public int role { get; set; }
         [Display(Name = "Thay đổi giới tính")]
         public int gender { get; set; }
-
+        [Display(Name = "Ngày đăng ký")]
+        public DateTimeOffset? createdAt { get; set; }
     }
 }
