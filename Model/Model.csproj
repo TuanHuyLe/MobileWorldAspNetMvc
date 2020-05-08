@@ -130,6 +130,7 @@
     <Compile Include="Models\LaptopDTO.cs" />
     <Compile Include="Models\ListCatalogBrand.cs" />
     <Compile Include="Models\MobileDTO.cs" />
+    <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Models\SpecificationLaptop.cs" />
     <Compile Include="Models\SpecificationMobile.cs" />
     <Compile Include="Models\Specifications.cs" />

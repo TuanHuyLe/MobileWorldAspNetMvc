@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Model.EF.Catalog>
+
+@foreach (var item in Model)
+{
+    <li class="product">
+        <div style="height: 322px; display: flex; align-items: center;">
+            <a href="@Url.Action("index", "product", new { id = item.id })">
+                <img width="325" height="325" alt="T_4_front" class="attachment-shop_catalog wp-post-image" src="@item.pictureuri">
+                <h3>@item.name</h3>
+                <span class="price"><span class="amount">@string.Format("{0:0,0} VNĐ", item.price)</span></span>
+            </a>
+        </div>
+        <a class="add_to_cart_button" rel="nofollow" href="@Url.Action("additem", "cart", new { id=item.id })">Mua</a>
+    </li>
+}

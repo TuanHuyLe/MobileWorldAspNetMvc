@@ -158,5 +158,60 @@ namespace Model.Dao
                   .ToList();
         }
 
+        public List<SearchModel> searchFor(string keyword)
+        {
+            string kwformat = ConvertToUnSign(keyword);
+            var model = from c in db.Catalogs
+                        join b in db.CatalogBrands
+                        on c.catalogbrandid equals b.id
+                        join t in db.CatalogTypes
+                        on c.catalogtypeid equals t.id
+                        select new SearchModel
+                        {
+                            id = c.id,
+                            name = c.name,
+                            brand = b.brand,
+                            type = t.type,
+                            brandid = b.id,
+                            typeid = t.id
+                        };
+
+            List<SearchModel> lst = new List<SearchModel>();
+            foreach(var item in model)
+            {
+                if(kwformat.Contains(ConvertToUnSign(item.name)) || ConvertToUnSign(item.name).Contains(kwformat))
+                {
+                    lst.Add(item);
+                }
+            }
+
+            /*if ("dienthoai".Contains(kwformat) || kwformat.Contains(ConvertToUnSign("dienthoai")))
+                model = model.Where(x => x.typeid == 1);
+            else if ("maytinh".Contains(kwformat) || "laptop".Contains(kwformat) ||
+                kwformat.Contains("maytinh") || kwformat.Contains("laptop"))
+                model = model.Where(x => x.typeid == 2);
+
+            var filterType = model.Where(x => kwformat.Contains(x.brand.ToLower()) || x.brand.ToLower().Contains(kwformat));
+            if (filterType.Count() > 0)
+            {
+                return filterType.OrderByDescending(x => x.id).Skip(0).Take(5).ToList();
+            }
+*/
+            return lst.OrderByDescending(x => x.id).Skip(0).Take(5).ToList();
+        }
+
+        public static string ConvertToUnSign(string stringInput)
+        {
+            stringInput = stringInput.ToLower();
+            string convert = "ĂÂÀẰẦÁẮẤẢẲẨÃẴẪẠẶẬỄẼỂẺÉÊÈỀẾẸỆÔÒỒƠỜÓỐỚỎỔỞÕỖỠỌỘỢƯÚÙỨỪỦỬŨỮỤỰÌÍỈĨỊỲÝỶỸỴĐăâàằầáắấảẳẩãẵẫạặậễẽểẻéêèềếẹệôòồơờóốớỏổởõỗỡọộợưúùứừủửũữụựìíỉĩịỳýỷỹỵđ";
+            string To = "AAAAAAAAAAAAAAAAAEEEEEEEEEEEOOOOOOOOOOOOOOOOOUUUUUUUUUUUIIIIIYYYYYDaaaaaaaaaaaaaaaaaeeeeeeeeeeeooooooooooooooooouuuuuuuuuuuiiiiiyyyyyd";
+            for (int i = 0; i < To.Length; i++)
+            {
+                stringInput = stringInput.Replace(convert[i], To[i]);
+            }
+            var newstr = String.Join("", stringInput.Where(c => !char.IsWhiteSpace(c)));
+            return newstr;
+        }
+
     }
 }

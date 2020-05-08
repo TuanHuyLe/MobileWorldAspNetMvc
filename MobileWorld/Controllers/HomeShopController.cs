@@ -70,5 +70,23 @@ namespace MobileWorld.Controllers
             return PartialView(list);
         }
 
+        [HttpGet]
+        public JsonResult Search(string keyword)
+        {
+            var list = new CatalogUserDao().searchFor(keyword);
+            if (list.Count() > 0)
+                return Json(new
+                {
+                    status = true,
+                    data = list
+                }, JsonRequestBehavior.AllowGet);
+            else
+                return Json(new
+                {
+                    status = false,
+                    data = list
+                }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
