@@ -123,6 +123,13 @@ namespace MobileWorld.Controllers
                 status = true
             });
         }
-        
+
+        [ChildActionOnly]
+        public ActionResult InterestedProduct()
+        {
+            var interested = new CatalogUserDao().GetCatalogs(1, 3);
+            return PartialView(interested);
+        }
+
     }
 }

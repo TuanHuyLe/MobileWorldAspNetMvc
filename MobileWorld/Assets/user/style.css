@@ -948,7 +948,7 @@ td.actions div.coupon {
 .cross-sells {
     float: left;
     margin-right: 3%;
-    width: 57%;
+    width: 100%;
 }
 .cart_totals {
     float: right;

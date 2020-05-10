@@ -1777,7 +1777,7 @@
     <Content Include="Assets\admin\vendor\jquery\jquery.slim.min.js" />
     <Content Include="Assets\user\css\bootstrap.min.css" />
     <Content Include="Assets\user\css\font-awesome.min.css" />
-    <Content Include="Assets\user\css\meestyle.css" />
+    <Content Include="Assets\user\css\metyleme.css" />
     <Content Include="Assets\user\css\owl.carousel.css" />
     <Content Include="Assets\user\css\responsive.css" />
     <Content Include="Assets\user\fonts\fontawesome-webfont.svg" />
@@ -1814,6 +1814,7 @@
     <Content Include="Assets\user\js\myJs\profileAjax.js" />
     <Content Include="Assets\user\js\myJs\scriptDetailProduct.js" />
     <Content Include="Assets\user\js\myJs\cartTable.js" />
+    <Content Include="Assets\user\js\myJs\searchAjax.js" />
     <Content Include="Assets\user\js\owl.carousel.min.js" />
     <Content Include="Assets\user\js\script.slider.js" />
     <Content Include="Assets\user\logo\asus-logo.jpg" />
@@ -2180,6 +2181,7 @@
     <Content Include="Views\Login\ForgotPassword.cshtml" />
     <Content Include="Views\HomeShop\CartHeader.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
+    <Content Include="Views\Cart\InterestedProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

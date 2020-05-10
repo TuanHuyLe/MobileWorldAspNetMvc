@@ -12,7 +12,7 @@ a:hover {
     align-items: center;
 }
 
-.mynavbar #search::placeholder {
+.mynavbar #inpsearch::placeholder {
     color: #bbbbbb;
     font-size: 14px;
 }
@@ -525,4 +525,28 @@ small {
     #id01 .cancelbtn {
         width: 100%;
     }
+}
+
+/*style search*/
+.styleUlSearch {
+    display: block;
+    position: absolute;
+    top: 70px;
+    color: #000;
+    font-weight: 600;
+    background: #fff;
+    width: 40%;
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    list-style: none;
+}
+.liresult {
+    font-size: 16px;
+    color: #666;
+    padding: 3px 10px;
+}
+.liresult:hover {
+    background: #f3f3f3;
+    cursor: pointer;
 }
