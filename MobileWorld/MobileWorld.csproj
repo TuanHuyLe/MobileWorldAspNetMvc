@@ -156,10 +156,38 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="areas\Admin\Controllers\AuthController.cs" />
+    <Compile Include="areas\Admin\Controllers\BillController.cs" />
     <Compile Include="areas\Admin\Controllers\BrandController.cs" />
     <Compile Include="areas\Admin\Controllers\CatalogController.cs" />
+    <Compile Include="areas\Admin\Controllers\HistoryController.cs" />
     <Compile Include="areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="areas\Admin\Controllers\StatisticalController.cs" />
+    <Compile Include="areas\Admin\Models\Dao\BasketDao.cs" />
+    <Compile Include="areas\Admin\Models\Dao\BillDao.cs" />
+    <Compile Include="areas\Admin\Models\Dao\BrandDao.cs" />
+    <Compile Include="areas\Admin\Models\Dao\CatalogDao.cs" />
+    <Compile Include="areas\Admin\Models\Dao\HistoryDao.cs" />
+    <Compile Include="areas\Admin\Models\Dao\StatisticalDao.cs" />
+    <Compile Include="areas\Admin\Models\Dao\UserDao.cs" />
+    <Compile Include="areas\Admin\Models\DTO\BasketDTO.cs" />
+    <Compile Include="areas\Admin\Models\DTO\BillDTO.cs" />
+    <Compile Include="areas\Admin\Models\DTO\BrandDTO.cs" />
+    <Compile Include="areas\Admin\Models\DTO\CatalogBrandDTO.cs" />
+    <Compile Include="areas\Admin\Models\DTO\CatalogDetail.cs" />
+    <Compile Include="areas\Admin\Models\DTO\CatalogDTO.cs" />
+    <Compile Include="areas\Admin\Models\DTO\CatalogTypeDTO.cs" />
+    <Compile Include="areas\Admin\Models\DTO\LaptopDTO.cs" />
+    <Compile Include="areas\Admin\Models\DTO\MobileDTO.cs" />
+    <Compile Include="areas\Admin\Models\DTO\PagedResult.cs" />
+    <Compile Include="areas\Admin\Models\DTO\StatisticalDTO.cs" />
+    <Compile Include="areas\Admin\Models\DTO\StcatalogDTO.cs" />
+    <Compile Include="areas\Admin\Models\DTO\UserDTO.cs" />
+    <Compile Include="areas\Admin\Models\Util\BasketMapper.cs" />
+    <Compile Include="areas\Admin\Models\Util\CatalogMapper.cs" />
+    <Compile Include="areas\Admin\Models\Util\DateOnYear.cs" />
+    <Compile Include="areas\Admin\Models\Util\UserMapper.cs" />
     <Compile Include="common\GeneratePassword.cs" />
+    <Compile Include="common\GeneratorPassword.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -168,6 +196,8 @@
     <Compile Include="areas\Admin\Controllers\UsersController.cs" />
     <Content Include="Assets\admin\css\mystyle.css" />
     <Content Include="Assets\admin\css\admin-ruang.min.css" />
+    <Content Include="Assets\admin\css\stylePagination.css" />
+    <Content Include="Assets\admin\js\bootbox.min.js" />
     <Content Include="Assets\admin\js\controller\ajaxAdmin.js" />
     <Compile Include="common\CommonConstant.cs" />
     <Compile Include="common\UserMapper.cs" />
@@ -195,7 +225,12 @@
     <Content Include="Assets\admin\img\screenshot\ss1.png" />
     <Content Include="Assets\admin\img\think.svg" />
     <Content Include="Assets\admin\img\undraw_posting_photo.svg" />
-    <Content Include="Assets\admin\js\controller\brandAjax.js" />
+    <Content Include="Assets\admin\js\controller\billController.js" />
+    <Content Include="Assets\admin\js\controller\brandAjaxx.js" />
+    <Content Include="Assets\admin\js\controller\catalogController1.js" />
+    <Content Include="Assets\admin\js\controller\historyController.js" />
+    <Content Include="Assets\admin\js\controller\statisticalController.js" />
+    <Content Include="Assets\admin\js\controller\userControllerr.js" />
     <Content Include="Assets\admin\js\demo\chart-area-demo.js" />
     <Content Include="Assets\admin\js\demo\chart-bar-demo.js" />
     <Content Include="Assets\admin\js\demo\chart-pie-demo.js" />
@@ -1809,7 +1844,7 @@
     <Content Include="Assets\user\js\jquery.easing.1.3.min.js" />
     <Content Include="Assets\user\js\jquery.sticky.js" />
     <Content Include="Assets\user\js\main.js" />
-    <Content Include="Assets\user\js\myJs\listCatalog.js" />
+    <Content Include="Assets\user\js\myJs\listCatalogg.js" />
     <Content Include="Assets\user\js\myJs\ajaxlogin.js" />
     <Content Include="Assets\user\js\myJs\profileAjax.js" />
     <Content Include="Assets\user\js\myJs\scriptDetailProduct.js" />
@@ -2005,6 +2040,10 @@
     <Content Include="Assets\admin\vendor\jquery\jquery.slim.min.map" />
     <Content Include="areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="areas\Admin\Views\Shared\_LeftMenu.cshtml" />
+    <Content Include="areas\Admin\Views\History\Index.cshtml" />
+    <Content Include="areas\Admin\Views\Bill\Index.cshtml" />
+    <Content Include="areas\Admin\Views\Statistical\Index.cshtml" />
+    <Content Include="Assets\admin\js\controller\jquery.validate.min.js" />
     <None Include="Scripts\jquery-3.5.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.0.js" />
     <Content Include="Scripts\jquery-3.5.0.min.js" />
@@ -2035,11 +2074,8 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="areas\Admin\Views\Users\Index.cshtml" />
-    <Content Include="areas\Admin\Views\Users\Edit.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="areas\Admin\Views\Users\Detail.cshtml" />
-    <Content Include="areas\Admin\Views\Users\Add.cshtml" />
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Assets\user\fonts\fontawesome-webfont.eot" />
     <Content Include="Assets\user\fonts\fontawesome-webfont.ttf" />
@@ -2049,12 +2085,6 @@
     <Content Include="Assets\user\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Assets\user\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="areas\Admin\Views\Catalog\Index.cshtml" />
-    <Content Include="areas\Admin\Views\Catalog\Detail.cshtml" />
-    <Content Include="areas\Admin\Views\Catalog\Update.cshtml" />
-    <Content Include="areas\Admin\Views\Catalog\Mobile.cshtml" />
-    <Content Include="areas\Admin\Views\Catalog\Laptop.cshtml" />
-    <Content Include="areas\Admin\Views\Catalog\EditMobile.cshtml" />
-    <Content Include="areas\Admin\Views\Catalog\EditLaptop.cshtml" />
     <Content Include="areas\Admin\Views\Brand\AddNewBrand.cshtml" />
     <Content Include="areas\Admin\Views\Brand\Index.cshtml" />
     <Content Include="areas\Admin\Views\Brand\Edit.cshtml" />
@@ -2182,6 +2212,8 @@
     <Content Include="Views\HomeShop\CartHeader.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
     <Content Include="Views\Cart\InterestedProduct.cshtml" />
+    <Content Include="Views\HomeShop\footerHome.cshtml" />
+    <Content Include="Views\HomeShop\SearchResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2201,6 +2233,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\admin\js\mustache.min.js" />
+    <Content Include="Assets\admin\js\jquery.twbsPagination.js" />
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>

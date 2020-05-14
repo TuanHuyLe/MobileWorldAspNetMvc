@@ -8,9 +8,6 @@ namespace MobileWorld.areas.Admin.Controllers
         // GET: Admin/Home
         public ActionResult Index()
         {
-            UserSession userSession = (UserSession)Session[CommonConstant.USER_SESSION];
-            TempData["name"] = userSession.UserName.ToUpper();
-            TempData.Keep();
             return View();
         }
     }

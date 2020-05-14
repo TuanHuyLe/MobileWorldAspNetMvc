@@ -68,7 +68,6 @@ namespace MobileWorld.Controllers
                 }
                 else if (hash.ContainsKey(2))
                 {
-
                     var userSession = new UserSession
                     {
                         UserName = hash[2].username,

@@ -8,13 +8,21 @@
 @section header{Danh sách thương hiệu}
 
 @section jsFooter{
-    <script src="~/Assets/admin/js/controller/brandAjax.js"></script>
+    <script src="~/Assets/admin/js/controller/brandAjaxx.js"></script>
 }
 
+<h2>Danh sách thương hiệu</h2>
 <a class="btn btn-success mb-2" href="@Url.Action("addnewbrand", "brand")">
     <i class="fas fa-plus-circle"></i>
     Thêm mới
 </a>
+@if (TempData["MsgAlert"] != null)
+{
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>@TempData["MsgAlert"]!</strong>
+    </div>
+}
 
 <table class="table tb-brand" style="text-align: center;">
     <tr>

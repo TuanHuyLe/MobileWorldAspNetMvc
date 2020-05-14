@@ -6,6 +6,10 @@
         var idbtn = -1;
         var self = undefined;
 
+        $('.nav-link').off('click').on('click', function () {
+            console.log('click');
+        });
+
         $('.lockup').off('click').on('click', function (e) {
             e.preventDefault();
             idbtn = this.getAttribute('data-id');

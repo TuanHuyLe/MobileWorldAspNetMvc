@@ -23,7 +23,7 @@ namespace Model.EF
 
         public int status { get; set; }
 
-        public DateTimeOffset? createdAt { get; set; }
+        public DateTimeOffset createdAt { get; set; }
 
         public DateTimeOffset? updatedAt { get; set; }
 

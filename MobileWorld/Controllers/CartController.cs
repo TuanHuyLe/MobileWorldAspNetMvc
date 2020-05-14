@@ -127,7 +127,7 @@ namespace MobileWorld.Controllers
         [ChildActionOnly]
         public ActionResult InterestedProduct()
         {
-            var interested = new CatalogUserDao().GetCatalogs(1, 3);
+            var interested = new CatalogUserDao().GetCatalogs(1, 3, null);
             return PartialView(interested);
         }
 
