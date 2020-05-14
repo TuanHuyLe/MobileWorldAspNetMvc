@@ -3,7 +3,10 @@ using Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Model.Dao
 {
@@ -15,51 +18,27 @@ namespace Model.Dao
             db = new MobileWorldDbContext();
         }
 
-        public List<Catalog> GetCatalogs(int page, int pageSize, int? typeId)
+        public List<Catalog> GetCatalogs(int page, int pageSize)
         {
-            if (typeId != null)
-            {
-                return db.Catalogs.Where(x => x.catalogtypeid == typeId).OrderByDescending(x => x.createdAt).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-            }
             return db.Catalogs.OrderByDescending(x => x.createdAt).Skip((page - 1) * pageSize).Take(pageSize).ToList();
         }
 
         public IQueryable<CatalogUser> loadData(string brand, int typeid = 1, decimal minP = -1, decimal maxP = -1)
         {
-            IQueryable<CatalogUser> model = null;
-            if (typeid == 0)
-            {
-                model = from c in db.Catalogs
-                        orderby c.createdAt descending
-                        select new CatalogUser
-                        {
-                            id = c.id,
-                            name = c.name,
-                            pictureuri = c.pictureuri,
-                            price = c.price,
-                            description = c.description,
-                            content = c.content,
-                            quantity = c.quantity,
-                            brandid = c.catalogbrandid
-                        };
-            }
-            else
-            {
-                model = from c in db.Catalogs
-                        where c.catalogtypeid == typeid
-                        orderby c.createdAt descending
-                        select new CatalogUser
-                        {
-                            id = c.id,
-                            name = c.name,
-                            pictureuri = c.pictureuri,
-                            price = c.price,
-                            description = c.description,
-                            content = c.content,
-                            quantity = c.quantity,
-                            brandid = c.catalogbrandid
-                        };
-            }
+            IQueryable<CatalogUser> model = from c in db.Catalogs
+                                            where c.catalogtypeid == typeid
+                                            orderby c.createdAt descending
+                                            select new CatalogUser
+                                            {
+                                                id = c.id,
+                                                name = c.name,
+                                                pictureuri = c.pictureuri,
+                                                price = c.price,
+                                                description = c.description,
+                                                content = c.content,
+                                                quantity = c.quantity,
+                                                brandid = c.catalogbrandid
+                                            };
             if (!brand.Equals("[]"))
             {
                 brand = Regex.Replace(brand, @"\D+", " ");
@@ -173,17 +152,13 @@ namespace Model.Dao
                 result = from rs in result
                          where rs.c.catalogtypeid == typeId
                          select rs;
-            } else if(typeId == 0)
-            {
-                result = from rs in result
-                         select rs;
             }
             return result.Select(x => x.b).GroupBy(c => c.id)
                   .Select(grp => grp.FirstOrDefault())
                   .ToList();
         }
 
-        public List<SearchModel> searchFor(string keyword, int? limit)
+        public List<SearchModel> searchFor(string keyword)
         {
             string kwformat = ConvertToUnSign(keyword);
             var model = from c in db.Catalogs
@@ -198,15 +173,13 @@ namespace Model.Dao
                             brand = b.brand,
                             type = t.type,
                             brandid = b.id,
-                            typeid = t.id,
-                            price = c.price,
-                            pictureuri = c.pictureuri
+                            typeid = t.id
                         };
 
             List<SearchModel> lst = new List<SearchModel>();
-            foreach (var item in model)
+            foreach(var item in model)
             {
-                if (kwformat.Contains(ConvertToUnSign(item.name)) || ConvertToUnSign(item.name).Contains(kwformat))
+                if(kwformat.Contains(ConvertToUnSign(item.name)) || ConvertToUnSign(item.name).Contains(kwformat))
                 {
                     lst.Add(item);
                 }
@@ -224,11 +197,7 @@ namespace Model.Dao
                 return filterType.OrderByDescending(x => x.id).Skip(0).Take(5).ToList();
             }
 */
-            if(limit != null)
-            {
-                return lst.OrderByDescending(x => x.id).Skip(0).Take((int)limit).ToList();
-            }
-            return lst.OrderByDescending(x => x.id).Take(10).ToList();
+            return lst.OrderByDescending(x => x.id).Skip(0).Take(5).ToList();
         }
 
         public static string ConvertToUnSign(string stringInput)

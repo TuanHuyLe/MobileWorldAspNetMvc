@@ -51,17 +51,7 @@ var catalogAjax = {
     },
     loadData: function () {
         let typeName = $('#typeName').text();
-        switch (typeName) {
-            case "Điện thoại":
-                catalogConfig.typeid = 1;
-                break;
-            case "Laptop":
-                catalogConfig.typeid = 2;
-                break;
-            default:
-                catalogConfig.typeid = 0;
-                break;
-        }
+        catalogConfig.typeid = typeName == "Laptop" ? 2 : 1;
         $.ajax({
             url: '/homeshop/loaddata',
             type: 'GET',

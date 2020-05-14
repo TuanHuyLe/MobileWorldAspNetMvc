@@ -1,0 +1,104 @@
+﻿@model Model.EF.User
+
+@{
+    ViewBag.Title = "Thêm mới người dùng";
+    Layout = "~/areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{Thêm mới người dùng}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Thêm mới người dùng</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fullname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fullname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @{
+            List<SelectListItem> listGender = new List<SelectListItem>(){
+                new SelectListItem
+                {
+                    Selected = false,
+                    Text = "Nữ",
+                    Value = "0"
+                },
+                new SelectListItem
+                {
+                    Selected = false,
+                    Text = "Nam",
+                    Value = "1"
+                },new SelectListItem
+                {
+                    Selected = false,
+                    Text = "Ẩn",
+                    Value = "2"
+                }
+            };
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.DropDownListFor(model => model.gender, listGender,
+               new { @class = "ml-5 form-control control-label col-md-2" })
+            </div>
+        }
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.phonenumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.phonenumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.phonenumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Đăng ký" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Danh sách người dùng", "index")
+</div>

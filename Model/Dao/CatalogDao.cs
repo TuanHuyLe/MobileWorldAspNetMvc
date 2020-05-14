@@ -334,6 +334,23 @@ namespace Model.Dao
             {
                 return 0;
             }
+            /*var test = from c in db.Catalogs
+                       join b in db.Bills on c.id equals b.catalogid
+                       join h in db.Histories on c.id equals h.catalogid
+                       select new { c, b, h };
+            var groupby = from t in test
+                          group t by t.c.id into g
+                          select new
+                          {
+                              catalogid = g.Key,
+                              catalogname = g.Select(x => x.c.name),
+                              brand = g.Select(x => x.b.name),
+                              price = g.Select(x => x.c.price),
+                              unitprice = g.Select(x => x.h.inputprice),
+                              quantity = g.Select(x => x.c.name),
+                              unit = g.Select(x => x.b.unit)
+                          };
+*/
 
         }
 

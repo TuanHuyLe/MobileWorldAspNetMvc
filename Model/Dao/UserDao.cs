@@ -144,7 +144,7 @@ namespace Model.Dao
 
         public int getRoleId(int id)
         {
-            /*var role = db.UserRoles.Where(x => x.userid == id).ToList();
+            var role = db.UserRoles.Where(x => x.userid == id).ToList();
             var roleId = 1;
             foreach (UserRole userRole in role)
             {
@@ -152,9 +152,8 @@ namespace Model.Dao
                 {
                     roleId = userRole.roleid;
                 }
-            }*/
-            var role = db.Users.Where(x => x.id == id).Select(x => x.UserRoles.Select(ur => ur.roleid)).FirstOrDefault().ToList()[0];
-            return role;
+            }
+            return roleId;
         }
 
         public bool lockup(int id)
@@ -192,10 +191,10 @@ namespace Model.Dao
             db.SaveChanges();
         }
 
-        public int changePassword(string username, string email, string newPassword, string oldPassword = "")
+        public int changePassword(string username,string email, string newPassword, string oldPassword = "")
         {
             var user = db.Users.SingleOrDefault(x => x.username == username);
-            if (user != null)
+            if(user != null)
             {
                 if (email.Equals(user.email))
                 {

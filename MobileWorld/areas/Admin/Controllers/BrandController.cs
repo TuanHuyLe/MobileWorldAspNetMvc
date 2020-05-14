@@ -33,7 +33,6 @@ namespace MobileWorld.areas.Admin.Controllers
                     int check = catalogDao.AddNewBrand(entity);
                     if (check == 1)
                     {
-                        TempData["MsgAlert"] = "Thêm thành công";
                         return RedirectToAction("index");
                     }
                     ModelState.AddModelError("", "Đã tồn tại tên thương hiệu");
@@ -41,7 +40,7 @@ namespace MobileWorld.areas.Admin.Controllers
                 }
                 catch (Exception)
                 {
-                    ModelState.AddModelError("", "Lỗi thêm mới!");
+                    ModelState.AddModelError("", "Lỗi!");
                     return View("AddNewBrand");
                 }
             }
@@ -60,7 +59,6 @@ namespace MobileWorld.areas.Admin.Controllers
             var check = dao.UpdateCatalogBrand(entity);
             if(check == 1)
             {
-                TempData["MsgAlert"] = "Cập nhật thành công";
                 return RedirectToAction("index");
             }
             ModelState.AddModelError("", "Cập nhật thất bại");
@@ -81,7 +79,7 @@ namespace MobileWorld.areas.Admin.Controllers
             }
             return Json(new
             {
-                message = "failed",
+                message = "falied",
                 status = false
             }, JsonRequestBehavior.AllowGet);
         }

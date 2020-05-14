@@ -1,0 +1,88 @@
+﻿@model Model.Models.SpecificationMobile
+
+@{
+    ViewBag.Title = "Thông số kĩ thuật điện thoại";
+    Layout = "~/areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{ Thông số kĩ thuật điện thoại }
+
+<div>
+    <h4>Thông số kĩ thuật điện thoại</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Specification.cpu)
+        </dt>
+        <dd>
+            @Model.Specification.cpu
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Specification.ram)
+        </dt>
+        <dd>
+            @Model.Specification.ram
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Specification.screen)
+        </dt>
+        <dd>
+            @Model.Specification.screen
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Specification.os)
+        </dt>
+        <dd>
+            @Model.Specification.os
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecificationsMobile.frontcamera)
+        </dt>
+        <dd>
+            @Model.SpecificationsMobile.frontcamera
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecificationsMobile.backcamera)
+        </dt>
+        <dd>
+            @Model.SpecificationsMobile.backcamera
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecificationsMobile.internalmemory)
+        </dt>
+        <dd>
+            @Model.SpecificationsMobile.internalmemory
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecificationsMobile.memorystick)
+        </dt>
+        <dd>
+            @Model.SpecificationsMobile.memorystick
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecificationsMobile.sim)
+        </dt>
+        <dd>
+            @Model.SpecificationsMobile.sim
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecificationsMobile.batery)
+        </dt>
+        <dd>
+            @Model.SpecificationsMobile.batery
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "edit", new { id = Model.id, type = 1 }) |
+    @Html.ActionLink("Trở về", "detail", new { id = Model.Specification.catalogid })
+</p>

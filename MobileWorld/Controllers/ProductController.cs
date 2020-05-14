@@ -53,27 +53,9 @@ namespace MobileWorld.Controllers
         public ActionResult FilterBrand(string typeName)
         {
             var dao = new CatalogUserDao();
-            int brandId;
-            switch (typeName)
-            {
-                case "Điện thoại":
-                    brandId = 1;
-                    break;
-                case "Laptop":
-                    brandId = 2;
-                    break;
-                default:
-                    brandId = 0;
-                    break;
-            }
+            var brandId = typeName == "Điện thoại" ? 1 : 2;
             var brand = dao.getAllCatalogBrand(brandId);
             return PartialView(brand);
-        }
-
-        [HttpPost]
-        public ActionResult Search(string searchKeyword)
-        {
-            return RedirectToAction("catalog", "homeshop", new { typeid = 3, keyword = searchKeyword });
         }
     }
 }

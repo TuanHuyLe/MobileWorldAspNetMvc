@@ -1,6 +1,9 @@
-﻿@{
+﻿@model PagedList.IPagedList<Model.Models.JoinTableCatalog>
+
+@using PagedList.Mvc;
+@{
     ViewBag.Title = "Danh sách sản phẩm";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = "~/areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 @section header{
@@ -12,91 +15,67 @@
 }
 
 @section jsFooter{
-    <script src="~/Assets/admin/js/controller/catalogController1.js"></script>
+    <script src="~/Assets/admin/js/controller/ajaxAdmin.js"></script>
 }
 
 <div class="col-lg-12">
-    <h2>Danh sách sản phẩm</h2>
     <div class="card mb-4">
-        <div class="card-header">
-            <div class="row">
-                <div class="col-lg-4">
-                    <i class="fas fa-table"></i>
-                    <b id="total"></b>
-                </div>
-                <div class="col-lg-4">
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" id="txtSeach" name="seachUser" placeholder="Tìm kiếm" />
-                        </div>
-                        <div class="col-lg-4">
-                            <select id="slActive" class="form-control">
-                                <option value="2">Tất cả</option>
-                                <option value="1">Active</option>
-                                <option value="0">Looked</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="row">
-                        <div class="ml-1">
-                            <select id="slBrand" class="form-control">
-                                <option value="0">Hãng</option>
-                            </select>
-                        </div>
-                        <div class="ml-1">
-                            <select id="slType" class="form-control">
-                                <option value="0">Loại</option>
-                            </select>
-                        </div>
-                        <div class="ml-1">
-                            <button id="btnSeach" class="btn btn-info"><i class="fas fa-search"></i></button>
-                            <button id="btnReset" class="btn btn-secondary"><i class="fas fa-redo"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách @ViewBag.type</h6>
+            <button id="btnAdd" class="btn btn-success">
+                <i class="fas fa-plus-circle"></i>
+                <a href="@Url.Action("index", "catalog")" id="loadData"></a>
+            </button>
         </div>
         <div class="table-responsive p-3">
             <table class="table align-items-center table-flush table-hover" id="dataTableHover" style="text-align: center;">
                 <thead class="thead-light">
                     <tr>
-                        <th>Sản phẩm</th>
+                        <th style="width: 160px;">Thương hiệu</th>
+                        <th style="width: 200px;">Tên sản phẩm</th>
                         <th>Ảnh</th>
+                        <th>Mô tả</th>
+                        <th style="width: 130px;">Số lượng</th>
                         <th>Giá</th>
-                        <th>Màn hình</th>
-                        <th>Ram</th>
-                        <th>CPU</th>
-                        <th>Số lượng</th>
-                        <th><button id="btnAdd" class="btn btn-success"><i class="far fa-plus-square"></i></button></th>
                     </tr>
                 </thead>
-                <tbody id="tblData"></tbody>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr data-id="@item.Catalog.id" class="view-details-link">
+                            <a href="@Url.Action("detail", new { id = item.Catalog.id })" id="catalog_@item.Catalog.id"></a>
+                            <td>@item.CatalogBrand.brand</td>
+                            <td>@item.Catalog.name</td>
+                            <td><img src="@Url.Content(item.Catalog.pictureuri)" alt="Image" width="100" /></td>
+                            <td><p>@item.Catalog.description</p></td>
+                            <td>@item.Catalog.quantity</td>
+                            <td>@String.Format("{0:0,0 VNĐ}", item.Catalog.price)</td>
+                        </tr>
+                    }
             </table>
-            <div id="pagination" class="pagination"></div>
+        </div>
+        <div class="card-footer d-flex flex-row align-items-center justify-content-between">
+            @Html.PagedListPager(Model, page => Url.Action("index", new { page, @type = @ViewBag.type }),
+            new PagedListRenderOptions
+                 {
+                LiElementClasses = new List<string> { "paginate_button", "page-item" },
+                FunctionToTransformEachPageLink = (liTag, aTag) =>
+                     {
+                    aTag.Attributes.Add("class", "page-link");
+                    liTag.InnerHtml = aTag.ToString();
+                    return liTag;
+                },
+                DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,
+                DisplayLinkToLastPage = PagedListDisplayMode.Never,
+                MaximumPageNumbersToDisplay = 3
+            })
         </div>
     </div>
 </div>
 
-<script id="data-template" type="x-tmpl-mustache">
-    <tr>
-        <td>{{name}}</td>
-        <td><img width="100" src="{{pictureuri}}" /></td>
-        <td>{{{price}}}</td>
-        <td>{{screen}}</td>
-        <td>{{ram}}</td>
-        <td>{{cpu}}</td>
-        <td>{{quantity}}</td>
-        <td>
-            <button data-id="{{id}}" class="btnEdit btn btn-sm btn-info"><i class="fas fa-edit"></i></button>
-            <button data-id="{{id}}" data-status="{{status}}" class="btnDelete mt-2 btn btn-sm btn-{{style}}"><i class="fas {{icon}}"></i></button>
-        </td>
-    </tr>
-</script>
-
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" 
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -112,7 +91,7 @@
                             <div class="form-group">
                                 <label for="name">Tên sản phẩm:</label>
                                 <input id="name" type="text" name="name" class="form-control" />
-                                <input id="id" name="id" type="hidden" />
+                                <input id="id" type="hidden" />
                             </div>
                             <div class="form-group">
                                 <label for="pictureuri">Link ảnh:</label>
@@ -122,7 +101,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="price">Giá:</label>
-                                        <input id="price" type="number" name="price" class="form-control" />
+                                        <input id="price" type="text" name="price" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -162,7 +141,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="description">Mô tả ngắn:</label>
-                                <textarea id="description" name="description" type="text" class="form-control"></textarea>
+                                <textarea id="description" type="text" name="description" class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -171,6 +150,8 @@
                                     <div class="form-group">
                                         <label for="">Thể loại:</label>
                                         <select class="slType form-control" name="catalogtypeid">
+                                            <option value="1">Điện thoại</option>
+                                            <option value="2">Laptop</option>
                                         </select>
                                     </div>
                                 </div>
@@ -178,6 +159,13 @@
                                     <div class="form-group">
                                         <label for="">Hãng:</label>
                                         <select class="slBrand form-control" name="catalogbrandid">
+                                            @{
+                                                var listbrand = new Model.Models.ListCatalogBrand().listBrand;
+                                                foreach (var item in listbrand)
+                                                {
+                                                    <option value="@item.Value">@item.Text</option>
+                                                }
+                                            }
                                         </select>
                                     </div>
 
@@ -272,15 +260,15 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="content">Nội dung:</label>
-                                <textarea id="noidung" name="content" rows="5" type="text" class="form-control"></textarea>
+                                <label for="noidung">Nội dung:</label>
+                                <textarea id="noidung" rows="5" type="text" name="content" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" id="btnCancel" class="btn btn-secondary">Hủy</button>
+                <button type="button" id="btnCancel" data-dismiss="modal" class="btn btn-secondary">Hủy</button>
                 <button type="button" id="btnSave" class="btn btn-primary">Lưu</button>
             </div>
         </div>

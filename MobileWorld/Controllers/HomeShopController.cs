@@ -19,14 +19,14 @@ namespace MobileWorld.Controllers
         [ChildActionOnly]
         public ActionResult SlideHeader()
         {
-            List<Catalog> model = new CatalogUserDao().GetCatalogs(1, 4, null);
+            List<Catalog> model = new CatalogUserDao().GetCatalogs(1, 4);
             return PartialView(model);
         }
 
         [ChildActionOnly]
         public ActionResult CatalogNewest()
         {
-            List<Catalog> model = new CatalogUserDao().GetCatalogs(1, 9, null);
+            List<Catalog> model = new CatalogUserDao().GetCatalogs(1, 9);
             return PartialView(model);
         }
 
@@ -37,48 +37,20 @@ namespace MobileWorld.Controllers
             var model = dao.loadData(brand, typeid, minP, maxP).ToList();
             var totalRow = model.Count();
             var mydata = model.Skip((page - 1) * pageSize).Take(pageSize).ToList();
-            string loaisp;
-            switch (typeid)
-            {
-                case 1: loaisp = "điện thoại";
-                    break;
-                case 2: loaisp = "laptop";
-                    break;
-                default:
-                    loaisp = "sản phẩm";
-                    break;
-            }
             return Json(new
             {
                 data = mydata,
                 status = true,
                 total = totalRow,
                 soluong = totalRow - page * pageSize,
-                loai = loaisp
+                loai = typeid == 1 ? "điện thoại" : "laptop"
             }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
-        public ActionResult Catalog(string keyword, int typeid = 0)
+        public ActionResult Catalog(int typeid = 1, decimal minP = -1, decimal maxP = -1)
         {
-            switch (typeid)
-            {
-                case 1: ViewBag.TypeName = "Điện thoại";
-                    break;
-                case 2:
-                    ViewBag.TypeName = "Laptop";
-                    break;
-                case 3:
-                    if (!string.IsNullOrEmpty(keyword))
-                    {
-                        var model = new CatalogUserDao().searchFor(keyword, null);
-                        return View("SearchResult", model);
-                    }
-                    break;
-                default:
-                    ViewBag.TypeName = "Tất cả sản phẩm";
-                    break;
-            }
+            ViewBag.TypeName = typeid == 1 ? "Điện thoại" : "Laptop";
             return View();
         }
 
@@ -101,7 +73,7 @@ namespace MobileWorld.Controllers
         [HttpGet]
         public JsonResult Search(string keyword)
         {
-            var list = new CatalogUserDao().searchFor(keyword, 5);
+            var list = new CatalogUserDao().searchFor(keyword);
             if (list.Count() > 0)
                 return Json(new
                 {
@@ -114,13 +86,6 @@ namespace MobileWorld.Controllers
                     status = false,
                     data = list
                 }, JsonRequestBehavior.AllowGet);
-        }
-
-        [ChildActionOnly]
-        public ActionResult footerHome(int? typeId)
-        {
-            var model = new CatalogUserDao().GetCatalogs(1, 4, typeId);
-            return PartialView(model);
         }
 
     }

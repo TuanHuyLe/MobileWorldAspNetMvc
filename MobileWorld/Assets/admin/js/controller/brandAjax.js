@@ -21,10 +21,7 @@ var brand = {
                         let idtr = '#' + brandConfig.id.toString();
                         $(idtr).remove();
                     } else {
-                        bootbox.alert("Không thể xóa thương hiệu này!");
-                        window.setTimeout(function () {
-                            bootbox.hideAll();
-                        }, 2000);
+                        alert("Không thể xóa thương hiệu này");
                     }
                 },
                 error: e => {
