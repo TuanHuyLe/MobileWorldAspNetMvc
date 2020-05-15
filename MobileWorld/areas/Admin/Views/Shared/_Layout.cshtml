@@ -18,6 +18,7 @@
     <link href="/Assets/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="~/Assets/admin/css/admin-ruang.min.css" rel="stylesheet" />
     <link href="~/Assets/admin/css/mystyle.css" rel="stylesheet" />
+    <link href="~/Assets/admin/css/pagination.css" rel="stylesheet" />
     @RenderSection("style", required: false)
 </head>
 
@@ -197,7 +198,11 @@
                                aria-haspopup="true" aria-expanded="false">
                                 <img class="img-profile rounded-circle" src="/Assets/admin/img/boy.png" style="max-width: 60px">
                                 <span class="ml-2 d-none d-lg-inline text-white small">
-                                    @TempData["name"]
+                                    @{ 
+                                        var userSession = (MobileWorld.common.UserSession)Session[MobileWorld.common.CommonConstant.USER_SESSION];
+                                        var name = userSession.UserName.ToUpper();
+                                    }
+                                    @name
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -255,6 +260,9 @@
     <script src="/Assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="/Assets/admin/js/ruang-admin.min.js"></script>
     <script src="/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Assets/admin/js/plugins/bootbox.min.js"></script>
+    <script src="~/Assets/admin/js/plugins/mustache.min.js"></script>
+    <script src="~/Assets/admin/js/plugins/jquery.twbsPagination.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
     @RenderSection("jsFooter", required: false)
 </body>

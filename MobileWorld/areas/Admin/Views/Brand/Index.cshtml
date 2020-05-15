@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Model.EF.CatalogBrand>
+﻿@model List<Model.EF.CatalogBrand>
 
 @{
     ViewBag.Title = "Danh sách thương hiệu";
@@ -15,20 +15,27 @@
     <i class="fas fa-plus-circle"></i>
     Thêm mới
 </a>
+@if (@TempData["Message"] != null)
+{
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>@TempData["Message"]</strong>
+    </div>
+}
 
 <table class="table tb-brand" style="text-align: center;">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.brand)
+            Thương hiệu
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.pictureurl)
+            Logo
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.createdAt)
+            Ngày nhập
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.updatedAt)
+            Ngày cập nhật
         </th>
         <th></th>
     </tr>

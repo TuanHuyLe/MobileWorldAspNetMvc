@@ -1,9 +1,6 @@
 ﻿using Model.Dao;
 using Model.EF;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace MobileWorld.areas.Admin.Controllers
@@ -33,6 +30,7 @@ namespace MobileWorld.areas.Admin.Controllers
                     int check = catalogDao.AddNewBrand(entity);
                     if (check == 1)
                     {
+                        TempData["Message"] = "Thêm thương hiệu thành công";
                         return RedirectToAction("index");
                     }
                     ModelState.AddModelError("", "Đã tồn tại tên thương hiệu");
@@ -59,6 +57,7 @@ namespace MobileWorld.areas.Admin.Controllers
             var check = dao.UpdateCatalogBrand(entity);
             if(check == 1)
             {
+                TempData["Message"] = "Cập nhật thành công";
                 return RedirectToAction("index");
             }
             ModelState.AddModelError("", "Cập nhật thất bại");

@@ -1,205 +1,95 @@
-﻿using Model.Dao;
-using Model.EF;
-using Model.Models;
-using System;
-using System.Collections.Generic;
+﻿using MobileWorld.areas.Admin.Models.Dao;
+using MobileWorld.areas.Admin.Models.DTO;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
 namespace MobileWorld.areas.Admin.Controllers
 {
-    [Serializable]
     public class CatalogController : AuthController
     {
         // GET: Admin/Catalog
-        public ActionResult Index(string search, string brand, string type = "laptop", int page = 1, int pageSize = 5, int price = 0)
+        public ActionResult Index()
         {
-            TempData.Keep();
-            var dao = new CatalogDao();
-            var model = dao.ListAllPaging(search, brand, type, page, pageSize, price);
-            ViewBag.search = search;
-            ViewBag.type = type;
-            ViewBag.brand = brand;
-            return View(model);
-        }
-
-        public ActionResult Detail(int id)
-        {
-            TempData.Keep();
-            var dao = new CatalogDao();
-            Catalog catalog = dao.findById(id);
-            return View(catalog);
+            return View();
         }
 
         [HttpGet]
-        public ActionResult Update(int id)
-        {
-            TempData.Keep();
-            var dao = new CatalogDao();
-            Catalog catalog = dao.findById(id);
-            return View(catalog);
-        }
-
-        [HttpPost]
-        public ActionResult Update(Catalog catalog)
-        {
-
-            if (ModelState.IsValid)
-            {
-                var dao = new CatalogDao();
-                var typeId = catalog.catalogtypeid;
-                CatalogType ct = dao.getTypeById(typeId);
-                try
-                {
-                    dao.Update(catalog);
-                    return RedirectToAction("index", new { ct.type });
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", ex);
-                }
-            }
-            return View("update");
-        }
-
-        public ActionResult Delete(int id)
-        {
-            TempData.Keep();
-            var dao = new CatalogDao();
-            Catalog catalog = dao.findById(id);
-            dao.delete(id);
-            if (catalog.catalogtypeid == 1)
-            {
-                return RedirectToAction("index", "catalog", new { type = "Điện thoại" });
-            }
-            else
-            {
-                return RedirectToAction("index", "catalog", new { type = "Laptop" });
-            }
-        }
-
-        [HttpGet]
-        public ActionResult Specifications(int id, int type)
-        {
-            TempData.Keep();
-            var dao = new CatalogDao();
-            if (type == 1)
-            {
-                var mobile = dao.getSpecificationMobile(id);
-                return View("mobile", mobile);
-            }
-            else if (type == 2)
-            {
-                var laptop = dao.getSpecificationLaptop(id);
-                return View("laptop", laptop);
-            }
-            return View("index");
-        }
-
-        [HttpGet]
-        public ActionResult Edit(int id, int type)
-        {
-            TempData.Keep();
-            var dao = new CatalogDao();
-            if (type == 1)
-            {
-                var mobile = dao.getSpecificationMobile(id);
-                return View("editmobile", mobile);
-            }
-            else if (type == 2)
-            {
-                var laptop = dao.getSpecificationLaptop(id);
-                return View("editlaptop", laptop);
-            }
-            return View("index");
-        }
-
-        [HttpPost]
-        public ActionResult EditMobile(SpecificationMobile mobile)
-        {
-            if (ModelState.IsValid)
-            {
-                var dao = new CatalogDao();
-                try
-                {
-                    dao.editSpecificationMobile(mobile);
-                    return RedirectToAction("specifications", new { mobile.id, type = 1 });
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", ex);
-                    return View("editmobile", mobile);
-                }
-            }
-            return View("editmobile", mobile);
-        }
-
-        [HttpPost]
-        public ActionResult EditLaptop(SpecificationLaptop laptop)
-        {
-            if (ModelState.IsValid)
-            {
-                var dao = new CatalogDao();
-                try
-                {
-                    dao.editSpecificationLaptop(laptop);
-                    return RedirectToAction("specifications", new { laptop.id, type = 2 });
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", ex);
-                    return View("editlaptop", laptop);
-                }
-            }
-            return View("editlaptop", laptop);
-        }
-
-        [HttpPost]
-        public JsonResult Add(int type, string model)
+        public JsonResult GetAll(string name, int idbrand, int idtype, int status, int page, int pageSize)
         {
             var catalogDao = new CatalogDao();
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            if (type == 1)
+            var result = catalogDao.GetAll(name, idbrand, idtype, status, page, pageSize);
+            var types = catalogDao.GetCatalogType();
+            return Json(new
             {
-                MobileDTO catalog = serializer.Deserialize<MobileDTO>(model);
-                var check = catalogDao.addMobileDTO(catalog);
-                if (check)
-                {
-                    return Json(new
-                    {
-                        status = true,
-                        type = 1
-                    }, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    return Json(new
-                    {
-                        status = false
-                    }, JsonRequestBehavior.AllowGet);
-                }
-            }
-            else
-            {
-                LaptopDTO catalog = serializer.Deserialize<LaptopDTO>(model);
-                var check = catalogDao.addLaptopDTO(catalog);
-                if (check)
-                {
-                    return Json(new
-                    {
-                        status = true,
-                        type = 2
-                    }, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    return Json(new
-                    {
-                        status = false
-                    }, JsonRequestBehavior.AllowGet);
-                }
-            }
+                totalRow = result.TotalRecord,
+                data = result.Items,
+                types = types.Items
+            }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public JsonResult GetAllType()
+        {
+            var catalogDao = new CatalogDao();
+            var types = catalogDao.GetCatalogType();
+            return Json(new
+            {
+                types = types.Items
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetAllBrand()
+        {
+            var catalogDao = new CatalogDao();
+            var brands = catalogDao.GetCatalogBrand();
+            return Json(new
+            {
+                brands = brands.Items
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult LoadDetail(int id)
+        {
+            var catalogDao = new CatalogDao();
+            var catalog = catalogDao.GetCatalogById(id);
+            return Json(new
+            {
+                data = catalog
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult SaveCatalog(int id, int type, string model)
+        {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            var catalogDao = new CatalogDao();
+            var check = false;
+            if (type == 1)
+            {
+                var catalogDTO = serializer.Deserialize<MobileDTO>(model);
+                check = catalogDao.SaveMobile(id, catalogDTO);
+            }
+            else if (type == 2)
+            {
+                var catalogDTO = serializer.Deserialize<LaptopDTO>(model);
+                check = catalogDao.SaveLaptop(id, catalogDTO);
+            }
+            return Json(new
+            {
+                status = check
+            });
+        }
+
+        [HttpGet]
+        public JsonResult DeleteCatalog(int id)
+        {
+            var check = new CatalogDao().DeleteCatalog(id);
+            return Json(new
+            {
+                status = check
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

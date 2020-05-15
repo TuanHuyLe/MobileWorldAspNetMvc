@@ -1,129 +1,88 @@
-﻿using MobileWorld.common;
-using Model.Dao;
-using System;
+﻿using MobileWorld.areas.Admin.Models.Dao;
+using MobileWorld.areas.Admin.Models.DTO;
 using System.Web.Mvc;
-using Model.Models;
-using Model.EF;
+using System.Web.Script.Serialization;
 
 namespace MobileWorld.areas.Admin.Controllers
 {
-    [Serializable]
     public class UsersController : AuthController
     {
-        // GET: Admin/Users
-        public ActionResult Index(string search, int page = 1, int pageSize = 5, int role = 1)
+        // GET: Admin/User
+        public ActionResult Index()
         {
-            TempData.Keep();
-            var dao = new UserDao();
-            var model = dao.ListAllPaging(search, page, pageSize, role);
-            ViewBag.search = search;
-            return View(model);
-        }
-
-        [HttpGet]
-        public ActionResult Edit(int id)
-        {
-            TempData.Keep();
-            var dao = new UserDao();
-            var entity = dao.findById(id);
-            var roleId = dao.getRoleId(entity.id);
-            UserSession userSession = (UserSession)Session[CommonConstant.USER_SESSION];
-            ViewBag.RoleId = userSession.Role;
-            var user = new UserModel()
-            {
-                id = entity.id,
-                fullname = entity.fullname,
-                phonenumber = entity.phonenumber,
-                email = entity.email,
-                address = entity.address,
-                role = roleId,
-                gender = entity.gender
-            };
-            return View(user);
-        }
-
-        [HttpPost]
-        public ActionResult Edit(UserModel user)
-        {
-            var dao = new UserDao();
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    UserSession userSession = (UserSession)Session[CommonConstant.USER_SESSION];
-                    dao.Update(user, userSession.UserName);
-                    return RedirectToAction("index");
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("error", ex);
-                    return View("edit");
-                }
-            }
-            return View("edit");
-        }
-
-        [HttpPost]
-        public ActionResult Lockup(int id)
-        {
-            try
-            {
-                var result = new UserDao().lockup(id);
-                return Json(new
-                {
-                    status = result
-                });
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", ex);
-            }
-            return RedirectToAction("index");
-        }
-
-        [HttpGet]
-        public ActionResult Detail(int id)
-        {
-            TempData.Keep();
-            var user = new UserDao().findById(id);
-            return View(user);
-        }
-
-        [HttpGet]
-        public ActionResult Add()
-        {
-            TempData.Keep();
             return View();
         }
+        [HttpGet]
+        public JsonResult LoadData(string name, string status, int page, int pageSize)
+        {
+            var userDao = new UserDao();
+            var model = userDao.ListAllPaging(name, status, page, pageSize);
+            return Json(new
+            {
+                status = true,
+                totalRow = model.TotalRecord,
+                data = model.Items
+            }, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
-        public ActionResult Add(User user)
+        public JsonResult Save(string model)
         {
-            if (ModelState.IsValid)
+            if (model != null)
             {
-                var dao = new UserDao();
-                UserSession userSession = (UserSession)Session[CommonConstant.USER_SESSION];
-                var user2 = dao.findByUsername(user.username);
-                if (user2 != null)
+                var userDao = new UserDao();
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                var userDTO = serializer.Deserialize<UserDTO>(model);
+                bool check = true;
+                if (userDTO.id != 0)
                 {
-                    ModelState.AddModelError("", "Tên tài khoản đã tồn tại");
-                    return View("add");
+                    check = userDao.Update(userDTO);
                 }
-                dao.add(user, userSession.UserName);
-                return RedirectToAction("index");
+                else
+                {
+                    check = userDao.Insert(userDTO);
+                }
+                if (check)
+                {
+                    return Json(new
+                    {
+                        status = true
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        status = false
+                    });
+                }
             }
-            return View("add");
+            else
+            {
+                return Json(new
+                {
+                    status = false
+                });
+            }
         }
-
-        [HttpGet]
-        public ActionResult DetailAdmin()
+        [HttpPost]
+        public JsonResult ChangeStatus(int id)
         {
-            TempData.Keep();
-            UserSession userSession = (UserSession)Session[CommonConstant.USER_SESSION];
-            int id = userSession.UserId;
-            var user = new UserDao().findById(id);
-            return View("detail", user);
+            var result = new UserDao().ChangeStatus(id);
+            return Json(new
+            {
+                status = result
+            });
         }
-
+        [HttpGet]
+        public JsonResult LoadDetail(int id)
+        {
+            var model = new UserDao().GetUserById(id);
+            return Json(new
+            {
+                status = true,
+                data = model
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

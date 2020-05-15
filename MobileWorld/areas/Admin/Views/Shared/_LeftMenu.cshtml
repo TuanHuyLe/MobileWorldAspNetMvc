@@ -17,31 +17,16 @@
         Hệ thống
     </div>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"
-           aria-expanded="true" aria-controls="collapseBootstrap">
+        <a class="nav-link" href="@Url.Action("index", "users")">
             <i class="fas fa-users"></i>
             <span>Thành viên</span>
         </a>
-        <div id="collapseBootstrap" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                @Html.ActionLink("Danh sách người dùng", "index", "users", new { role = 1 }, new { @class = "collapse-item" })
-                @Html.ActionLink("Danh sách quản trị viên", "index", "users", new { role = 2 }, new { @class = "collapse-item" })
-                @Html.ActionLink("Thêm mới người dùng", "add", "users", null, new { @class = "collapse-item" })
-            </div>
-        </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
-           aria-controls="collapseTable">
+        <a class="nav-link" href="@Url.Action("index", "catalog")">
             <i class="fas fa-fw fa-table"></i>
             <span>Sản phẩm</span>
         </a>
-        <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                @Html.ActionLink("Danh sách Điện thoại", "index", "catalog", new { type = "điện thoại" }, new { @class = "collapse-item" })
-                @Html.ActionLink("Danh sách Laptop", "index", "catalog", new { type = "laptop" }, new { @class = "collapse-item" })
-            </div>
-        </div>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="@Url.Action("index", "brand")">
@@ -60,7 +45,19 @@
         Báo cáo
     </div>
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="/Admin/History">
+            <i class="far fa-plus-square"></i>
+            <span>Quản lý nhập hàng</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/Admin/Bill">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Quản lý đơn hàng</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/Admin/Statistical?name=san-pham">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Doanh thu</span>
         </a>
