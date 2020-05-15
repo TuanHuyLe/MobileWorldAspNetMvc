@@ -345,7 +345,7 @@ namespace MobileWorld.areas.Admin.Models.Dao
                     _context.Catalogs.Add(catalog);
                     _context.SaveChanges();
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     transaction.Rollback();
                     return false;

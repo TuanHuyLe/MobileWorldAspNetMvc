@@ -1,0 +1,72 @@
+﻿@model List<Model.Models.SearchModel>
+
+@{
+    ViewBag.Title = "Kết quả tìm kiếm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2 id="typeName">Kết quả tìm kiếm</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="filter">
+    <div class="manu" style="margin: 1px;">
+        @{Html.RenderAction("filterbrand", "product");}
+    </div>
+    <br /><br />
+    <div class="fl price">
+        <label>Chọn mức giá: </label>
+
+        <a href="#" class="choose-price" data-id="-10">
+            Dưới 10 triệu
+        </a>
+        <a href="#" class="choose-price" data-id="10-15">
+            Từ 10 - 15 triệu
+        </a>
+        <a href="#" class="choose-price" data-id="15-25">
+            Từ 15 - 25 triệu
+        </a>
+        <a href="#" class="choose-price" data-id="25-">
+            Trên 25 triệu
+        </a>
+        <a href="#" class="choose-price" data-id="-">
+            Tất cả
+        </a>
+
+    </div>
+</div>
+<br />
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row" id="tblData">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-shop-product">
+                        <div class="product-upper">
+                            <a href="/product/index/@item.id">
+                                <img src="@item.pictureuri" alt="">
+                            </a>
+                        </div>
+                        <h2><a href="/product/index/@item.id">@item.name</a></h2>
+                        <div class="product-carousel-price">
+                            <ins>@string.Format("{0:0,0 VNĐ}", item.price)</ins>
+                        </div>
+
+                        <div class="product-option-shop">
+                            <a class="add_to_cart_button" data-product_id="@item.id" rel="nofollow" href="/cart/additem/@item.id">Mua</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>

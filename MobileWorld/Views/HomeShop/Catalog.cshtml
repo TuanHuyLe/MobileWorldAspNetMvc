@@ -1,12 +1,11 @@
-﻿@model List<Model.Models.CatalogUser>
-@{
+﻿@{
     ViewBag.Title = "Danh sách sản phẩm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section scriptFooter {
     <script src="~/Assets/user/js/plugins/mustache.min.js"></script>
     <script src="~/Assets/user/js/plugins/jquery.twbsPagination.min.js"></script>
-    <script src="~/Assets/user/js/myJs/listCatalog.js"></script>
+    <script src="~/Assets/user/js/myJs/listCatalog2.js"></script>
 }
 <div class="product-big-title-area">
     <div class="container">
@@ -95,7 +94,7 @@
     <div class="col-md-3 col-sm-6">
         <div class="single-shop-product">
             <div class="product-upper">
-                <a href="/product/index/{{id}}" ">
+                <a href="/product/index/{{id}}">
                     <img src="{{pictureuri}}" alt="">
                 </a>
             </div>
@@ -105,7 +104,7 @@
             </div>
 
             <div class="product-option-shop">
-                <a class="add_to_cart_button" data-quantity="{{quantity}}" data-product_sku="" data-product_id="{{id}}" rel="nofollow" href="/cart/additem/{{id}}">Mua</a>
+                <a class="add_to_cart_button" data-quantity="{{quantity}}" data-product_id="{{id}}" rel="nofollow" href="/cart/additem/{{id}}">Mua</a>
             </div>
         </div>
     </div>

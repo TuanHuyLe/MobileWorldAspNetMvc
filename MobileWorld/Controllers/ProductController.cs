@@ -1,9 +1,5 @@
 ﻿using Model.Dao;
-using Model.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace MobileWorld.Controllers
@@ -52,9 +48,21 @@ namespace MobileWorld.Controllers
         [ChildActionOnly]
         public ActionResult FilterBrand(string typeName)
         {
+            int typeId;
+            switch (typeName)
+            {
+                case "Điện thoại":
+                    typeId = 1;
+                    break;
+                case "Laptop":
+                    typeId = 2;
+                    break;
+                default:
+                    typeId = 0;
+                    break;
+            };
             var dao = new CatalogUserDao();
-            var brandId = typeName == "Điện thoại" ? 1 : 2;
-            var brand = dao.getAllCatalogBrand(brandId);
+            var brand = dao.getAllCatalogBrand(typeId);
             return PartialView(brand);
         }
     }

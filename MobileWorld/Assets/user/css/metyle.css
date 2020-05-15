@@ -192,6 +192,7 @@ a.myactive:hover {
 
 .filter .fl {
     float: left;
+    clear: both;
 }
 
 .filter .price * {

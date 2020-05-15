@@ -5,14 +5,14 @@
     </a>
 
     <div class="search-container">
-        <form action="/action_page.php">
-            <input id="inpsearch" type="text" placeholder="Tìm sản phẩm, thương hiệu ..." required 
-                   oninvalid="this.setCustomValidity('Hãy nhập từ khóa tìm kiếm')" autocomplete="off" name="search">
+        @using (Html.BeginForm("catalog", "homeshop", FormMethod.Get))
+        {
+            <input id="inpsearch" type="text" placeholder="Tìm sản phẩm, thương hiệu ..." autocomplete="off" name="kwsearch">
             <ul style="display: none" id="ulresult" class="styleUlSearch">
                 <li class="liresult greetingsearch">Chào mừng bạn đến với Mobile World</li>
             </ul>
             <button type="submit"><i class="fa fa-search"></i></button>
-        </form>
+        }
         <ul class="mystyleul">
             <li>
                 <a href="/">Trang chủ</a>
