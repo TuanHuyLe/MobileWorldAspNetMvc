@@ -188,6 +188,7 @@
     <Compile Include="areas\Admin\Models\Util\UserMapper.cs" />
     <Compile Include="common\GeneratePassword.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
@@ -225,10 +226,10 @@
     <Content Include="Assets\admin\img\undraw_posting_photo.svg" />
     <Content Include="Assets\admin\js\controller\billController.js" />
     <Content Include="Assets\admin\js\controller\brandAjax.js" />
-    <Content Include="Assets\admin\js\controller\catalogController.js" />
+    <Content Include="Assets\admin\js\controller\catalogController1.js" />
     <Content Include="Assets\admin\js\controller\historyController.js" />
     <Content Include="Assets\admin\js\controller\statisticalController.js" />
-    <Content Include="Assets\admin\js\controller\userController1.js" />
+    <Content Include="Assets\admin\js\controller\userController.js" />
     <Content Include="Assets\admin\js\demo\chart-area-demo.js" />
     <Content Include="Assets\admin\js\demo\chart-bar-demo.js" />
     <Content Include="Assets\admin\js\demo\chart-pie-demo.js" />
@@ -1813,7 +1814,7 @@
     <Content Include="Assets\admin\vendor\jquery\jquery.slim.min.js" />
     <Content Include="Assets\user\css\bootstrap.min.css" />
     <Content Include="Assets\user\css\font-awesome.min.css" />
-    <Content Include="Assets\user\css\metyle.css" />
+    <Content Include="Assets\user\css\metylee.css" />
     <Content Include="Assets\user\css\owl.carousel.css" />
     <Content Include="Assets\user\css\responsive.css" />
     <Content Include="Assets\user\fonts\fontawesome-webfont.svg" />
@@ -1847,10 +1848,10 @@
     <Content Include="Assets\user\js\main.js" />
     <Content Include="Assets\user\js\myJs\listCatalog2.js" />
     <Content Include="Assets\user\js\myJs\ajaxlogin.js" />
-    <Content Include="Assets\user\js\myJs\profileAjax.js" />
+    <Content Include="Assets\user\js\myJs\profileAjax1.js" />
     <Content Include="Assets\user\js\myJs\scriptDetailProduct.js" />
-    <Content Include="Assets\user\js\myJs\cartTable.js" />
-    <Content Include="Assets\user\js\myJs\searchAjax.js" />
+    <Content Include="Assets\user\js\myJs\cartTable1.js" />
+    <Content Include="Assets\user\js\myJs\searchAjax1.js" />
     <Content Include="Assets\user\js\owl.carousel.min.js" />
     <Content Include="Assets\user\js\script.slider.js" />
     <Content Include="Assets\user\logo\asus-logo.jpg" />
@@ -2044,6 +2045,7 @@
     <Content Include="areas\Admin\Views\History\Index.cshtml" />
     <Content Include="areas\Admin\Views\Bill\Index.cshtml" />
     <Content Include="areas\Admin\Views\Statistical\Index.cshtml" />
+    <Content Include="areas\Admin\Views\Shared\_Header.cshtml" />
     <None Include="Scripts\jquery-3.5.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.0.js" />
     <Content Include="Scripts\jquery-3.5.0.min.js" />
@@ -2214,6 +2216,8 @@
     <Content Include="Views\Cart\InterestedProduct.cshtml" />
     <Content Include="Views\HomeShop\FooterProduct.cshtml" />
     <Content Include="Views\HomeShop\ResultSearch.cshtml" />
+    <Content Include="Views\Checkout\Index.cshtml" />
+    <Content Include="Views\Checkout\ShopTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

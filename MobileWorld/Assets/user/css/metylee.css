@@ -394,6 +394,20 @@ small {
     background: white;
 }
 
+/*style table profile*/
+table.tbl-profile th {
+    width: 180px;
+    text-align: right;
+}
+
+table.tbl-profile td {
+    padding-left: 20px;
+}
+
+table.tbl-profile{
+    margin-bottom: 0;
+}
+
 /* style modal change password*/
 /* Full-width input fields */
 #id01 input[type=text], input[type=password] {

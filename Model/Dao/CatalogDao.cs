@@ -1,4 +1,5 @@
-﻿using Model.EF;
+﻿using Model.DTO;
+using Model.EF;
 using Model.Mapper;
 using Model.Models;
 using PagedList;

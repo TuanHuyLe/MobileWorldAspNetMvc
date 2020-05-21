@@ -61,19 +61,20 @@ namespace MobileWorld.Controllers
                     {
                         UserName = hash[3].username,
                         UserId = hash[3].id,
-                        Role = 3
+                        Role = 3,
+                        PictureUri = hash[3].avatar
                     };
                     Session.Add(CommonConstant.USER_SESSION, userSession);
                     return RedirectToAction("index", "home", new { area = "admin" });
                 }
                 else if (hash.ContainsKey(2))
                 {
-
                     var userSession = new UserSession
                     {
                         UserName = hash[2].username,
                         UserId = hash[2].id,
-                        Role = 2
+                        Role = 2,
+                        PictureUri = hash[2].avatar
                     };
                     Session.Add(CommonConstant.USER_SESSION, userSession);
                     return RedirectToAction("index", "home", new { area = "admin" });
@@ -84,7 +85,8 @@ namespace MobileWorld.Controllers
                     {
                         UserName = hash[1].username,
                         UserId = hash[1].id,
-                        Role = 1
+                        Role = 1,
+                        PictureUri = hash[1].avatar
                     };
                     Session.Add(CommonConstant.USER_SESSION, userSession);
                     return RedirectToAction("index", "homeshop", new { area = "" });

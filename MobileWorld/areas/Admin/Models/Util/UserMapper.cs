@@ -22,6 +22,7 @@ namespace MobileWorld.areas.Admin.Models.Util
             user.address = model.address;
             user.status = model.status;
             user.updatedAt = DateTime.Now;
+            user.phonenumber = model.phonenumber;
             return user;
         }
         public static UserDTO toDTO(User user)

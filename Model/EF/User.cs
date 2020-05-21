@@ -1,4 +1,4 @@
-namespace Model.EF
+﻿namespace Model.EF
 {
     using System;
     using System.Collections.Generic;
@@ -18,15 +18,17 @@ namespace Model.EF
 
         public int id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Chưa nhập tên tài khoản")]
         [StringLength(255)]
         public string username { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Chưa nhập mật khẩu")]
         [StringLength(255)]
+        [DataType(DataType.Password)]
         public string password { get; set; }
 
         [StringLength(255)]
+        [Required(ErrorMessage = "Chưa nhập họ và tên")]
         public string fullname { get; set; }
 
         public bool status { get; set; }
@@ -35,6 +37,8 @@ namespace Model.EF
         public string phonenumber { get; set; }
 
         [StringLength(50)]
+        [Required(ErrorMessage = "Chưa nhập email")]
+        [DataType(DataType.EmailAddress)]
         public string email { get; set; }
 
         [StringLength(150)]

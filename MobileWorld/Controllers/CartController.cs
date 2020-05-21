@@ -1,10 +1,8 @@
 ﻿using MobileWorld.common;
 using Model.Dao;
 using Model.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -58,7 +56,6 @@ namespace MobileWorld.Controllers
                         catalog = catalog,
                         quantity = quantity
                     };
-                    // gan vao session
                     list.Add(item);
                 }
                 // gan vao session

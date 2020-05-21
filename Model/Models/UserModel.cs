@@ -25,7 +25,7 @@ namespace Model.Models
         public string address { get; set; }
         [Display(Name ="Thay đổi quyền")]
         public int role { get; set; }
-        [Display(Name = "Thay đổi giới tính")]
+        [Display(Name = "Giới tính")]
         public int gender { get; set; }
         [Display(Name = "Ngày đăng ký")]
         public DateTimeOffset? createdAt { get; set; }

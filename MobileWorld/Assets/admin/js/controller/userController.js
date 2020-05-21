@@ -17,6 +17,13 @@ var homeController = {
                 password: {
                     required: true,
                     minlength: 5
+                },
+                fullname: {
+                    required: true,
+                    minlength: 5
+                },
+                email: {
+                    required: true
                 }
             },
             messages: {
@@ -27,6 +34,13 @@ var homeController = {
                 password: {
                     required: "Hãy nhập mật khẩu!",
                     minlength: "Mật khẩu phải trên 5 kí tự!"
+                },
+                fullname: {
+                    required: "Hãy nhập họ tên!",
+                    minlength: "Họ tên phải trên 5 kí tự!"
+                },
+                email: {
+                    required: "Hãy nhập email!"
                 }
             }
         });

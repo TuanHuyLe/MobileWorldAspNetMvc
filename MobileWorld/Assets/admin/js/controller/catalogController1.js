@@ -332,7 +332,7 @@ var homeController = {
                             id: item.id,
                             name: item.name,
                             pictureuri: item.pictureuri,
-                            price: item.price,
+                            price: formatCurrency(item.price) + ' VNĐ',
                             screen: item.screen,
                             ram: item.ram,
                             cpu: item.cpu,
@@ -427,4 +427,11 @@ const toObj = (form) => {
         }),
         {}
     );
+}
+
+function formatCurrency(n, separate = ".") {
+    var s = n.toString();
+    var regex = /\B(?=(\d{3})+(?!\d))/g;
+    var ret = s.replace(regex, separate);
+    return ret;
 }

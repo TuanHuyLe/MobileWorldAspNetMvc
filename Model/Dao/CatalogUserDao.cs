@@ -1,12 +1,10 @@
-﻿using Model.EF;
+﻿using Model.DTO;
+using Model.EF;
 using Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Model.Dao
 {

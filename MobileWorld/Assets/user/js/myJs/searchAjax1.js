@@ -13,6 +13,16 @@ var search = {
             $('#ulresult').fadeOut();
         });
 
+        $('#btnSearch').off('click').on('click', function (e) {
+            e.preventDefault();
+            if ($('#inpsearch').val() !== '') {
+                console.log('abc');
+                $('#formSearch').submit();
+            } else {
+                $('#inpsearch').focus();
+            }
+        });
+
         $("#inpsearch").on('keyup', function () {
             if ($(this).val() !== '') {
                 $('.greetingsearch').hide();

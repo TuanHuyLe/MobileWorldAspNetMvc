@@ -1,10 +1,7 @@
 namespace Model.EF
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     public partial class Bill
     {
@@ -31,6 +28,9 @@ namespace Model.EF
 
         [StringLength(255)]
         public string shiptoaddress { get; set; }
+
+        [StringLength(255)]
+        public string notebuy { get; set; }
 
         public virtual User User { get; set; }
 

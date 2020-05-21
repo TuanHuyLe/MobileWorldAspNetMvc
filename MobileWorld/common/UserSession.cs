@@ -6,6 +6,7 @@ namespace MobileWorld.common
         public int UserId { get; set; }
         public string UserName { get; set; }
         public int Role { get; set; }
+        public string PictureUri { get; set; }
 
     }
 }

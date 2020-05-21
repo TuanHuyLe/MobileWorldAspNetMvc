@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using System.Web;
 using System.IO;
-using Model.EF;
 using Model.Models;
 using MobileWorld.common;
 using EmailService;
@@ -17,7 +16,7 @@ namespace MobileWorld.Controllers
         public new ActionResult Profile(int id)
         {
             var session = (UserSession)Session[CommonConstant.USER_SESSION];
-            if (session == null)
+            if (session == null || session.UserId != id)
             {
                 return RedirectToAction("index", "error");
             }
@@ -51,10 +50,13 @@ namespace MobileWorld.Controllers
                     string path2 = "\\Public\\Images\\" + file.FileName;
                     file.SaveAs(path);
                     new UserDao().changeAvatar(id, path2);
+                    var session = (UserSession)Session[CommonConstant.USER_SESSION];
+                    session.PictureUri = path2;
                 }
             }
             TempData["Message"] = "Cập nhật ảnh đại diện thành công";
             TempData["TypeAlert"] = "alert-success";
+
             return RedirectToAction("Profile", new { id });
         }
 
@@ -74,18 +76,35 @@ namespace MobileWorld.Controllers
         {
             if (newpass.Equals(repass))
             {
-                var username = new UserDao().changePassword(id, oldpass, newpass);
+                var username = new UserDao().findById(id).username;
                 if (username != null)
                 {
-                    string content = "<p style=\"color: black; \">Tài khoản <b>" + username + "</b> đã được thay đổi mật khẩu vào lúc " + DateTime.Now + ".</p>";
-                    content += "<p style = \"color: black;\" > Hãy chắc chắn rằng đó là bạn và liên hệ tới hòm thư " + ConfigurationManager.AppSettings["FromEmailAddress"] + " để biết thêm thông tin chi tiết.</p>;";
-                    new MailHelper().SendEmail(email, "Xác thực thay đổi mật khẩu!", content);
-                    TempData["Message"] = "Đổi mật khẩu thành công";
-                    TempData["TypeAlert"] = "alert-success";
+                    try
+                    {
+                        string content = "<p style=\"color: black; \">Tài khoản <b>" + username + "</b> đã được thay đổi mật khẩu vào lúc " + DateTime.Now + ".</p>";
+                        content += "<p style = \"color: black;\" > Hãy chắc chắn rằng đó là bạn và liên hệ tới hòm thư " + ConfigurationManager.AppSettings["FromEmailAddress"] + " để biết thêm thông tin chi tiết.</p>;";
+                        new MailHelper().SendEmail(email, "Xác thực thay đổi mật khẩu!", content);
+                        bool check = new UserDao().changePassword(id, oldpass, newpass);
+                        if (check)
+                        {
+                            TempData["Message"] = "Đổi mật khẩu thành công";
+                            TempData["TypeAlert"] = "alert-success";
+                        }
+                        else
+                        {
+                            TempData["Message"] = "Mật khẩu cũ không đúng";
+                            TempData["TypeAlert"] = "alert-danger";
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        TempData["Message"] = "Đổi mật khẩu thất bại";
+                        TempData["TypeAlert"] = "alert-danger";
+                    }
                 }
                 else
                 {
-                    TempData["Message"] = "Mật khẩu cũ không đúng";
+                    TempData["Message"] = "Tài khoản không tồn tại";
                     TempData["TypeAlert"] = "alert-danger";
                 }
             }

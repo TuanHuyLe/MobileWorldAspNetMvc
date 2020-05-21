@@ -32,11 +32,18 @@ namespace MobileWorld.Controllers
                 }
                 else
                 {
-                    var userMapper = UserMapper.mapper(model);
-                    var username = dao.Register(userMapper);
-                    var content = "Chúc mừng bạn đã đăng ký thành công tài khoản <b>" + username + "</b>";
-                    new MailHelper().SendEmail(model.Email, "Mobile World - Đăng ký tài khoản", content);
-                    return RedirectToAction("index", "login");
+                    try
+                    {
+                        var userMapper = UserMapper.mapper(model);
+                        var content = "Chúc mừng bạn đã đăng ký thành công tài khoản <b>" + userMapper.username + "</b>";
+                        new MailHelper().SendEmail(model.Email, "Mobile World - Đăng ký tài khoản", content);
+                        var username = dao.Register(userMapper);
+                        return RedirectToAction("index", "login");
+                    }
+                    catch (Exception)
+                    {
+                        return RedirectToAction("index", "error");
+                    }
                 }
             }
             return View("index");

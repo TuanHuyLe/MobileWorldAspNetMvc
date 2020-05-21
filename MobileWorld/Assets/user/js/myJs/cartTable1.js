@@ -26,7 +26,13 @@ var tableCart = {
                 success: res => {
                     if (res.status == true) {
                         $(`#line-${catalogId}`).remove();
-                        window.location.href = '/cart';
+                        let count = parseInt($(`#viewQuantity`).text()) - 1;
+                        if (count > 0) {
+                            $(`#viewQuantity`).text((count).toString());
+                        }
+                        else {
+                            window.location.href = '/cart';
+                        }
                     }
                 }
             });

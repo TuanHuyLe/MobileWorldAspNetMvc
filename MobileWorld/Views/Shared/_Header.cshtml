@@ -5,13 +5,13 @@
     </a>
 
     <div class="search-container">
-        @using (Html.BeginForm("catalog", "homeshop", FormMethod.Get))
+        @using (Html.BeginForm("catalog", "homeshop", FormMethod.Get, new { id = "formSearch" }))
         {
             <input id="inpsearch" type="text" placeholder="Tìm sản phẩm, thương hiệu ..." autocomplete="off" name="kwsearch">
             <ul style="display: none" id="ulresult" class="styleUlSearch">
                 <li class="liresult greetingsearch">Chào mừng bạn đến với Mobile World</li>
             </ul>
-            <button type="submit"><i class="fa fa-search"></i></button>
+            <button type="submit" id="btnSearch"><i class="fa fa-search"></i></button>
         }
         <ul class="mystyleul">
             <li>

@@ -6,9 +6,10 @@
 }
 
 @section scriptFooter {
-    <script src="~/Assets/user/js/myJs/profileAjax.js"></script>
+    <script src="~/Assets/user/js/myJs/profileAjax1.js"></script>
 }
-<div class="well well-sm style-profile">
+<div class="well well-sm style-profile ml-2">
+    <a class="btn" style="float:right;" href="javascript:history.back()">Trở về</a>
     <div style="display: flex; position: relative;">
         <div>
             <img id="avatar" src="@ViewBag.urlavatar" alt="avatar"
@@ -26,7 +27,7 @@
             }
         </div>
 
-        <div style="margin-left: 20px;">
+        <div style="margin-left: 20px">
             <h2>Thông tin cá nhân</h2>
             @if (TempData["Message"] != null)
             {
@@ -35,148 +36,166 @@
                     <strong>@TempData["Message"] !</strong>
                 </div>
             }
+            <table class="table tbl-profile">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.username)
+                    </th>
 
-            <dl class="dl-horizontal" style="margin-bottom: 0;">
-                <dt>
-                    @Html.DisplayNameFor(model => model.username)
-                </dt>
+                    <td>
+                        @Html.DisplayFor(model => model.username)
+                    </td>
+                </tr>
+            </table>
+            <table class="table tbl-profile" id="info">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.fullname)
+                    </th>
 
-                <dd>
-                    @Html.DisplayFor(model => model.username)
-                </dd>
-            </dl>
-            <dl class="dl-horizontal" id="info">
-                <dt>
-                    @Html.DisplayNameFor(model => model.fullname)
-                </dt>
+                    <td>
+                        @Html.DisplayFor(model => model.fullname)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.phonenumber)
+                    </th>
 
-                <dd>
-                    @Html.DisplayFor(model => model.fullname)
-                </dd>
+                    <td>
+                        @Html.DisplayFor(model => model.phonenumber)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.email)
+                    </th>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.phonenumber)
-                </dt>
+                    <td>
+                        @Html.DisplayFor(model => model.email)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.address)
+                    </th>
 
-                <dd>
-                    @Html.DisplayFor(model => model.phonenumber)
-                </dd>
+                    <td>
+                        @Html.DisplayFor(model => model.address)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.createdAt)
+                    </th>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.email)
-                </dt>
+                    <td>
+                        @Html.DisplayFor(model => model.createdAt)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Giới tính
+                    </th>
 
-                <dd>
-                    @Html.DisplayFor(model => model.email)
-                </dd>
+                    <td>
+                        @{
+                            var gender = "Ẩn";
+                            if (Model.gender == 1) { gender = "Nam"; } else if (Model.gender == 0) { gender = "Nữ"; }
+                        }
+                        @gender
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <button id="btnChangeInfo" class="btn btn-primary" style="outline: none;">Cập nhật thông tin</button>
+                    </th>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.address)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.address)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.createdAt)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.createdAt)
-                </dd>
-
-                <dt>
-                    Giới tính
-                </dt>
-
-                <dd>
-                    @{
-                        var gender = "Ẩn";
-                        if (Model.gender == 1) { gender = "Nam"; } else if (Model.gender == 0) { gender = "Nữ"; }
-                    }
-                    @gender
-                </dd>
-
-                <dt>
-                    <button id="btnChangeInfo" class="btn btn-primary" style="margin-top: 20px; outline: none;">Cập nhật thông tin</button>
-                </dt>
-
-                <dd style="margin-top: 20px; outline: none;" id="ddGroupBtn">
-                    <button class="btn btn-success" style="outline: none;">Lịch sử mua hàng</button>
-                    <button type="button" class="btn btn-info" style="outline: none; margin-left: 15px;"
-                            onclick="document.getElementById('id01').style.display='block'">
-                        Đổi mật khẩu
-                    </button>
-                </dd>
-            </dl>
+                    <td style="margin-top: 20px; outline: none;" id="tdGroupBtn">
+                        <button class="btn btn-success" style="outline: none;">Lịch sử mua hàng</button>
+                        <button type="button" class="btn btn-info" style="outline: none; margin-left: 15px;"
+                                onclick="document.getElementById('id01').style.display='block'">
+                            Đổi mật khẩu
+                        </button>
+                    </td>
+                </tr>
+            </table>
             @using (Html.BeginForm("UpdateInfo", "user", FormMethod.Post, new { @style = "display: none;", @id = "formInfo" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(x => x.id);
-                <dl class="dl-horizontal" id="changeInfo" style="width: 415px;">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.fullname)
-                    </dt>
+                <table class="table tbl-profile" id="formInfo">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.fullname)</th>
+                        <td>
+                            @Html.TextBoxFor(model => model.fullname, new { @class = "form-control" })
+                        </td>
+                    </tr>
 
-                    <dd>
-                        @Html.TextBoxFor(model => model.fullname, new { @class = "form-control" })
-                    </dd>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.phonenumber)
+                        </th>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.phonenumber)
-                    </dt>
+                        <td>
+                            @Html.TextBoxFor(model => model.phonenumber, new { @class = "form-control" })
+                        </td>
+                    </tr>
 
-                    <dd>
-                        @Html.TextBoxFor(model => model.phonenumber, new { @class = "form-control" })
-                    </dd>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.email)
+                        </th>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.email)
-                    </dt>
+                        <td>
+                            @Html.TextBoxFor(model => model.email, new { @class = "form-control" })
+                        </td>
+                    </tr>
 
-                    <dd>
-                        @Html.TextBoxFor(model => model.email, new { @class = "form-control" })
-                    </dd>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.address)
+                        </th>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.address)
-                    </dt>
+                        <td>
+                            @Html.TextBoxFor(model => model.address, new { @class = "form-control" })
+                        </td>
+                    </tr>
 
-                    <dd>
-                        @Html.TextBoxFor(model => model.address, new { @class = "form-control" })
-                    </dd>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.gender)
+                        </th>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.gender)
-                    </dt>
+                        <td>
+                            <label class="containerRadio">
+                                Nữ
+                                @Html.RadioButtonFor(m => m.gender, 0)
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="containerRadio">
+                                Nam
+                                @Html.RadioButtonFor(m => m.gender, 1)
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="containerRadio">
+                                Ẩn
+                                @Html.RadioButtonFor(m => m.gender, 2)
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                    </tr>
 
-                    <dd>
-                        <label class="containerRadio">
-                            Nữ
-                            @Html.RadioButtonFor(m => m.gender, 0)
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="containerRadio">
-                            Nam
-                            @Html.RadioButtonFor(m => m.gender, 1)
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="containerRadio">
-                            Ẩn
-                            @Html.RadioButtonFor(m => m.gender, 2)
-                            <span class="checkmark"></span>
-                        </label>
-                    </dd>
+                    <tr>
+                        <th>
+                            <button type="submit" id="btnOkeInfo" class="btn btn-success btnAvatar" style="outline: none; display: initial;">Xác nhận</button>
+                        </th>
 
-                    <dt>
-                        <button type="submit" id="btnOkeInfo" class="btn btn-success btnAvatar" style="margin-top: 20px; outline: none; display: initial;">Xác nhận</button>
-                    </dt>
-
-                    <dd style="margin-top: 20px; outline: none;" id="cancelInfo">
-                        <a href="@Url.Action("profile", "user", new { id=Model.id})" class="btn btn-warning" style="outline: none;">Hủy</a>
-                    </dd>
-                </dl>
+                        <td style="margin-top: 20px; outline: none;" id="cancelInfo">
+                            <button type="button" id="cancelChangeInfo" class="btn btn-warning" style="outline: none;">Hủy</button>
+                        </td>
+                    </tr>
+                </table>
             }
         </div>
 

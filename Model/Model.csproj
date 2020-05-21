@@ -106,6 +106,7 @@
     <Compile Include="Dao\CatalogUserDao.cs" />
     <Compile Include="Dao\Hashing.cs" />
     <Compile Include="Dao\UserDao.cs" />
+    <Compile Include="DTO\InfoCartDTO.cs" />
     <Compile Include="EF\Basket.cs" />
     <Compile Include="EF\Bill.cs" />
     <Compile Include="EF\Catalog.cs" />
@@ -123,13 +124,13 @@
     <Compile Include="Mapper\CatalogMapper.cs" />
     <Compile Include="Mapper\SpecificationsMapper.cs" />
     <Compile Include="Models\CartItem.cs" />
-    <Compile Include="Models\CatalogDTO.cs" />
+    <Compile Include="DTO\CatalogDTO.cs" />
     <Compile Include="Models\CatalogUser.cs" />
     <Compile Include="Models\ISpecifications.cs" />
     <Compile Include="Models\JoinTableCatalog.cs" />
-    <Compile Include="Models\LaptopDTO.cs" />
+    <Compile Include="DTO\LaptopDTO.cs" />
     <Compile Include="Models\ListCatalogBrand.cs" />
-    <Compile Include="Models\MobileDTO.cs" />
+    <Compile Include="DTO\MobileDTO.cs" />
     <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Models\SpecificationLaptop.cs" />
     <Compile Include="Models\SpecificationMobile.cs" />

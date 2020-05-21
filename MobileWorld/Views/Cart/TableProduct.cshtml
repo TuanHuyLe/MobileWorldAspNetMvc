@@ -69,8 +69,7 @@
                             <label id="thanhtien"> @ViewBag.cartTotalPrice</label>
                             <i class="fas fa-sync btnRefresh"></i>
                         </div>
-                        <input type="submit" value="Cập nhật" name="update_cart" id="update_cart" class="button hidden">
-                        <input type="submit" value="Thanh toán" name="proceed" style="float: right;" class="checkout-button button alt wc-forward">
+                        <a href="@Url.Action("index","checkout")" name="proceed" style="float: right; padding: 10px 30px; text-transform: uppercase;" class="btn btn-primary">Thanh toán</a>
                     </td>
                 </tr>
             }

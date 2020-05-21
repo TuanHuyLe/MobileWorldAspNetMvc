@@ -191,10 +191,10 @@ namespace Model.Dao
             db.SaveChanges();
         }
 
-        public int changePassword(string username,string email, string newPassword, string oldPassword = "")
+        public int changePassword(string username, string email, string newPassword, string oldPassword = "")
         {
             var user = db.Users.SingleOrDefault(x => x.username == username);
-            if(user != null)
+            if (user != null)
             {
                 if (email.Equals(user.email))
                 {
@@ -294,13 +294,20 @@ namespace Model.Dao
             db.SaveChanges();
         }
 
-        public string changePassword(int id, string oldpass, string newpass)
+        public bool changePassword(int id, string oldpass, string newpass)
         {
-            var user = db.Users.Find(id);
-            if (user == null || !Hashing.ValidatePassword(oldpass, user.password)) return null;
-            user.password = Hashing.HashPassword(newpass);
-            db.SaveChanges();
-            return user.username;
+            try
+            {
+                var user = db.Users.Find(id);
+                if (user == null || !Hashing.ValidatePassword(oldpass, user.password)) return false;
+                user.password = Hashing.HashPassword(newpass);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 

@@ -15,6 +15,11 @@ var profile = {
             let id = $(this).data('id');
             window.location.href = "/user/profile/" + id;
         });
+        $('#cancelChangeInfo').off('click').on('click', function () {
+            $('#info').show();
+            $('#formInfo').hide();
+            profileConfig.changeInfo = 0;
+        });
         $('#btnChangeInfo').off('click').on('click', function () {
             if (profileConfig.changeInfo == 0) {
                 $('#info').hide();
