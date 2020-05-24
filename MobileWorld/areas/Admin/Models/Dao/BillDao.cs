@@ -16,24 +16,28 @@ namespace MobileWorld.areas.Admin.Models.Dao
         {
             var bill = _context.Bills.Find(id);
             bill.status = status;
-            var notifi = new Notification()
+            _context.SaveChanges();
+            if(status == 1)
             {
-                billid = bill.id,
-                userid = bill.userid,
-                title = "Đơn hàng đã được xác nhận.",
-                content = "Đơn hàng mã số " + bill.id.ToString() + " đã được xác nhận.",
-                status = 0,
-                createdAt = DateTime.Now,
-                updatedAt = DateTime.Now
-            };
-            try
-            {
-                _context.Notifications.Add(notifi);
-                _context.SaveChanges();
-            }
-            catch (Exception)
-            {
-                return false;
+                var notifi = new Notification()
+                {
+                    billid = bill.id,
+                    userid = bill.userid,
+                    title = "Đơn hàng đã được xác nhận.",
+                    content = "Đơn hàng mã số " + bill.id.ToString() + " đã được xác nhận.",
+                    status = 1,
+                    createdAt = DateTime.Now,
+                    updatedAt = DateTime.Now
+                };
+                try
+                {
+                    _context.Notifications.Add(notifi);
+                    _context.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             }
             return true;
         }
@@ -51,18 +55,26 @@ namespace MobileWorld.areas.Admin.Models.Dao
             }
             return true;
         }
-        public PagedResult<BillDTO> LoadData(string seach, int status, int month, int page, int pageSize)
+        public PagedResult<BillDTO> LoadData(int? uid, string seach, int status, int month, int page, int pageSize)
         {
             var query = from b in _context.Bills
                         join u in _context.Users on b.userid equals u.id
-                        join ur in _context.UserRoles on u.id equals ur.userid
-                        where ur.roleid == 1
+                        /*join ur in _context.UserRoles on u.id equals ur.userid
+                        where ur.roleid == 1*/
                         select new { b, u.username };
+            if(uid != null)
+            {
+                query = query.Where(x => x.b.userid == uid);
+            }
             if (!string.IsNullOrEmpty(seach))
             {
                 query = query.Where(x => x.username.Contains(seach));
             }
-            if(status != -2)
+            if(status == 1 && uid != null)
+            {
+                query = query.Where(x => x.b.status == status || x.b.status == 2);
+            }
+            else
             {
                 query = query.Where(x => x.b.status == status);
             }

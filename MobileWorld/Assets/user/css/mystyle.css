@@ -565,3 +565,7 @@ table.tbl-profile{
     background: #f3f3f3;
     cursor: pointer;
 }
+
+.tblUserBill th {
+    text-align: center;
+}

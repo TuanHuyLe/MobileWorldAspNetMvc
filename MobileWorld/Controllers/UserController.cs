@@ -1,5 +1,4 @@
-﻿using Model.Dao;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web;
 using System.IO;
 using Model.Models;
@@ -8,9 +7,9 @@ using EmailService;
 using System.Configuration;
 using System;
 using System.Web.Script.Serialization;
-using System.Collections.Generic;
-using MobileWorld.areas.Admin.Models.Dao;
 using UserDao = Model.Dao.UserDao;
+using BillDao = MobileWorld.areas.Admin.Models.Dao.BillDao;
+using MobileWorld.areas.Admin.Models.DTO;
 
 namespace MobileWorld.Controllers
 {
@@ -129,7 +128,6 @@ namespace MobileWorld.Controllers
             return RedirectToAction("Profile", new { id });
         }
 
-        [HttpGet]
         public ActionResult HistoryOrder(int id)
         {
             var session = (UserSession)Session[CommonConstant.USER_SESSION];
@@ -139,30 +137,31 @@ namespace MobileWorld.Controllers
             }
             return View();
         }
+
         [HttpGet]
-        public JsonResult GetAll(int uid, string seach, int brandid, int month, int page, int pageSize)
+        public JsonResult LoadData(int uid, string seach, int status, int month, int page, int pageSize)
         {
-            var result = new HistoryDao().GetAll(uid, seach, brandid, month, page, pageSize);
+            var result = new BillDao().LoadData(uid, seach, status, month, page, pageSize);
             return Json(new
             {
                 totalRow = result.TotalRecord,
                 data = result.Items
             }, JsonRequestBehavior.AllowGet);
         }
-        [HttpGet]
-        public JsonResult DeleteHistory(int id)
+
+        [HttpPost]
+        public JsonResult CancelBill(int id)
         {
-            var check = new HistoryDao().DeleteHistory(id);
+            var check = new BillDao().UpdateBill(id, -1);
             return Json(new
             {
                 status = check
             }, JsonRequestBehavior.AllowGet);
         }
-        [HttpGet]
-        public JsonResult DeleteAllHistory(string ids)
+        [HttpPost]
+        public JsonResult ReceivedBill(int id)
         {
-            var listId = new JavaScriptSerializer().Deserialize<List<int>>(ids);
-            var check = new HistoryDao().DeleteHistorys(listId);
+            var check = new BillDao().UpdateBill(id, 2);
             return Json(new
             {
                 status = check

@@ -108,6 +108,7 @@
     <Compile Include="Dao\Hashing.cs" />
     <Compile Include="Dao\UserDao.cs" />
     <Compile Include="DTO\BillDTO.cs" />
+    <Compile Include="DTO\LoginFbDTO.cs" />
     <Compile Include="EF\Basket.cs" />
     <Compile Include="EF\Bill.cs" />
     <Compile Include="EF\Catalog.cs" />

@@ -1814,7 +1814,7 @@
     <Content Include="Assets\admin\vendor\jquery\jquery.slim.min.js" />
     <Content Include="Assets\user\css\bootstrap.min.css" />
     <Content Include="Assets\user\css\font-awesome.min.css" />
-    <Content Include="Assets\user\css\metylee.css" />
+    <Content Include="Assets\user\css\mystyle.css" />
     <Content Include="Assets\user\css\owl.carousel.css" />
     <Content Include="Assets\user\css\responsive.css" />
     <Content Include="Assets\user\fonts\fontawesome-webfont.svg" />
@@ -1846,7 +1846,7 @@
     <Content Include="Assets\user\js\jquery.easing.1.3.min.js" />
     <Content Include="Assets\user\js\jquery.sticky.js" />
     <Content Include="Assets\user\js\main.js" />
-    <Content Include="Assets\user\js\myJs\historyUser.js" />
+    <Content Include="Assets\user\js\myJs\historyUser1.js" />
     <Content Include="Assets\user\js\myJs\listCatalog2.js" />
     <Content Include="Assets\user\js\myJs\ajaxlogin1.js" />
     <Content Include="Assets\user\js\myJs\profileAjax.js" />
@@ -2225,7 +2225,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Public\Images\" />
-    <Folder Include="Views\UserAuth\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

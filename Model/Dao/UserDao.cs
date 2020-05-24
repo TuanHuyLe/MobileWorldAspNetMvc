@@ -270,18 +270,30 @@ namespace Model.Dao
             var user = db.Users.SingleOrDefault(x => x.username == model.username);
             if (user == null)
             {
-                model.password = Hashing.HashPassword("facebook");
-                model.gender = 2;
-                db.Users.Add(model);
-                db.SaveChanges();
-                var role = new UserRole()
+                using (var dbContextTransaction = db.Database.BeginTransaction())
                 {
-                    userid = model.id,
-                    roleid = 1,
-                    createdAt = DateTime.Now,
-                    updatedAt = DateTime.Now
-                };
-                db.SaveChanges();
+                    try
+                    {
+                        model.password = Hashing.HashPassword("facebook");
+                        model.gender = 2;
+                        db.Users.Add(model);
+                        db.SaveChanges();
+                        var role = new UserRole()
+                        {
+                            userid = model.id,
+                            roleid = 1,
+                            createdAt = DateTime.Now,
+                            updatedAt = DateTime.Now
+                        };
+                        db.UserRoles.Add(role);
+                        db.SaveChanges();
+                        dbContextTransaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        dbContextTransaction.Rollback();
+                    }
+                }
                 return model.id;
             }
             return user.id;

@@ -112,7 +112,7 @@
                     </th>
 
                     <td style="margin-top: 20px; outline: none;" id="tdGroupBtn">
-                        <a href="@Url.Action("HistoryOrder", "user", new { id = Model.id})" class="btn btn-success" style="outline: none;">Lịch sử mua hàng</a>
+                        <a href="@Url.Action("HistoryOrder", "user", new { id = Model.id})" class="btn btn-success" style="outline: none;" data-id="@Model.id">Lịch sử mua hàng</a>
                         <button type="button" class="btn btn-info" style="outline: none; margin-left: 15px;"
                                 onclick="document.getElementById('id01').style.display='block'">
                             Đổi mật khẩu

@@ -49,16 +49,12 @@ namespace MobileWorld.areas.Admin.Models.Dao
             transction.Commit();
             return true;
         }
-        public PagedResult<StatisticalDTO> GetAll(int? uid, string seach, int brandid, int month, int page, int pageSize)
+        public PagedResult<StatisticalDTO> GetAll(string seach, int brandid, int month, int page, int pageSize)
         {
             var query = from c in _context.Catalogs
                         join b in _context.CatalogBrands on c.catalogbrandid equals b.id
                         join h in _context.Histories on c.id equals h.catalogid
                         select new { c.name, b.id, b.brand, h };
-            if(uid != null)
-            {
-                query = query.Where(x => x.id == uid);
-            }
             if (!string.IsNullOrEmpty(seach))
             {
                 query = query.Where(x => x.name.Contains(seach));
