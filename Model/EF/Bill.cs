@@ -1,4 +1,4 @@
-namespace Model.EF
+﻿namespace Model.EF
 {
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -6,9 +6,7 @@ namespace Model.EF
     public partial class Bill
     {
         public int id { get; set; }
-
         public decimal price { get; set; }
-
         public int unit { get; set; }
 
         public int catalogid { get; set; }
@@ -31,6 +29,12 @@ namespace Model.EF
 
         [StringLength(255)]
         public string notebuy { get; set; }
+
+        [StringLength(12)]
+        public string phone { get; set; }
+
+        [StringLength(50)]
+        public string username { get; set; }
 
         public virtual User User { get; set; }
 

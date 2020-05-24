@@ -1,11 +1,23 @@
 ﻿var profileConfig = {
-    changeInfo: 0
+    changeInfo: 0,
+    historyIndex: 0
 }
 var profile = {
     init: function () {
+        profileConfig.historyIndex = history.length;
+        $('#btnBack').attr('historyIndex', profileConfig.historyIndex)
         profile.registerEvent();
     },
     registerEvent: function () {
+        $('#btnBack').off('click').on('click', function () {
+            window.history.back();
+            return false;
+            
+            /*let x = history.length;
+            console.log(x);
+            console.log(profileConfig.historyIndex);*/
+        });
+
         $("#file").change(function () {
             $('#changeAvatar').show();
             $('#cancelAvatar').show();

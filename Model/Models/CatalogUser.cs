@@ -16,6 +16,7 @@ namespace Model.Models
         public string content { get; set; }
         public int quantity { get; set; }
         public int brandid { get; set; }
+        public bool status { get; set; }
 
     }
 }

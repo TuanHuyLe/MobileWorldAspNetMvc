@@ -11,5 +11,7 @@ namespace Model.Models
         public int typeid { get; set; }
         public string pictureuri { get; set; }
         public decimal price { get; set; }
+        public int quantity { get; set; }
+        public bool status { get; set; }
     }
 }

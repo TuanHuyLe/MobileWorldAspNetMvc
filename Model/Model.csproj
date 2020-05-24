@@ -102,11 +102,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dao\BillDao.cs" />
     <Compile Include="Dao\CatalogDao.cs" />
     <Compile Include="Dao\CatalogUserDao.cs" />
     <Compile Include="Dao\Hashing.cs" />
     <Compile Include="Dao\UserDao.cs" />
-    <Compile Include="DTO\InfoCartDTO.cs" />
+    <Compile Include="DTO\BillDTO.cs" />
     <Compile Include="EF\Basket.cs" />
     <Compile Include="EF\Bill.cs" />
     <Compile Include="EF\Catalog.cs" />

@@ -20,9 +20,9 @@ namespace Model.Dao
         {
             if (typeId != null)
             {
-                return db.Catalogs.Where(x => x.catalogtypeid == typeId).OrderByDescending(x => x.createdAt).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                return db.Catalogs.Where(x => x.catalogtypeid == typeId && x.status == true && x.quantity > 0).OrderByDescending(x => x.createdAt).Skip((page - 1) * pageSize).Take(pageSize).ToList();
             }
-            return db.Catalogs.OrderByDescending(x => x.createdAt).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            return db.Catalogs.Where(x => x.status == true && x.quantity > 0).OrderByDescending(x => x.createdAt).Skip((page - 1) * pageSize).Take(pageSize).ToList();
         }
 
         public IQueryable<CatalogUser> loadData(string brand, int typeid = 0, decimal minP = -1, decimal maxP = -1)
@@ -58,7 +58,8 @@ namespace Model.Dao
                                                     description = c.description,
                                                     content = c.content,
                                                     quantity = c.quantity,
-                                                    brandid = c.catalogbrandid
+                                                    brandid = c.catalogbrandid,
+                                                    status = c.status
                                                 };
             }
             if (!brand.Equals("[]"))
@@ -74,6 +75,9 @@ namespace Model.Dao
                         where m.price >= minP && m.price < maxP
                         select m;
             }
+            model = from m in model
+                    where m.quantity > 0 && m.status == true
+                    select m;
             return model;
         }
 
@@ -85,7 +89,7 @@ namespace Model.Dao
         //catalog relative
         public IEnumerable<Catalog> GetAllProductByType(int typeId, int brandId, int id)
         {
-            return db.Catalogs.Where(x => x.catalogtypeid == typeId && x.catalogbrandid == brandId && x.id != id).OrderByDescending(x => x.createdAt);
+            return db.Catalogs.Where(x => x.status == true && x.quantity > 0 && x.catalogtypeid == typeId && x.catalogbrandid == brandId && x.id != id).OrderByDescending(x => x.createdAt);
         }
 
         public CatalogDTO GetCatalogById(int id)
@@ -198,7 +202,9 @@ namespace Model.Dao
                             brandid = b.id,
                             typeid = t.id,
                             price = c.price,
-                            pictureuri = c.pictureuri
+                            pictureuri = c.pictureuri,
+                            status = c.status,
+                            quantity = c.quantity
                         };
 
             List<SearchModel> lst = new List<SearchModel>();
@@ -209,7 +215,7 @@ namespace Model.Dao
                     lst.Add(item);
                 }
             }
-            return lst.OrderByDescending(x => x.id).Skip(0).Take(limit).ToList();
+            return lst.Where(x => x.quantity > 0 && x.status == true).OrderByDescending(x => x.id).Skip(0).Take(limit).ToList();
         }
 
         public static string ConvertToUnSign(string stringInput)

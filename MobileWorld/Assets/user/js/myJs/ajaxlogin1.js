@@ -9,7 +9,6 @@ var login = {
             let txt = $(this).text();
             if (txt.localeCompare("Đăng nhập") == 0) {
                 window.location.href = "/login";
-                $(this).text("Đăng xuất");
             } else {
                 $.ajax({
                     url: '/login/logout',

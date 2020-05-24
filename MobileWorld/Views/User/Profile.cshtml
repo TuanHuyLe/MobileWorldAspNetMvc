@@ -6,10 +6,10 @@
 }
 
 @section scriptFooter {
-    <script src="~/Assets/user/js/myJs/profileAjax1.js"></script>
+    <script src="~/Assets/user/js/myJs/profileAjax.js"></script>
 }
 <div class="well well-sm style-profile ml-2">
-    <a class="btn" style="float:right;" href="javascript:history.back()">Trở về</a>
+    <a class="btn" style="float:right;" id="btnBack">Trở về</a>
     <div style="display: flex; position: relative;">
         <div>
             <img id="avatar" src="@ViewBag.urlavatar" alt="avatar"
@@ -112,7 +112,7 @@
                     </th>
 
                     <td style="margin-top: 20px; outline: none;" id="tdGroupBtn">
-                        <button class="btn btn-success" style="outline: none;">Lịch sử mua hàng</button>
+                        <a href="@Url.Action("HistoryOrder", "user", new { id = Model.id})" class="btn btn-success" style="outline: none;">Lịch sử mua hàng</a>
                         <button type="button" class="btn btn-info" style="outline: none; margin-left: 15px;"
                                 onclick="document.getElementById('id01').style.display='block'">
                             Đổi mật khẩu

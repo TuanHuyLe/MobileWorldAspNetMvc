@@ -13,7 +13,13 @@
 <div class="product-content-right">
     <div class="product-content-right">
         <div class="woocommerce">
-
+            @if (TempData["Message"] != null)
+            {
+                <div class="alert alert-success alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>@TempData["Message"] !</strong>
+                </div>
+            }
             <!--Table product-->
             @{ Html.RenderAction("tableproduct", "cart", new { list = Model }); }
             <div class="cart-collaterals">

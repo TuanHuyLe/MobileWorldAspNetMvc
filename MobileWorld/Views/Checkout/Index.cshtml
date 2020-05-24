@@ -1,4 +1,4 @@
-﻿@model Model.DTO.InfoCartDTO
+﻿@model Model.DTO.BillDTO
 
 @{
     ViewBag.Title = "Thanh toán";
@@ -7,8 +7,15 @@
 
 <div class="product-content-right">
     <div class="woocommerce">
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>@TempData["Message"] !</strong>
+            </div>
+        }
 
-        @using (Html.BeginForm("pay", "checkout", FormMethod.Post, new { @enctype = "multipart/form-data", @class = "checkout" }))
+        @using (Html.BeginForm("payment", "checkout", FormMethod.Post, new { @class = "checkout" }))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true, "", new { @class = "text-danger" }, "error")
@@ -20,40 +27,38 @@
                         <p id="billing_username_field" class="form-row form-row-first validate-required">
                             <label class="" for="billing_username">
                                 Họ và tên <abbr title="bắt buộc" class="required">*</abbr>
+                                @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
                             </label>
-                            @Html.TextBoxFor(x => x.fullname, new { @class = "input-text" })
-                            @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(x => x.username, new { @class = "input-text", @autocomplete = "on" })
                         </p>
 
                         <div class="clear"></div>
 
-                        <p id="billing_address" class="form-row form-row-wide">
-                            <label class="" for="billing_address">Địa chỉ</label>
-                            @Html.TextBoxFor(x => x.address, new { @class = "input-text" })
+                        <p id="billing_phonenumber_field" class="form-row form-row-first validate-required">
+                            <label class="" for="billing_phonenumber">
+                                Số điện thoại <abbr title="bắt buộc" class="required">*</abbr>
+                                @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+                            </label>
+                            @Html.TextBoxFor(x => x.phone, new { @class = "input-text", @autocomplete = "on" })
                         </p>
+
+                        <p id="billing_email_field" class="form-row form-row-first validate-required">
+                            <label class="" for="billing_email">
+                                Email <abbr title="bắt buộc" class="required">*</abbr>
+                                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                            </label>
+                            @Html.TextBoxFor(x => x.email, new { @class = "input-text", @autocomplete = "on" })
+                        </p>
+
+                        <div class="clear"></div>
 
                         <p id="billing_shiptoaddress" class="form-row form-row-wide address-field validate-required">
                             <label class="" for="billing_shiptoaddress">
                                 Ship tới <abbr title="bắt buộc" class="required">*</abbr>
+                                @Html.ValidationMessageFor(model => model.shiptoaddress, "", new { @class = "text-danger" })
                             </label>
-                            @Html.TextBoxFor(x => x.shiptoroad, new { @class = "input-text", @placeholder = "Đường" })
-                            @Html.ValidationMessageFor(model => model.shiptoroad, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(x => x.shiptoaddress, new { @class = "input-text", @placeholder = "Địa chỉ" })
                         </p>
-
-                        <p id="billing_apartment" class="form-row form-row-wide address-field">
-                            @Html.TextBoxFor(x => x.shiptoapartment, new { @class = "input-text", @placeholder = "Căn hộ, bộ, đơn vị, vv " })
-                            @Html.ValidationMessageFor(model => model.shiptoapartment, "", new { @class = "text-danger" })
-                        </p>
-
-                        <p id="billing_city" class="form-row form-row-wide address-field validate-required" data-o_class="form-row form-row-wide address-field validate-required">
-                            <label class="" for="billing_city">
-                                Thành phố <abbr title="bắt buộc" class="required">*</abbr>
-                            </label>
-                            @Html.TextBoxFor(x => x.city, new { @class = "input-text", @placeholder = "Thị trấn / thành phố" })
-                            @Html.ValidationMessageFor(model => model.city, "", new { @class = "text-danger" })
-                        </p>
-
-                        <div class="clear"></div>
 
                     </div>
                 </div>
@@ -62,22 +67,6 @@
                     <div class="woocommerce-shipping-fields" style="margin-top: 37px;">
 
                         <div class="clear"></div>
-
-                        <p id="billing_email" class="form-row form-row-first validate-required validate-email">
-                            <label class="" for="billing_email">
-                                Email <abbr title="bắt buộc" class="required">*</abbr>
-                            </label>
-                            @Html.TextBoxFor(x => x.email, new { @class = "input-text" })
-                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
-                        </p>
-
-                        <p id="billing_phone" class="form-row form-row-last validate-required validate-phone">
-                            <label class="" for="billing_phone">
-                                Số điện thoại <abbr title="bắt buộc" class="required">*</abbr>
-                            </label>
-                            @Html.TextBoxFor(x => x.phonenumber, new { @class = "input-text" })
-                            @Html.ValidationMessageFor(model => model.phonenumber, "", new { @class = "text-danger" })
-                        </p>
 
                         <p id="order_comments" class="form-row notes">
                             <label class="" for="order_comments">Chú thích mua hàng</label>
@@ -94,13 +83,13 @@
             <h3 id="order_review_heading">Giỏ hàng của bạn</h3>
 
             <div id="order_review" style="position: relative;">
-                
+
                 @{ Html.RenderAction("ShopTable", "checkout");}
 
                 <div id="payment">
                     <div class="form-row place-order">
 
-                        <input type="submit" data-value="Place order" value="Đặt hàng" id="place_order" name="woocommerce_checkout_place_order" class="button alt">
+                        <input type="submit" value="Đặt hàng" id="place_order" class="button alt">
 
                     </div>
 

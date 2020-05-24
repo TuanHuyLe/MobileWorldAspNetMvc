@@ -16,12 +16,12 @@ namespace MobileWorld.areas.Admin.Models.Util
             catalog.content = catalogDTO.content;
             if(catalogDTO.id == 0)
             {
-                catalog.createdAt = catalog.createdAt;
+                catalog.createdAt = DateTime.Now;
                 catalog.status = true;
             }
             else
             {
-                catalog.createdAt = DateTime.Now;
+                catalog.createdAt = catalog.createdAt;
             }
             catalog.updatedAt = DateTime.Now;
             catalog.catalogbrandid = catalogDTO.catalogbrandid;

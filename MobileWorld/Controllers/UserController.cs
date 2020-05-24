@@ -7,12 +7,15 @@ using MobileWorld.common;
 using EmailService;
 using System.Configuration;
 using System;
+using System.Web.Script.Serialization;
+using System.Collections.Generic;
+using MobileWorld.areas.Admin.Models.Dao;
+using UserDao = Model.Dao.UserDao;
 
 namespace MobileWorld.Controllers
 {
     public class UserController : Controller
     {
-        // GET: User
         public new ActionResult Profile(int id)
         {
             var session = (UserSession)Session[CommonConstant.USER_SESSION];
@@ -32,6 +35,7 @@ namespace MobileWorld.Controllers
                 username = user.username,
                 createdAt = user.createdAt
             };
+
             ViewBag.urlavatar = string.IsNullOrEmpty(user.avatar) ? @"http://placehold.it/380x500" : user.avatar;
             return View(model);
         }
@@ -39,6 +43,11 @@ namespace MobileWorld.Controllers
         [HttpPost]
         public ActionResult UploadImage(HttpPostedFileBase file, int id)
         {
+            var session = (UserSession)Session[CommonConstant.USER_SESSION];
+            if (session == null || session.UserId != id)
+            {
+                return RedirectToAction("index", "error");
+            }
             if (file != null)
             {
                 if (Path.GetExtension(file.FileName).ToLower() == ".jpg"
@@ -50,7 +59,6 @@ namespace MobileWorld.Controllers
                     string path2 = "\\Public\\Images\\" + file.FileName;
                     file.SaveAs(path);
                     new UserDao().changeAvatar(id, path2);
-                    var session = (UserSession)Session[CommonConstant.USER_SESSION];
                     session.PictureUri = path2;
                 }
             }
@@ -74,6 +82,11 @@ namespace MobileWorld.Controllers
         [HttpPost]
         public ActionResult changePassword(int id, string email, string oldpass, string newpass, string repass)
         {
+            var session = (UserSession)Session[CommonConstant.USER_SESSION];
+            if (session == null || session.UserId != id)
+            {
+                return RedirectToAction("index", "error");
+            }
             if (newpass.Equals(repass))
             {
                 var username = new UserDao().findById(id).username;
@@ -114,6 +127,46 @@ namespace MobileWorld.Controllers
                 TempData["TypeAlert"] = "alert-danger";
             }
             return RedirectToAction("Profile", new { id });
+        }
+
+        [HttpGet]
+        public ActionResult HistoryOrder(int id)
+        {
+            var session = (UserSession)Session[CommonConstant.USER_SESSION];
+            if (session == null || session.UserId != id)
+            {
+                return RedirectToAction("index", "error");
+            }
+            return View();
+        }
+        [HttpGet]
+        public JsonResult GetAll(int uid, string seach, int brandid, int month, int page, int pageSize)
+        {
+            var result = new HistoryDao().GetAll(uid, seach, brandid, month, page, pageSize);
+            return Json(new
+            {
+                totalRow = result.TotalRecord,
+                data = result.Items
+            }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult DeleteHistory(int id)
+        {
+            var check = new HistoryDao().DeleteHistory(id);
+            return Json(new
+            {
+                status = check
+            }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult DeleteAllHistory(string ids)
+        {
+            var listId = new JavaScriptSerializer().Deserialize<List<int>>(ids);
+            var check = new HistoryDao().DeleteHistorys(listId);
+            return Json(new
+            {
+                status = check
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }
