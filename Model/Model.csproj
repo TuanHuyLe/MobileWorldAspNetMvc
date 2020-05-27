@@ -106,6 +106,7 @@
     <Compile Include="Dao\CatalogDao.cs" />
     <Compile Include="Dao\CatalogUserDao.cs" />
     <Compile Include="Dao\Hashing.cs" />
+    <Compile Include="Dao\MessageBillDao.cs" />
     <Compile Include="Dao\UserDao.cs" />
     <Compile Include="DTO\BillDTO.cs" />
     <Compile Include="DTO\LoginFbDTO.cs" />
@@ -115,8 +116,9 @@
     <Compile Include="EF\CatalogBrand.cs" />
     <Compile Include="EF\CatalogType.cs" />
     <Compile Include="EF\History.cs" />
-    <Compile Include="EF\Notification.cs" />
+    <Compile Include="EF\MessageBill.cs" />
     <Compile Include="EF\MobileWorldDbContext.cs" />
+    <Compile Include="EF\Notification.cs" />
     <Compile Include="EF\Role.cs" />
     <Compile Include="EF\Specification.cs" />
     <Compile Include="EF\SpecificationsLaptop.cs" />

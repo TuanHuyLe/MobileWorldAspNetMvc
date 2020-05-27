@@ -4,5 +4,24 @@
     Layout = "~/areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @section header{Trang chủ}
-<h2>Đây là trang chủ</h2>
-
+@section jsFooter {
+    <script src="~/Assets/admin/vendor/chart.js/Chart.min.js"></script>
+    <script src="~/Assets/admin/js/demo/chart-area-demo.js"></script>
+}
+<div class="row">
+    <!-- Area Charts -->
+    <div class="col-lg-12">
+        <div class="card mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Biểu đồ doanh thu</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-area">
+                    <canvas id="myAreaChart"></canvas>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Row-->

@@ -13,7 +13,7 @@
 }
 
 @section jsFooter{
-    <script src="~/Assets/admin/js/controller/billController.js"></script>
+    <script src="~/Assets/admin/js/controller/billController2.js"></script>
 }
 
 <h2>Quản lý đơn hàng</h2>
@@ -75,7 +75,6 @@
                         <th>Địa chỉ</th>
                         <th>Ngày đặt</th>
                         <th>Trạng thái</th>
-                        <th>Thao tác</th>
                     </tr>
                 </thead>
                 <tbody id="tblData"></tbody>
@@ -95,9 +94,6 @@
         <td>{{shiptoaddress}}</td>
         <td>{{createdAt}}</td>
         <td><button data-id="{{id}}" data-status="{{status}}" class="btnAccept btn btn-sm btn-{{style}}">{{textStatus}}</button></td>
-        <td>
-            <button data-id="{{id}}" class="btnDelete btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
-        </td>
     </tr>
 </script>
 

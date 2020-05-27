@@ -15,7 +15,8 @@ namespace MobileWorld.areas.Admin.Controllers
         [HttpGet]
         public JsonResult LoadData(string seach, int status, int month, int page, int pageSize)
         {
-            var result = new BillDao().LoadData(null, seach, status, month, page, pageSize);
+            PagedResult<BillDTO> result;
+            result = new BillDao().LoadData(null, seach, status, month, page, pageSize);
             return Json(new
             {
                 totalRow = result.TotalRecord,

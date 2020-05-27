@@ -207,7 +207,8 @@ namespace MobileWorld.Controllers
                     {
                         UserName = userFb.fullname,
                         UserId = userFb.id,
-                        Role = dao.getRoleId(userFb.id)
+                        Role = dao.getRoleId(userFb.id),
+                        PictureUri = userFb.avatar
                     };
                     Session.Add(CommonConstant.USER_SESSION, userSession);
                 }

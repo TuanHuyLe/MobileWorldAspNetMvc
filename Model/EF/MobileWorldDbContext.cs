@@ -18,6 +18,7 @@ namespace Model.EF
         public virtual DbSet<Catalog> Catalogs { get; set; }
         public virtual DbSet<CatalogType> CatalogTypes { get; set; }
         public virtual DbSet<History> Histories { get; set; }
+        public virtual DbSet<MessageBill> MessageBills { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Specification> Specifications { get; set; }

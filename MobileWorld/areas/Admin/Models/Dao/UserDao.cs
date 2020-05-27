@@ -235,7 +235,7 @@ namespace MobileWorld.areas.Admin.Models.Dao
             }
             var pagedResult = new PagedResult<UserDTO>();
             pagedResult.TotalRecord = model.Count();
-            pagedResult.Items = model.OrderBy(x => x.u.id).Skip((page - 1) * pageSize)
+            pagedResult.Items = model.OrderByDescending(x => x.r.id).Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .Select(x => new UserDTO() {
                     id = x.u.id,

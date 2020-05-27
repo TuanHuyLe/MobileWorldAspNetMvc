@@ -17,6 +17,7 @@ namespace Model.Dao
         public Dictionary<int, List<string>> AddBill(List<CartItem> carts, BillDTO model, int userid)
         {
             Dictionary<int, List<string>> hash = new Dictionary<int, List<string>>();
+            // list sản phẩm k đủ số lượng
             List<string> lst = new List<string>();
             using (var dbContextTransaction = db.Database.BeginTransaction())
             {
@@ -43,13 +44,17 @@ namespace Model.Dao
                         db.Bills.Add(bill);
                         var catalog = db.Catalogs.Find(item.catalog.id);
                         if (catalog.quantity >= item.quantity)
+                        {
+                            var msgBill = db.MessageBills.Find(1);
+                            msgBill.updateChoDuyetAt = DateTime.Now;
                             catalog.quantity -= item.quantity;
+                        }
                         else
                         {
                             lst.Add(catalog.name);
                         }
                     }
-                    if(lst.Count > 0)
+                    if (lst.Count > 0)
                     {
                         hash.Add(0, lst);
                         return hash;

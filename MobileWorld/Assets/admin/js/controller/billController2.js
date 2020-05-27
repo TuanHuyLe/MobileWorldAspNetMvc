@@ -3,8 +3,7 @@
     pageSize: 5,
     seach: '',
     status: 0,
-    month: 0,
-    uid: 0
+    month: 0
 }
 controller = {
     init: () => {
@@ -21,66 +20,135 @@ controller = {
             state.month = $(this).val();
             controller.loadData(true);
         });
-
+        $('#btnSeach').off('click').on('click', function () {
+            state.seach = $('#txtSeach').val();
+            controller.loadData(true);
+        });
         $('#btnReset').off('click').on('click', function () {
             controller.resetState();
             controller.loadData(true);
         });
+        $('.btnDelete').off('click').on('click', function () {
+            var id = $(this).data('id');
+            bootbox.confirm({
+                message: "<h5>Xóa đơn hàng này?</h5>",
+                buttons: {
+                    confirm: {
+                        label: "Yes",
+                        className: "btn btn-success"
+                    },
+                    cancel: {
+                        label: "Cancel",
+                        className: "btn btn-danger"
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        controller.deleteBill(id);
+                    }
+                }
+            });
+        });
         $('.btnAccept').off('click').on('click', function () {
-            if (state.status == 0) {
-                let r = confirm("Hủy đơn hàng này ?");
-                let id = parseInt($(this).data('id'));
-                if (r == true) {
-                    controller.cancelBill(id);
-                    controller.resetState();
-                    controller.loadData(true);
-                }
+            var id = $(this).data('id');
+            var status = $(this).data('status');
+            if (status == 0) {
+                bootbox.confirm({
+                    message: "<h5>Duyệt đơn hàng này?</h5>",
+                    buttons: {
+                        confirm: {
+                            label: "Yes",
+                            className: "btn btn-success"
+                        },
+                        cancel: {
+                            label: "Cancel",
+                            className: "btn btn-danger"
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+                            controller.updateBill(id, 1);
+                        }
+                    }
+                });
             }
-            else if (state.status == 1) {
-                let r = confirm("Bạn đã nhận đơn hàng này ?");
-                let id = parseInt($(this).data('id'));
-                if (r == true) {
-                    controller.receivedBill(id);
-                    controller.resetState();
+        });
+    },
+    updateBill: (id, status) => {
+        var model = {
+            id: id,
+            status: status
+        }
+        $.ajax({
+            url: '/admin/Bill/UpdateBill',
+            type: 'POST',
+            data: { model: JSON.stringify(model) },
+            dataType: 'json',
+            success: (res) => {
+                var msg = '';
+                if (res.status) {
+                    msg = 'Duyệt đơn hàng thành công!';
                     controller.loadData(true);
+                } else {
+                    msg = 'Không thể duyệt đơn hàng này!'
                 }
+                bootbox.alert(msg);
+                setTimeout(() => {
+                    bootbox.hideAll();
+                }, 2000);
+            },
+            error: (err) => {
+                console.log(err);
+            }
+        });
+    },
+    deleteBill: (id) => {
+        $.ajax({
+            url: '/admin/Bill/DeleteBill',
+            type: 'GET',
+            data: { id: id },
+            dataType: 'json',
+            success: (res) => {
+                var msg = '';
+                if (res.status) {
+                    msg = 'Xóa thành công!';
+                    controller.loadData(true);
+                } else {
+                    msg = 'Xóa thất bại!';
+                }
+                bootbox.alert(msg);
+                setTimeout(() => {
+                    bootbox.hideAll();
+                }, 2000);
             }
         });
     },
     loadData: (changePageSize) => {
-        state.uid = parseInt(window.location.href.match(/\d+$/));
         $.ajax({
-            url: '/user/LoadData',
+            url: '/admin/Bill/LoadData',
             type: 'GET',
             data: {
                 seach: state.seach,
                 status: state.status,
                 month: state.month,
                 page: state.page,
-                pageSize: state.pageSize,
-                uid: state.uid
+                pageSize: state.pageSize
             },
             dataType: 'json',
             success: (res) => {
                 var html = '';
                 $('#total').html(`Tổng đơn hàng: ${res.totalRow}.`)
                 var template = $('#data-template').html();
-                if (state.status == -1) {
-                    $('#tt').addClass('hidden');
-                } else {
-                    $('#tt').removeClass('hidden');
-                }
                 $.each(res.data, function (i, item) {
                     html += Mustache.render(template, {
                         id: item.id,
-                        username: item.username,
+                        username: item.sendername,
                         name: item.name,
                         unit: item.unit,
                         cost: formatCurrency(item.unit * item.price),
                         status: item.status,
                         style: setStatus(item.status).colorStyle,
                         textStatus: setStatus(item.status).textStatus,
-                        isHidden: setStatus(item.status).isHidden,
                         shiptoaddress: item.shiptoaddress,
                         createdAt: item.createdAt
                     });
@@ -88,46 +156,6 @@ controller = {
                 $('#tblData').html(html);
                 controller.registerEvent();
                 controller.paging(res.totalRow, changePageSize);
-            },
-            error: (err) => {
-                console.log(err);
-            }
-        });
-    },
-    cancelBill: id => {
-        $.ajax({
-            url: '/user/CancelBill',
-            type: 'POST',
-            data: { id: id },
-            dataType: 'json',
-            success: (res) => {
-                var msg = '';
-                if (res.status) {
-                    alert('Hủy đơn hàng thành công!');
-                    controller.loadData(true);
-                } else {
-                    alert('Không thể hủy đơn hàng này!');
-                }
-            },
-            error: (err) => {
-                console.log(err);
-            }
-        });
-    },
-    receivedBill: id => {
-        $.ajax({
-            url: '/user/ReceivedBill',
-            type: 'POST',
-            data: { id: id },
-            dataType: 'json',
-            success: (res) => {
-                var msg = '';
-                if (res.status) {
-                    alert('Xác nhận nhận đơn hàng thành công!');
-                    controller.loadData(true);
-                } else {
-                    alert('Có lỗi về đơn hàng này!');
-                }
             },
             error: (err) => {
                 console.log(err);
@@ -153,7 +181,7 @@ controller = {
                 state.page = page;
                 setTimeout(function () {
                     controller.loadData();
-                }, 10);
+                }, 100);
             }
         });
     },
@@ -170,27 +198,23 @@ controller.init();
 const setStatus = (status) => {
     if (status == -1) {
         return {
-            colorStyle: '',
-            textStatus: '',
-            isHidden: 'hidden'
+            colorStyle: 'danger',
+            textStatus: 'Đã hủy'
         }
     } else if (status == 0) {
         return {
-            colorStyle: 'danger',
-            textStatus: 'Hủy',
-            isHidden: ''
+            colorStyle: 'primary',
+            textStatus: 'Duyệt'
         }
     } else if (status == 1) {
         return {
-            colorStyle: 'success',
-            textStatus: 'Đã nhận',
-            isHidden: ''
+            colorStyle: 'warning',
+            textStatus: 'Đã duyệt'
         }
     } else if (status == 2) {
         return {
-            colorStyle: '',
-            textStatus: '',
-            isHidden: 'hidden'
+            colorStyle: 'success',
+            textStatus: 'Đã bán'
         }
     }
 }

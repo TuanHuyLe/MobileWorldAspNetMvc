@@ -17,6 +17,15 @@ namespace MobileWorld.areas.Admin.Models.Dao
             var bill = _context.Bills.Find(id);
             bill.status = status;
             _context.SaveChanges();
+            if(status == -1)
+            {
+                var catalog = _context.Catalogs.Find(bill.catalogid);
+                catalog.quantity += bill.unit;
+                _context.SaveChanges();
+                var msgBill = _context.MessageBills.Find(1);
+                msgBill.updateDaHuyAt = DateTime.Now;
+                _context.SaveChanges();
+            }
             if(status == 1)
             {
                 var notifi = new Notification()
@@ -89,7 +98,8 @@ namespace MobileWorld.areas.Admin.Models.Dao
                 .Select(x => new BillDTO()
                 {
                     id = x.b.id,
-                    username = x.username,
+                    receivername = x.b.username,
+                    sendername = x.username,
                     name = x.b.name,
                     price = x.b.price,
                     unit = x.b.unit,
@@ -101,5 +111,6 @@ namespace MobileWorld.areas.Admin.Models.Dao
                 }).ToList();
             return result;
         }
+
     }
 }

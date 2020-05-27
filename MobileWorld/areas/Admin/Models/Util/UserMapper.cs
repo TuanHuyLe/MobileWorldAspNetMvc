@@ -20,6 +20,7 @@ namespace MobileWorld.areas.Admin.Models.Util
             user.username = model.username;
             user.email = model.email;
             user.address = model.address;
+            user.fullname = model.fullname;
             user.status = model.status;
             user.updatedAt = DateTime.Now;
             user.phonenumber = model.phonenumber;

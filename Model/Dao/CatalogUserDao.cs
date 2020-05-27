@@ -31,36 +31,37 @@ namespace Model.Dao
             if (typeid == 0)
             {
                 model = from c in db.Catalogs
-                                                orderby c.createdAt descending
-                                                select new CatalogUser
-                                                {
-                                                    id = c.id,
-                                                    name = c.name,
-                                                    pictureuri = c.pictureuri,
-                                                    price = c.price,
-                                                    description = c.description,
-                                                    content = c.content,
-                                                    quantity = c.quantity,
-                                                    brandid = c.catalogbrandid
-                                                };
+                        where c.status == true && c.quantity > 0
+                        orderby c.createdAt descending
+                        select new CatalogUser
+                        {
+                            id = c.id,
+                            name = c.name,
+                            pictureuri = c.pictureuri,
+                            price = c.price,
+                            description = c.description,
+                            content = c.content,
+                            quantity = c.quantity,
+                            brandid = c.catalogbrandid
+                        };
             }
             else
             {
                 model = from c in db.Catalogs
-                                                where c.catalogtypeid == typeid
-                                                orderby c.createdAt descending
-                                                select new CatalogUser
-                                                {
-                                                    id = c.id,
-                                                    name = c.name,
-                                                    pictureuri = c.pictureuri,
-                                                    price = c.price,
-                                                    description = c.description,
-                                                    content = c.content,
-                                                    quantity = c.quantity,
-                                                    brandid = c.catalogbrandid,
-                                                    status = c.status
-                                                };
+                        where c.catalogtypeid == typeid && c.status == true && c.quantity > 0
+                        orderby c.createdAt descending
+                        select new CatalogUser
+                        {
+                            id = c.id,
+                            name = c.name,
+                            pictureuri = c.pictureuri,
+                            price = c.price,
+                            description = c.description,
+                            content = c.content,
+                            quantity = c.quantity,
+                            brandid = c.catalogbrandid,
+                            status = c.status
+                        };
             }
             if (!brand.Equals("[]"))
             {
@@ -75,9 +76,6 @@ namespace Model.Dao
                         where m.price >= minP && m.price < maxP
                         select m;
             }
-            model = from m in model
-                    where m.quantity > 0 && m.status == true
-                    select m;
             return model;
         }
 

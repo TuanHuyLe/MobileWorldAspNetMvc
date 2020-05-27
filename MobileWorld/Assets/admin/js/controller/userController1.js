@@ -193,7 +193,7 @@ var homeController = {
                             phonenumber: item.phonenumber,
                             address: item.address,
                             status: item.status == false ? "<a style=\"margin-left: 40%; color: red;\"><i class=\"fas fa-user-lock\"></i></a>" : "<a style=\"margin-left: 40%; color: green;\"><i class=\"fas fa-check\"></i></a>",
-                            role: item.role
+                            role: item.role == 1 ? "Người dùng" : "Quản trị"
                         });
                     });
                     $('#tblData').html(html);
