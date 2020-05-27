@@ -15,7 +15,7 @@ namespace MobileWorld.areas.Admin.Models.Dao
         {
             _context = new MobileWorldDbContext();
         }
-        public PagedResult<StcatalogDTO> GetAllCatalog(string seach, int brandid, int month, int page, int pageSize)
+        public PagedResult<StcatalogDTO> GetAllCatalog(string seach, int brandid, int typeid, int month, int page, int pageSize)
         {
             var listResult = new List<StcatalogDTO>();
             if (month > 0)
@@ -33,6 +33,10 @@ namespace MobileWorld.areas.Admin.Models.Dao
             if(brandid > 0)
             {
                 listResult = listResult.Where(x => x.brandid == brandid).ToList();
+            }
+            if(typeid > 0)
+            {
+                listResult = listResult.Where(x => x.typeid == typeid).ToList();
             }
             var result = new PagedResult<StcatalogDTO>();
             result.TotalRecord = listResult.Count;
@@ -52,6 +56,7 @@ namespace MobileWorld.areas.Admin.Models.Dao
                             b.catalogid,
                             b.id,
                             brandid = br.id,
+                            typeid = c.catalogtypeid,
                             b.name,
                             br.brand,
                             b.unit,
@@ -68,6 +73,7 @@ namespace MobileWorld.areas.Admin.Models.Dao
                                 id = x.id,
                                 brandid = x.brandid,
                                 catalogid = x.catalogid,
+                                typeid = x.typeid,
                                 name = x.name,
                                 brand = x.brand,
                                 quantity = x.quantity,
@@ -99,6 +105,7 @@ namespace MobileWorld.areas.Admin.Models.Dao
                             b.catalogid,
                             b.id,
                             brandid = br.id,
+                            typeid = c.catalogtypeid,
                             b.name,
                             br.brand,
                             b.unit,
@@ -115,6 +122,7 @@ namespace MobileWorld.areas.Admin.Models.Dao
                                 id = x.id,
                                 catalogid = x.catalogid,
                                 brandid = x.brandid,
+                                typeid = x.typeid,
                                 name = x.name,
                                 brand = x.brand,
                                 quantity = x.quantity,
@@ -135,5 +143,13 @@ namespace MobileWorld.areas.Admin.Models.Dao
             }
             return result;
         }
+
+        public List<StcatalogDTO> catalogHotest(int limit)
+        {
+            var month = DateTime.Now.Month;
+            var result = Filter(month);
+            return result.OrderByDescending(x => x.unit).Take(limit).ToList();
+        }
+
     }
 }

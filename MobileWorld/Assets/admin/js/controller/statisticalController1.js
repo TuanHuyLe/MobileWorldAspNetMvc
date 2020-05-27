@@ -3,6 +3,7 @@
     pageSize: 5,
     seach: '',
     brandid: 0,
+    typeid: 0,
     month: 0
 }
 controller = {
@@ -18,6 +19,10 @@ controller = {
         });
         $('#slMonth').off('onchange').on('change', function () {
             state.month = parseInt($(this).val());
+            controller.loadData(true);
+        });
+        $('#slType').off('onchange').on('change', function () {
+            state.typeid = parseInt($(this).val());
             controller.loadData(true);
         });
         $('#btnSeach').off('click').on('click', function () {
@@ -38,6 +43,7 @@ controller = {
                 month: state.month,
                 page: state.page,
                 brandid: state.brandid,
+                typeid: state.typeid,
                 pageSize: state.pageSize
             },
             dataType: 'json',
@@ -83,10 +89,6 @@ controller = {
     },
     paging: function (totalRow, changePageSize) {
         var totalPage = Math.ceil(totalRow / state.pageSize);
-        //if (totalPage == 0) {
-        //    totalPage = 1;
-        //}
-        //load lai totalPage
         if ($('#pagination a').length === 0 || changePageSize === true) {
             $('#pagination').empty();
             $('#pagination').removeData("twbs-pagination");
@@ -112,8 +114,10 @@ controller = {
         $('#txtSeach').val('');
         $('#slBrand').val('0');
         $('#slMonth').val('0');
+        $('#slType').val('0');
         state.page = 1;
         state.brandid = 0;
+        state.typeid = 0;
         state.seach = '';
         state.month = 0;
     }

@@ -13,27 +13,34 @@
 }
 
 @section jsFooter{
-    <script src="~/Assets/admin/js/controller/historyController.js"></script>
+    <script src="~/Assets/admin/js/controller/historyController1.js"></script>
 }
 
 <h2>Quản lý nhập hàng</h2>
 <div class="card">
     <div class="card-header py-3">
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-3">
                 <i class="fas fa-table"></i>
                 <b id="total"></b>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-3">
                 <div class="fa-pull-right">
                     <input type="text" class="form-control" id="txtSeach" name="" placeholder="Nhập tên sản phẩm" />
                 </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div class="row">
                     <div class="ml-1">
                         <select id="slBrand" class="form-control">
                             <option value="0">Hãng</option>
+                        </select>
+                    </div>
+                    <div class="ml-1">
+                        <select id="slType" class="form-control">
+                            <option value="0">Loại</option>
+                            <option value="1">Điện thoại</option>
+                            <option value="2">Laptop</option>
                         </select>
                     </div>
                     <div class="ml-1">

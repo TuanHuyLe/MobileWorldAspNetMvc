@@ -11,6 +11,7 @@ namespace MobileWorld.areas.Admin.Models.DTO
         public int id { get; set; }
         public int catalogid { get; set; }
         public int brandid { get; set; }
+        public int typeid { get; set; }
         public string name { get; set; }
         public string brand { get; set; }
         public int unit { get; set; }

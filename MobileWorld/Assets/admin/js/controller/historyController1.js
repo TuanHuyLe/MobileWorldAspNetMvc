@@ -3,6 +3,7 @@
     pageSize: 5,
     seach: '',
     brandid: 0,
+    typeid: 0,
     month: 0
 }
 controller = {
@@ -14,6 +15,10 @@ controller = {
     registerEvent: () => {
         $('#slBrand').off('onchange').on('change', function () {
             state.brandid = parseInt($(this).val());
+            controller.loadData(true);
+        });
+        $('#slType').off('onchange').on('change', function () {
+            state.typeid = parseInt($(this).val());
             controller.loadData(true);
         });
         $('#slMonth').off('onchange').on('change', function () {
@@ -111,6 +116,7 @@ controller = {
                 month: state.month,
                 page: state.page,
                 brandid: state.brandid,
+                typeid: state.typeid,
                 pageSize: state.pageSize
             },
             dataType: 'json',
@@ -203,8 +209,10 @@ controller = {
         $('#txtSeach').val('');
         $('#slBrand').val('0');
         $('#slMonth').val('0');
+        $('#slType').val('0');
         state.page = 1;
         state.brandid = 0;
+        state.typeid = 0;
         state.seach = '';
         state.month = 0;
     }

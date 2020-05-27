@@ -13,7 +13,7 @@
 }
 
 @section jsFooter{
-    <script src="~/Assets/admin/js/controller/statisticalController.js"></script>
+    <script src="~/Assets/admin/js/controller/statisticalController1.js"></script>
 }
 
 <h2>Thống kê</h2>
@@ -24,16 +24,23 @@
                 <i class="fas fa-table"></i>
                 <b id="totalMoney"></b>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-2">
                 <div class="fa-pull-right">
-                    <input type="text" class="form-control" id="txtSeach" name="" placeholder="Nhập tên sản phẩm" />
+                    <input type="text" class="form-control" id="txtSeach" name="" placeholder="Tên sản phẩm" />
                 </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div class="row">
                     <div class="ml-1">
                         <select id="slBrand" class="form-control">
                             <option value="0">Hãng</option>
+                        </select>
+                    </div>
+                    <div class="ml-1">
+                        <select id="slType" class="form-control">
+                            <option value="0">Loại</option>
+                            <option value="1">Điện thoại</option>
+                            <option value="2">Laptop</option>
                         </select>
                     </div>
                     <div class="ml-1">

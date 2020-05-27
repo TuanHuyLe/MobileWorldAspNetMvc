@@ -13,9 +13,9 @@ namespace MobileWorld.areas.Admin.Controllers
             return View();
         }
         [HttpGet]
-        public JsonResult GetAll(string seach, int brandid, int month, int page, int pageSize)
+        public JsonResult GetAll(string seach, int brandid, int typeid, int month, int page, int pageSize)
         {
-            var result = new HistoryDao().GetAll(seach, brandid, month, page, pageSize);
+            var result = new HistoryDao().GetAll(seach, brandid, typeid, month, page, pageSize);
             return Json(new
             {
                 totalRow = result.TotalRecord,

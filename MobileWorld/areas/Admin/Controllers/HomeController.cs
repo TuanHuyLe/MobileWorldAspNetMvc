@@ -1,4 +1,7 @@
-﻿using Model.Dao;
+﻿using MobileWorld.areas.Admin.Models.Dao;
+using Model.Dao;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -35,6 +38,44 @@ namespace MobileWorld.areas.Admin.Controllers
             return Json(new
             {
                 status = seen
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult CatalogHotest()
+        {
+            var lstData = new StatisticalDao().catalogHotest(4);
+            return Json(new
+            {
+                data = lstData
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult CatalogChart()
+        {
+            List<double> lstcost = new List<double>();
+            for (int i = 1; i < 13; i++)
+            {
+                var lstData = new StatisticalDao().GetAllCatalog("", 0, 0, i, 1, 1);
+                lstcost.Add(lstData.Total);
+            }
+            return Json(new
+            {
+                data = lstcost
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult CatalogTypeChart()
+        {
+            int month = DateTime.Now.Month;
+            int slMobile = new StatisticalDao().GetAllCatalog("", 0, 1, month, 1, 1).TotalRecord;
+            int slLaptop = new StatisticalDao().GetAllCatalog("", 0, 2, month, 1, 1).TotalRecord;
+            return Json(new
+            {
+                slMobile,
+                slLaptop
             }, JsonRequestBehavior.AllowGet);
         }
     }

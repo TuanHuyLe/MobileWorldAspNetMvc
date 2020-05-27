@@ -194,7 +194,7 @@
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="areas\Admin\Controllers\UsersController.cs" />
-    <Content Include="Assets\admin\css\mystyle.css" />
+    <Content Include="Assets\admin\css\mystyle1.css" />
     <Content Include="Assets\admin\css\admin-ruang.min.css" />
     <Content Include="Assets\admin\css\pagination.css" />
     <Content Include="Assets\admin\js\controller\ajaxAdmin.js" />
@@ -229,13 +229,13 @@
     <Content Include="Assets\admin\js\controller\catalogController1.js" />
     <Content Include="Assets\admin\js\controller\headerControllerWebWorker.js" />
     <Content Include="Assets\admin\js\controller\headerController.js" />
-    <Content Include="Assets\admin\js\controller\historyController.js" />
-    <Content Include="Assets\admin\js\controller\statisticalController.js" />
+    <Content Include="Assets\admin\js\controller\historyController1.js" />
+    <Content Include="Assets\admin\js\controller\statisticalController1.js" />
     <Content Include="Assets\admin\js\controller\userController1.js" />
     <Content Include="Assets\admin\js\controller\receiveMsgWorkers.js" />
-    <Content Include="Assets\admin\js\demo\chart-area-demo.js" />
-    <Content Include="Assets\admin\js\demo\chart-bar-demo.js" />
-    <Content Include="Assets\admin\js\demo\chart-pie-demo.js" />
+    <Content Include="Assets\admin\js\demo\chart-area-demo1.js" />
+    <Content Include="Assets\admin\js\demo\chart-bar-demos2.js" />
+    <Content Include="Assets\admin\js\demo\chart-pie-demo3.js" />
     <Content Include="Assets\admin\js\plugins\bootbox.min.js" />
     <Content Include="Assets\admin\js\plugins\jquery.twbsPagination.min.js" />
     <Content Include="Assets\admin\js\plugins\mustache.min.js" />
