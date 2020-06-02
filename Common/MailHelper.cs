@@ -19,7 +19,8 @@ namespace EmailService
 
             string body = content;
 
-            MailMessage message = new MailMessage(new MailAddress(fromEmailAddress, fromEmailDisplayName), new MailAddress(toEmailAddress))
+            MailMessage message = new MailMessage(new MailAddress(fromEmailAddress, fromEmailDisplayName),
+                new MailAddress(toEmailAddress))
             {
                 Subject = subject,
                 IsBodyHtml = true,

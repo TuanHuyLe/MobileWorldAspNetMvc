@@ -194,7 +194,7 @@
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="areas\Admin\Controllers\UsersController.cs" />
-    <Content Include="Assets\admin\css\mystyle1.css" />
+    <Content Include="Assets\admin\css\mystyle.css" />
     <Content Include="Assets\admin\css\admin-ruang.min.css" />
     <Content Include="Assets\admin\css\pagination.css" />
     <Content Include="Assets\admin\js\controller\ajaxAdmin.js" />
